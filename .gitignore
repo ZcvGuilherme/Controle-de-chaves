@@ -1,0 +1,77 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+*.manifest
+*.spec
+
+# === Virtual Environments ===
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+
+# === Django ===
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+local_settings.py
+
+# === IDEs e Editores ===
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# === Sistema Operacional ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Testes ===
+.coverage
+htmlcov/
+.tox/
+.nox/
+*.cover
+coverage.xml
+.pytest_cache/
+nosetests.xml
+
+# === Migrations (opcional) ===
+# Descomente se quiser ignorar migrações iniciais (não recomendado para produção)
+# */migrations/
+# !*/migrations/__init__.py
+
+# === Arquivos temporários ===
+*.tmp
+*.swp
+*.bak
+
+# === Arquivos de build ===
+build/
+dist/
+*.egg-info/
+MANIFEST
+
+# === Outros ===
+.env
+*.env
+.env.*
