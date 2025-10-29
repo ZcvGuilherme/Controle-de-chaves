@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.test import TestCase
-from guarita.models import Pessoa, Chave, Historico
+from guarita.models import Pessoa, Chave, Historico, ChaveStatus
 from django.db import IntegrityError
 class PessoaInsertModelTest(TestCase):
     def test_registrar_pessoa(self):
@@ -82,3 +82,70 @@ class HistoricoInsertModelTest(TestCase):
                 id_chave=777,
                 horario=data_atual
             )
+    
+class ChaveStatusInsertModelTest(TestCase):
+    def setUp(self):
+        self.pessoa1 = Pessoa.objects.create(
+            matricula=1, nome="João", cargo= "Professor"
+        )
+        self.pessoa2 = Pessoa.objects.create(
+            matricula=2, nome="Maria", cargo= "Técnico"
+        )
+
+        self.chave1 = Chave.objects.create(
+            id=1, nome= "Laboratório 01"
+        )
+        self.chave2 = Chave.objects.create(
+            id=2, nome= "Auditório"
+        )
+    def test_criar_status_chave(self):
+        checkin = datetime.now()
+        ChaveStatus.create_status(
+            id_chave=self.chave1,
+            id_pessoa= self.pessoa1,
+            checkin=checkin,
+            status_code=False
+        )
+
+        self.assertEqual(ChaveStatus.objects.count(), 1)
+
+        registro = ChaveStatus.objects.get(id_chave=self.chave1)
+        self.assertEqual(registro.id_pessoa.nome, "João")
+        self.assertEqual(registro.checkin, checkin)
+        self.assertEqual(registro.status_code)
+
+    def test_status_disponivel_checkin_vazio(self):
+        status = ChaveStatus.create_status(
+            id_chave= self.chave2,
+            id_pessoa=self.pessoa2,
+            checking=None,
+            status_code=True
+        )
+
+        registro= ChaveStatus.objects.get(id_chave=self.chave2)
+        self.assertTrue(registro.status_code)
+        self.assertIsNone(registro.checkin)
+
+    def test_status_disponivel_checkin_vazio(self):
+        status = ChaveStatus.create_status(
+            id_chave= self.chave2,
+            id_pessoa=self.pessoa2,
+            checking=None,
+            status_code=True
+        )
+
+        registro= ChaveStatus.objects.get(id_chave=self.chave2)
+        self.assertTrue(registro.status_code)
+        self.assertIsNone(registro.checkin)
+
+    def test_status_disponivel_pessoa_vazia(self):
+        status = ChaveStatus.create_status(
+            id_chave= self.chave2,
+            id_pessoa=None,
+            checking=None,
+            status_code=True
+        )
+
+        registro= ChaveStatus.objects.get(id_chave=self.chave2)
+        self.assertTrue(registro.status_code)
+        self.assertIsNone(registro.id_pessoa)
