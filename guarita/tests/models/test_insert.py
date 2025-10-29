@@ -1,5 +1,5 @@
 from django.test import TestCase
-from guarita.models import Pessoa
+from guarita.models import Pessoa, Chave
 from django.db import IntegrityError
 class PessoaModelTest(TestCase):
     def teste_registrar_pessoa(self):
@@ -15,3 +15,12 @@ class PessoaModelTest(TestCase):
 
         with self.assertRaises(IntegrityError):
             Pessoa.registrar_pessoa(1, "Carlos", "Técnico")
+
+
+class ChaveModelTest(TestCase):
+    def teste_registrar_pessoa(self):
+        Chave.registrar_chave(nome= "Laboratório de Informática")
+
+        self.assertEqual(Chave.objects.count(), 1)
+        self.assertEqual(Chave.nome, "Laboratório de Informática")
+
