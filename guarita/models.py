@@ -28,12 +28,24 @@ class Chave(models.Model):
     <b>id (AutoField):</b> É uma chave primária autoincrementável\n
     <b>Nome (CharField):</b>  Tamanho máximo de 100 dígitos, representa o nome da chave. \n
     Ex:. - Laboratório de Informática
+    <b>itemBusca</b> Item que deve ser utilizado como string em buscas e exibição em interfaces
     """
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
+    itemBusca = models.CharField(max_length=100)
     """
     Equivalente a um to_string() de outras linguagens. Retorna em formato de texto o nome do objeto.
     """
+
+    """
+    <h2>Método Sobrescrevido: save()</h2>
+    Este método roda quando o django cria a tabela, portanto, quando for atualizado algum valor este método precis ser rodado novamente
+    """
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.itemBusca = f"Chave {self.id} - {self.nome}"
+        super().save(update_fields=["itemBusca"])
+
     def __str__(self):
         return self.nome
 

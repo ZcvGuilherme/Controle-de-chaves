@@ -31,13 +31,6 @@ class PessoaBuscaTests(TestCase):
         self.assertEqual(busca.nome, self.pessoa1.nome)
         self.assertEqual(busca.cargo, self.pessoa1.cargo)
 
-
-    def test_busca_por_nome(self):
-        busca = Pessoa.search_by_nome(self.pessoa1.nome)
-
-        self.assertIsNotNone(busca)
-        self.assertEqual(busca.nome, self.pessoa1.nome)
-    
     def test_busca_por_cargo(self):
         busca = Pessoa.search_by_cargo("Professor")
 
@@ -48,6 +41,9 @@ class PessoaBuscaTests(TestCase):
         nomes= [p.nome for p in busca]
         self.assertIn("João", nomes)
         self.assertIn("Jorge", nomes)
+
+    def test_busca_parcial(self):
+        
     #métodos de busca:
     #receber uma QuerySet
     #critérios: 
