@@ -105,17 +105,34 @@ class ChaveStatus(models.Model):
     id_pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.PROTECT,
-        db_column='Id_pessoa'
+        db_column='Id_pessoa',
+        null=True,
+        blank=True
     )
     
-    checkin = models.DateTimeField()
-    status_code = models.BooleanField()
+    checkin = models.DateTimeField(null=True, blank=True)
+    status_code = models.BooleanField(editable=False)
 
     class Meta:
         """
         Classe de suporte para evitar duplicação de combinação pessoa + chave
         """
         unique_together = ('id_pessoa', 'id_chave')
+
+    def save(self, *args, **kwargs):
+        """
+        Método que decide automáticamente se o status_code é true ou false.
+
+        <h1>NOTA IMPORTANTE SOBRE ESSE MÉTODO</h1>
+
+        <p>
+        Este método <b> NÃO </b> é chamado em todos os casos. Em métodos como o da criação da instãnica ele vai ser chamado, mas em casos como <b>update</b> ele <b>não é chamado</b> <b>e deve ser chamado manualmente</b> 
+        </p>
+
+        """
+        self.status_code = (self.id_pessoa is None or self.checkin is None)
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         status = "Ativo" if self.status_code else "Inativo"
