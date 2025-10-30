@@ -12,6 +12,12 @@ class Pessoa(models.Model):
     matricula = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=100)
     cargo = models.CharField(max_length=100)
+    itemBusca = models.CharField(max_length=100)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.itemBusca = f"{self.nome} - {self.cargo}"
+        super().save(update_fields=["itemBusca"])
 
     def __str__(self):
 

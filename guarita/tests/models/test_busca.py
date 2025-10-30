@@ -43,7 +43,8 @@ class PessoaBuscaTests(TestCase):
         self.assertIn("Jorge", nomes)
 
     def test_busca_parcial(self):
-        
+        busca = Pessoa.partial_search(content="Jo")
+        self.assertQuerySetEqual(busca, [self.pessoa1, self.pessoa3, self.pessoa4], ordered=False)
     #métodos de busca:
     #receber uma QuerySet
     #critérios: 
