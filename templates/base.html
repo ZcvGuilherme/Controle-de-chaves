@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>{% block 'title' %}{% endblock %}</title>
 </head>
 
@@ -20,75 +20,6 @@
         </div>
 
     </div>
-
-    <!-- Conteúdo central -->
-    <main class="conteudo">
-
-        <!-- Bloco de campos reutilizáveis -->
-        {% block campos_chave %}
-        {% if mostrar_campos %}
-        <div class="campos-chave">
-            <label for="nome">Digite seu nome:</label>
-            <input type="text" id="nome" class="input-text" placeholder="Ex: João Alves">
-
-            <label for="numero">Informe o número da Chave:</label>
-            <input type="text" id="numero" class="input-text" placeholder="Ex: 22">
-        </div>
-        {% endif %}
-        {% endblock %}
-
-
-        {% block content %}{% endblock %}
-    </main>
-
-    <!-- Componentes reutilizáveis -->
-    <div class="componentes-ocultos">
-        <!-- Botão principal genérico -->
-        <button class="btn-main exemplo">Botão Principal</button>
-
-        {% block botao_login %}
-        <!-- Conjunto de botões tipo Login -->
-        <div class="grupo-botoes-login">
-            <button class="btn-main">ENTRAR</button>
-        </div>
-        {% endblock %}
-
-        {% block botoes_home %}
-        <!-- Conjunto de botões tipo Home -->
-        <div class="grupo-botoes-home">
-            <button class="btn-main">PEGAR CHAVE</button>
-            <button class="btn-main">STATUS</button>
-            <button class="btn-main">DEVOLVER CHAVE</button>
-        </div>
-        {% endblock %}
-
-        {% block botoes_registrar %}
-        <!-- Conjunto de botões tipo Registrar -->
-        <div class="grupo-botoes-registrar">
-            <button class="btn-main">REGISTRAR</button>
-            <button class="btn-main btn-voltar">VOLTAR</button>
-        </div>
-        {% endblock %}
-
-        {% block botoes_devolver %}
-        <!-- Conjunto de botões tipo Devolver -->
-        <div class="grupo-botoes-devolver">
-            <button class="btn-main">DEVOLVER</button>
-            <button class="btn-main btn-voltar">VOLTAR</button>
-        </div>
-        {% endblock %}
-    </div>
-
-    {% block botao_voltar %}
-    {% if ocultar_botao %}
-    <div>
-        <a href="javascript:history.back()" class="back-btn" title="Voltar">
-            &#8592; <!-- ← seta Unicode -->
-        </a>
-    </div>
-    {% endif %}
-    {% endblock %}
-
 </body>
 
 </html>
