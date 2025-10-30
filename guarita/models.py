@@ -16,7 +16,9 @@ class Pessoa(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
         self.itemBusca = f"{self.nome} - {self.cargo}"
+        
         super().save(update_fields=["itemBusca"])
 
     def __str__(self):
