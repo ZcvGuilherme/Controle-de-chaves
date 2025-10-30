@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}?v=2">
+    <title>{% block 'title' %}{% endblock %}</title>
+</head>
+
+<body>
+    
+    <!-- Conteúdo central -->
+    <main class="conteudo">
+
+        <!-- Bloco de campos reutilizáveis -->
+        {% block campos_chave %}
+        <div class="campos-chave">
+            <label for="nome">Digite seu nome:</label>
+            <input type="text" id="nome" class="input-text" placeholder="Ex: João Alves">
+
+            <label for="numero">Informe o número da Chave:</label>
+            <input type="text" id="numero" class="input-text" placeholder="Ex: 22">
+        </div>
+        {% endblock %}
+
+</body>
+
+</html>
