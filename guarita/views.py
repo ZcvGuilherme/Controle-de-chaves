@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def chaves(request):
+    return render(request, 'chaves.html')
