@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Devolver Chave{% endblock %}
+
+{% block formulario %}
+    {% include 'componentes/formulario.html' with tipo="devolver" %}
+{% endblock %}
+
+{% block botoes %}
+    {% include 'componentes/botao.html' with tipo="devolver" %}
+{% endblock %}
