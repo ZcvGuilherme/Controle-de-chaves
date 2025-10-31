@@ -44,16 +44,13 @@ class PessoaBuscaTests(TestCase):
 
     def test_busca_parcial(self):
         busca = Pessoa.partial_search(content="Jo")
-        self.assertQuerySetEqual(busca, [self.pessoa1, self.pessoa3, self.pessoa4], ordered=False)
-    #métodos de busca:
-    #receber uma QuerySet
-    #critérios: 
+        nomes = [p.nome for p in busca]
+        self.assertCountEqual(nomes, ["João", "Joana", "Jorge"])
 
-  
-    #buscar por cargo
-    #busca parcial
-    #buscar todos
-   
+    def test_busca_retorno_todas_as_pessoas(self):
+        busca = Pessoa.getAll()
+        nomes = [p.nome for p in busca]
+        self.assertCountEqual(nomes, ["João", "Maria", "Joana", "Jorge"])
 
 class ChaveBuscaTests(TestCase):
     #Atributos:
