@@ -20,6 +20,14 @@
         </div>
 
     </div>
+
+    <main class="conteudo">
+        {% block formulario %}{% endblock %}
+        {% block botoes %}{% endblock %}        
+        {% block content %}
+            <div class="placeholder"></div>
+        {% endblock %}
+    </main>
 </body>
 
 </html>
