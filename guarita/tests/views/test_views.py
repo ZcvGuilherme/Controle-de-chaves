@@ -7,7 +7,6 @@ class ViewsTestCase(TestCase):
         """Verifica se a view 'chaves' retorna status 200."""
         response = self.client.get(reverse('chaves'))  # nome da rota no urls.py
         self.assertEqual(response.status_code, 200)
-        
 
     def test_view_chaves_template_usado(self):
         """Verifica se a view 'chaves' usa o template correto."""
