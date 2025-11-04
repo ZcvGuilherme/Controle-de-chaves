@@ -3,21 +3,21 @@
 
 {% if tipo == "home" %}
 <div class="grupo-botoes-home">
-    <a href="{% url 'registrar_chave' %}"><button class="btn-main">PEGAR CHAVE</button></a>
+    <button class="btn-main">PEGAR CHAVE</button>
     <button class="btn-main">STATUS</button>
-    <a href="{% url 'devolver_chave' %}"><button class="btn-main">DEVOLVER CHAVE</button></a>
+    <button class="btn-main">DEVOLVER CHAVE</button>
 </div>
 
 {% elif tipo == "registrar" %}
 <div class="grupo-botoes-registrar">
-    <a href="{% url 'registrar_chave' %}"><button class="btn-main">REGISTRAR</button></a>
-    <a href="javascript:history.back()"><button class="btn-main">VOLTAR</button></a>
+    <button class="btn-main">REGISTRAR</button>
+    <button class="btn-main btn-voltar">VOLTAR</button>
 </div>
 
 {% elif tipo == "devolver" %}
 <div class="grupo-botoes-devolver">
     <button class="btn-main">DEVOLVER</button>
-    <a href="javascript:history.back()"><button class="btn-main">VOLTAR</button></a>
+    <button class="btn-main btn-voltar">VOLTAR</button>
 </div>
 {% endif %}
 
