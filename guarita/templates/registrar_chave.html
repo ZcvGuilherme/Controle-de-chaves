@@ -6,5 +6,8 @@
 {% endblock %}
 
 {% block botoes %}
-    {% include 'componentes/botao.html' with tipo="registrar" %}
+<div class="grupo-botoes-registrar">
+    {% include 'componentes/botao.html' with texto="REGISTRAR" tipo="submit" url="registrar_chave" %}
+    {% include 'componentes/botao.html' with texto="VOLTAR" url="javascript:history.back()" classe="btn-voltar" %}
+</div>
 {% endblock %}

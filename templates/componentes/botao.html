@@ -1,25 +1,26 @@
 
-{% comment %} Template genérico de botões reutilizáveis {% endcomment %}
+{% comment %} Template genérico de botão reutilizável {% endcomment %}
 
-{% if tipo == "home" %}
-<div class="grupo-botoes-home">
-    <a href="{% url 'registrar_chave' %}"><button class="btn-main">PEGAR CHAVE</button></a>
-    <button class="btn-main">STATUS</button>
-    <a href="{% url 'devolver_chave' %}"><button class="btn-main">DEVOLVER CHAVE</button></a>
-</div>
-
-{% elif tipo == "registrar" %}
-<div class="grupo-botoes-registrar">
-    <a href="{% url 'registrar_chave' %}"><button class="btn-main">REGISTRAR</button></a>
-    <a href="javascript:history.back()"><button class="btn-main">VOLTAR</button></a>
-</div>
-
-{% elif tipo == "devolver" %}
-<div class="grupo-botoes-devolver">
-    <button class="btn-main">DEVOLVER</button>
-    <a href="javascript:history.back()"><button class="btn-main">VOLTAR</button></a>
-</div>
+{% if url %}
+  {% if url|slice:":11" == "javascript:" %}
+    <a href="{{ url }}">
+      <button type="{{ tipo|default:'button' }}" class="btn-main {{ classe|default:'' }}">
+        {{ texto|default:'Clique aqui' }}
+      </button>
+    </a>
+  {% else %}
+    <a href="{% url url %}">
+      <button type="{{ tipo|default:'button' }}" class="btn-main {{ classe|default:'' }}">
+        {{ texto|default:'Clique aqui' }}
+      </button>
+    </a>
+  {% endif %}
+{% else %}
+  <button type="{{ tipo|default:'button' }}" class="btn-main {{ classe|default:'' }}">
+    {{ texto|default:'Clique aqui' }}
+  </button>
 {% endif %}
+
 
 
 {% block botao_voltar %}

@@ -2,7 +2,11 @@
 {% block title %}Home{% endblock %}
 
 {% block botoes %}
-    {% include 'componentes/botao.html' with tipo="home" %}
+<div class="grupo-botoes-home">
+    {% include 'componentes/botao.html' with texto="PEGAR CHAVE" url="registrar_chave" %}
+    {% include 'componentes/botao.html' with texto="STATUS" %}
+    {% include 'componentes/botao.html' with texto="DEVOLVER CHAVE" url="devolver_chave" %}
+</div>
 {% endblock %}
 
 {% block content %}
