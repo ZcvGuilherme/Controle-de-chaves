@@ -17,13 +17,6 @@ body {
     text-align: center;
 }
 
-h2{
-    margin-top: 50px; /*AFASTA O TEXTO DOS BOTÕES*/
-    font-family: Arial, Helvetica, sans-serif; /*MUDA A FONTE*/
-    color: white; /*MUDA A COR DO TEXTO*/
-
-}
-
 .top-bar {
     position: fixed;
     /* fixa a barra no topo da tela */
