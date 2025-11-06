@@ -1,24 +1,13 @@
 
         {% comment %} Template de formulário genérico reutilizável {% endcomment %}
 
-        {% if tipo == "registrar" %}   
         <div class="campos-chave">
             <label for="nome">Digite seu nome:</label>
-            <input type="text" id="nome" class="input-text" placeholder="Ex: João Alves">
-
+            <input type="text" id="nome" class="input-text" placeholder="{{ placeholder_nome|default:'Ex: João Alves' }}">
+        
             <label for="numero">Informe o número da Chave:</label>
-            <input type="text" id="numero" class="input-text" placeholder="Ex: 22">
+            <input type="text" id="numero" class="input-text" placeholder="{{ placeholder_chave|default:'Ex: 22' }}">
         </div>
-
-        {% elif tipo == "devolver" %}   
-        <div class="campos-chave">
-            <label for="nome">Digite seu nome:</label>
-            <input type="text" id="nome" class="input-text" placeholder="Ex: João Alves">
-
-            <label for="numero">Informe o número da Chave:</label>
-            <input type="text" id="numero" class="input-text" placeholder="Ex: 22">
-        </div>
-        {% endif %}
 
 
         

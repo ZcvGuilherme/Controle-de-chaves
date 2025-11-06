@@ -1,26 +1,11 @@
 
 {% comment %} Template genérico de botão reutilizável {% endcomment %}
 
-{% if url %}
-  {% if url|slice:":11" == "javascript:" %}
-    <a href="{{ url }}">
-      <button type="{{ tipo|default:'button' }}" class="btn-main {{ classe|default:'' }}">
-        {{ texto|default:'Clique aqui' }}
-      </button>
-    </a>
-  {% else %}
-    <a href="{% url url %}">
-      <button type="{{ tipo|default:'button' }}" class="btn-main {{ classe|default:'' }}">
-        {{ texto|default:'Clique aqui' }}
-      </button>
-    </a>
-  {% endif %}
-{% else %}
-  <button type="{{ tipo|default:'button' }}" class="btn-main {{ classe|default:'' }}">
-    {{ texto|default:'Clique aqui' }}
-  </button>
-{% endif %}
-
+{% with tipo_btn=tipo|default:"button" texto_btn=texto|default:"Clique aqui" classe_btn=classe|default:"" destino=url|default:"" %}
+  <a href="{% if destino %}{% if 'javascript:' in destino %}{{ destino }}{% else %}{% url destino %}{% endif %}{% else %}javascript:void(0){% endif %}">
+    <button type="{{ tipo_btn }}" class="btn-main {{ classe_btn }}">{{ texto_btn }}</button>
+  </a>
+{% endwith %}
 
 
 {% block botao_voltar %}
