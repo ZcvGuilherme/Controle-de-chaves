@@ -42,45 +42,34 @@ class HistoricoInsertModelTest(TestCase):
         id_historico= int(data_atual.strftime("%Y%m%d%H%M%S"))
 
         Historico.registrar_acesso(
-            id_historico=id_historico,
             acao="RETIRADA",
             id_pessoa = self.pessoa,
             id_chave= self.chave,
-            horario=data_atual
         )
 
         self.assertEqual(Historico.objects.count(), 1)
-        registro = Historico.get_acess_by_id(id_historico)
+        registro = Historico.objects.first()
         
-
+        self.assertEqual(registro.id_historico, id_historico)
         self.assertEqual(registro.acao, "RETIRADA")
         self.assertEqual(registro.id_pessoa.nome, "João")
         self.assertEqual(registro.id_chave.nome, "Laboratório de Informática")
         self.assertEqual(registro.horario, data_atual)
     
     def test_historico_com_pessoa_inexistente(self):
-        data_atual = datetime.now()
-        id_historico = int(data_atual.strftime("%Y%m%d%H%M%S"))
-
         with self.assertRaises(IntegrityError):
             Historico.registrar_acesso(
-                id_historico=id_historico,
                 acao="RETIRADA",
                 id_pessoa=999,
                 id_chave=self.chave,
-                horario=data_atual
             )
-    def test_historico_com_chave_inexistente(self):
-        data_atual = datetime.now()
-        id_historico = int(data_atual.strftime("%Y%m%d%H%M%S"))
 
+    def test_historico_com_chave_inexistente(self):
         with self.assertRaises(IntegrityError):
             Historico.registrar_acesso(
-                id_historico=id_historico,
                 acao="RETIRADA",
                 id_pessoa=self.pessoa,
                 id_chave=777,
-                horario=data_atual
             )
     
 class ChaveStatusInsertModelTest(TestCase):
