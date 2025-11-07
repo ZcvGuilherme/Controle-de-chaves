@@ -43,8 +43,8 @@ class HistoricoInsertModelTest(TestCase):
 
         Historico.registrar_acesso(
             acao="RETIRADA",
-            id_pessoa = self.pessoa,
-            id_chave= self.chave,
+            pessoa = self.pessoa,
+            chave= self.chave,
         )
 
         self.assertEqual(Historico.objects.count(), 1)
@@ -52,24 +52,24 @@ class HistoricoInsertModelTest(TestCase):
         
         self.assertEqual(registro.id_historico, id_historico)
         self.assertEqual(registro.acao, "RETIRADA")
-        self.assertEqual(registro.id_pessoa.nome, "João")
-        self.assertEqual(registro.id_chave.nome, "Laboratório de Informática")
+        self.assertEqual(registro.pessoa.nome, "João")
+        self.assertEqual(registro.chave.nome, "Laboratório de Informática")
         self.assertEqual(registro.horario, data_atual)
     
     def test_historico_com_pessoa_inexistente(self):
         with self.assertRaises(IntegrityError):
             Historico.registrar_acesso(
                 acao="RETIRADA",
-                id_pessoa=999,
-                id_chave=self.chave,
+                pessoa=999,
+                chave=self.chave,
             )
 
     def test_historico_com_chave_inexistente(self):
         with self.assertRaises(IntegrityError):
             Historico.registrar_acesso(
                 acao="RETIRADA",
-                id_pessoa=self.pessoa,
-                id_chave=777,
+                pessoa=self.pessoa,
+                chave=777,
             )
     
 class ChaveStatusInsertModelTest(TestCase):

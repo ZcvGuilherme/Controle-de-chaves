@@ -69,9 +69,9 @@ class Historico(models.Model):
     Ex:. 2025-11-05 15:43:32 ---> 20251105154332\n
     <b>acao (CharField):</b>  Tamanho máximo de 20 dígitos. Representa a ação feita pela pessoa, sendo eles descritos no atributo ACAO_CHOICES. A idéia é fazer uma espécie de Enum, caso seja necessário, pode-se atualizar o tipo para um mais adequado. \n
 
-    <b>id_pessoa (ForeignKey):</b> Chave estrangeira importada do objeto Pessoa, on_delete configurado para PROTECT.\n
+    <b>pessoa (ForeignKey):</b> Chave estrangeira importada do objeto Pessoa, on_delete configurado para PROTECT.\n
 
-    <b>id_chave (ForeignKey):</b> Chave estrangeira importada do objeto Chave, on_delete configurado para PROTECT.\n
+    <b>chave (ForeignKey):</b> Chave estrangeira importada do objeto Chave, on_delete configurado para PROTECT.\n
 
     <b>horario (DateTimeField):</b> Para uma facilidade de vizualização do horário, coloquei esse atributo que representa o horário, sujeito a ser deletado por redundância.
 
@@ -86,17 +86,21 @@ class Historico(models.Model):
 
     acao = models.CharField(max_length=20, choices=ACAO_CHOICES)
 
-    id_pessoa = models.ForeignKey(
+    pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.PROTECT,
         db_column='Id_pessoa'
     )
-    id_chave = models.ForeignKey(
+    chave = models.ForeignKey(
         Chave,
         on_delete=models.PROTECT,
         db_column='Id_chave'
     )
     horario = models.DateTimeField()
+
+    @classmethod
+    def registrar_acesso(cls, acao, pessoa, chave):
+        return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave)
 
     def save(self, *args, **kwargs):
         if not self.id_historico:
@@ -108,7 +112,7 @@ class Historico(models.Model):
 
 
     def __str__(self):
-        return f"{self.acao} - {self.id_pessoa.nome} - {self.id_chave.nome}"
+        return f"{self.acao} - {self.pessoa.nome} - {self.chave.nome}"
 
 
 class ChaveStatus(models.Model):
