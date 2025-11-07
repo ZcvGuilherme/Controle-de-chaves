@@ -1,7 +1,7 @@
-from datetime import datetime
 from django.test import TestCase
 from guarita.models import Pessoa, Chave, Historico, ChaveStatus
 from django.db import IntegrityError
+from django.utils import timezone
 class PessoaInsertModelTest(TestCase):
     def test_registrar_pessoa(self):
         Pessoa.registrar_pessoa(matricula= 1, nome= "João", cargo= "Professor")
@@ -38,7 +38,7 @@ class HistoricoInsertModelTest(TestCase):
         )
 
     def test_registrar_acesso_historico(self):
-        data_atual = datetime.now()
+        data_atual = timezone.now()
         id_historico= int(data_atual.strftime("%Y%m%d%H%M%S"))
 
         Historico.registrar_acesso(
@@ -87,7 +87,7 @@ class ChaveStatusInsertModelTest(TestCase):
         ChaveStatus.criar_status(
             id_chave=self.chave,
             id_pessoa=self.pessoa,
-            checkin=datetime.now()
+            checkin=timezone.now()
         )
     def test_insert_chave_disponivel(self):
         status = ChaveStatus.criar_status(
@@ -102,7 +102,7 @@ class ChaveStatusInsertModelTest(TestCase):
         status = ChaveStatus.criar_status(
             id_chave=self.chave,
             id_pessoa=self.pessoa,
-            checkin=datetime.now()
+            checkin=timezone.now()
         )
         self.assertFalse(status.status_code)
         print(f"Status criado: {status} (esperado: Disponível=False)")
@@ -114,7 +114,7 @@ class ChaveStatusInsertModelTest(TestCase):
         status = ChaveStatus.criar_status(
             id_chave=self.chave,
             id_pessoa=None,
-            checkin=datetime.now()
+            checkin=timezone.now()
         )
         self.assertTrue(status.status_code)
         print(f"Status criado: {status} (esperado: Disponível=True)")

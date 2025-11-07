@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from django.db import models
 
 class Pessoa(models.Model):
@@ -104,7 +104,7 @@ class Historico(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id_historico:
-            data_atual = datetime.now()
+            data_atual = timezone.now()
             self.id_historico = int(data_atual.strftime("%Y%m%d%H%M%S"))
             self.horario = data_atual
         
