@@ -131,29 +131,33 @@ class ChaveStatus(models.Model):
 
     """
     
-    id_chave = models.OneToOneField(
+    chave = models.OneToOneField(
         Chave,
         on_delete=models.PROTECT,
         db_column='Id_chave',
         primary_key=True
     )
 
-    id_pessoa = models.ForeignKey(
+    pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.PROTECT,
         db_column='Id_pessoa',
         null=True,
         blank=True
     )
-    
+    @classmethod
+    def criar_status(cls, chave):
+        return cls.objects.create(chave=chave)
+
     checkin = models.DateTimeField(null=True, blank=True)
     status_code = models.BooleanField(editable=False)
+
 
     class Meta:
         """
         Classe de suporte para evitar duplicação de combinação pessoa + chave
         """
-        unique_together = ('id_pessoa', 'id_chave')
+        unique_together = ('pessoa', 'chave')
 
     def save(self, *args, **kwargs):
         """
@@ -166,7 +170,7 @@ class ChaveStatus(models.Model):
         </p>
 
         """
-        self.status_code = (self.id_pessoa is None or self.checkin is None)
+        self.status_code = (self.pessoa is None or self.checkin is None)
         super().save(*args, **kwargs)
 
 

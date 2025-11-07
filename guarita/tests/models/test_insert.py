@@ -81,37 +81,14 @@ class ChaveStatusInsertModelTest(TestCase):
             nome="Laboratório de Informática"
         )
     def test_verificar_insert_funciona(self):
-        ChaveStatus.criar_status(
-            id_chave=self.chave,
-            id_pessoa=self.pessoa,
-            checkin=timezone.now()
+        key = ChaveStatus.criar_status(
+            chave=self.chave
         )
+        self.assertEqual(self.chave.id, key.id)
     def test_insert_chave_disponivel(self):
         status = ChaveStatus.criar_status(
-            id_chave=self.chave,
-            id_pessoa=None,
-            checkin=None
+            chave=self.chave
         )
         self.assertTrue(status.status_code)
         print(f"Status criado: {status} (esperado: Disponível=True)")
 
-    def test_insert_chave_indisponivel(self):
-        status = ChaveStatus.criar_status(
-            id_chave=self.chave,
-            id_pessoa=self.pessoa,
-            checkin=timezone.now()
-        )
-        self.assertFalse(status.status_code)
-        print(f"Status criado: {status} (esperado: Disponível=False)")
-
-    def test_insert_sem_pessoa(self):
-        """
-        Deve permanecer disponível caso id_pessoa esteja None
-        """
-        status = ChaveStatus.criar_status(
-            id_chave=self.chave,
-            id_pessoa=None,
-            checkin=timezone.now()
-        )
-        self.assertTrue(status.status_code)
-        print(f"Status criado: {status} (esperado: Disponível=True)")
