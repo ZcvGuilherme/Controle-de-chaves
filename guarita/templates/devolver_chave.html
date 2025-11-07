@@ -2,9 +2,12 @@
 {% block title %}Devolver Chave{% endblock %}
 
 {% block formulario %}
-    {% include 'componentes/formulario.html' with tipo="devolver" %}
+    {% include 'componentes/formulario.html' with placeholder_nome='Ex: João Alves' placeholder_chave='Ex: 22' %}
 {% endblock %}
 
 {% block botoes %}
-    {% include 'componentes/botao.html' with tipo="devolver" %}
+<div class="grupo-botoes-devolver">
+    {% include 'componentes/botao.html' with texto="DEVOLVER" tipo="submit" %}
+    {% include 'componentes/botao.html' with texto="VOLTAR" url="javascript:history.back()" classe="btn-voltar" %}
+</div>
 {% endblock %}

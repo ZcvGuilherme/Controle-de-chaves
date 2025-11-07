@@ -1,25 +1,21 @@
+{% comment %} Template genérico de botão reutilizável {% endcomment %}
+{% with tipo_btn=tipo|default:"button" texto_btn=texto|default:"Clique aqui" classe_btn=classe|default:"" destino=url|default:"" %}
 
-{% comment %} Template genérico de botões reutilizáveis {% endcomment %}
+<button 
+  type="{{ tipo_btn }}" 
+  class="btn-main {{ classe_btn }}"
+  {% if destino %}
+    {% if 'javascript:' in destino %}
+      onclick="history.back()"
+    {% else %}
+      onclick="window.location.href='{% url destino %}'"
+    {% endif %}
+  {% endif %}
+>
+  {{ texto_btn }}
+</button>
 
-{% if tipo == "home" %}
-<div class="grupo-botoes-home">
-    <a href="{% url 'registrar_chave' %}"><button class="btn-main">PEGAR CHAVE</button></a>
-    <button class="btn-main">STATUS</button>
-    <a href="{% url 'devolver_chave' %}"><button class="btn-main">DEVOLVER CHAVE</button></a>
-</div>
-
-{% elif tipo == "registrar" %}
-<div class="grupo-botoes-registrar">
-    <a href="{% url 'registrar_chave' %}"><button class="btn-main">REGISTRAR</button></a>
-    <a href="javascript:history.back()"><button class="btn-main">VOLTAR</button></a>
-</div>
-
-{% elif tipo == "devolver" %}
-<div class="grupo-botoes-devolver">
-    <button class="btn-main">DEVOLVER</button>
-    <a href="javascript:history.back()"><button class="btn-main">VOLTAR</button></a>
-</div>
-{% endif %}
+{% endwith %}
 
 
 {% block botao_voltar %}
