@@ -84,11 +84,11 @@ class ChaveStatusInsertModelTest(TestCase):
         key = ChaveStatus.criar_status(
             chave=self.chave
         )
-        self.assertEqual(self.chave.id, key.id)
+        self.assertEqual(self.chave.id, key.chave.id)
     def test_insert_chave_disponivel(self):
         status = ChaveStatus.criar_status(
             chave=self.chave
         )
         self.assertTrue(status.status_code)
-        print(f"Status criado: {status} (esperado: Disponível=True)")
+        print(f"Status criado: {status.status_code} (esperado: Disponível=True)")
 
