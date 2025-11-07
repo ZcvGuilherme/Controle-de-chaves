@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 class Pessoa(models.Model):
@@ -12,15 +13,15 @@ class Pessoa(models.Model):
     matricula = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=100)
     cargo = models.CharField(max_length=100)
-    itemBusca = models.CharField(max_length=100)
+    itemBusca = models.CharField(max_length=100, blank=True, null=True)
+
+    @classmethod
+    def registrar_pessoa(cls, matricula, nome, cargo):
+        return cls.objects.create(matricula=matricula, nome=nome, cargo=cargo)
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
         self.itemBusca = f"{self.nome} - {self.cargo}"
-        
-        super().save(update_fields=["itemBusca"])
-
+        super().save(*args, **kwargs)
     def __str__(self):
 
         """
@@ -40,20 +41,22 @@ class Chave(models.Model):
     """
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
-    itemBusca = models.CharField(max_length=100)
-    """
-    Equivalente a um to_string() de outras linguagens. Retorna em formato de texto o nome do objeto.
-    """
-
+    itemBusca = models.CharField(max_length=100, blank=True, null=True)
+    
     """
     <h2>Método Sobrescrevido: save()</h2>
     Este método roda quando o django cria a tabela, portanto, quando for atualizado algum valor este método precis ser rodado novamente
     """
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.itemBusca = f"Chave {self.id} - {self.nome}"
-        super().save(update_fields=["itemBusca"])
+    @classmethod
+    def registrar_chave(cls, nome):
+        return cls.objects.create(nome=nome)
 
+    def save(self, *args, **kwargs):
+        self.itemBusca = f"Chave {self.id} - {self.nome}"
+        super().save(*args, **kwargs)
+ 
+
+    
     def __str__(self):
         return self.nome
 
@@ -66,14 +69,14 @@ class Historico(models.Model):
     Ex:. 2025-11-05 15:43:32 ---> 20251105154332\n
     <b>acao (CharField):</b>  Tamanho máximo de 20 dígitos. Representa a ação feita pela pessoa, sendo eles descritos no atributo ACAO_CHOICES. A idéia é fazer uma espécie de Enum, caso seja necessário, pode-se atualizar o tipo para um mais adequado. \n
 
-    <b>id_pessoa (ForeignKey):</b> Chave estrangeira importada do objeto Pessoa, on_delete configurado para PROTECT.\n
+    <b>pessoa (ForeignKey):</b> Chave estrangeira importada do objeto Pessoa, on_delete configurado para PROTECT.\n
 
-    <b>id_chave (ForeignKey):</b> Chave estrangeira importada do objeto Chave, on_delete configurado para PROTECT.\n
+    <b>chave (ForeignKey):</b> Chave estrangeira importada do objeto Chave, on_delete configurado para PROTECT.\n
 
     <b>horario (DateTimeField):</b> Para uma facilidade de vizualização do horário, coloquei esse atributo que representa o horário, sujeito a ser deletado por redundância.
 
     """
-    id_historico = models.IntegerField(primary_key=True)
+    id_historico = models.BigIntegerField(primary_key=True)
     
     ACAO_CHOICES = [
         ('RETIRADA', 'Retirada'),
@@ -83,20 +86,33 @@ class Historico(models.Model):
 
     acao = models.CharField(max_length=20, choices=ACAO_CHOICES)
 
-    id_pessoa = models.ForeignKey(
+    pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.PROTECT,
         db_column='Id_pessoa'
     )
-    id_chave = models.ForeignKey(
+    chave = models.ForeignKey(
         Chave,
         on_delete=models.PROTECT,
         db_column='Id_chave'
     )
     horario = models.DateTimeField()
 
+    @classmethod
+    def registrar_acesso(cls, acao, pessoa, chave):
+        return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave)
+
+    def save(self, *args, **kwargs):
+        if not self.id_historico:
+            data_atual = timezone.now()
+            self.id_historico = int(data_atual.strftime("%Y%m%d%H%M%S"))
+            self.horario = data_atual
+        
+        super().save(*args, **kwargs)
+
+
     def __str__(self):
-        return f"{self.acao} - {self.id_pessoa.nome} - {self.id_chave.nome}"
+        return f"{self.acao} - {self.pessoa.nome} - {self.chave.nome}"
 
 
 class ChaveStatus(models.Model):
@@ -115,29 +131,33 @@ class ChaveStatus(models.Model):
 
     """
     
-    id_chave = models.OneToOneField(
+    chave = models.OneToOneField(
         Chave,
         on_delete=models.PROTECT,
         db_column='Id_chave',
         primary_key=True
     )
 
-    id_pessoa = models.ForeignKey(
+    pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.PROTECT,
         db_column='Id_pessoa',
         null=True,
         blank=True
     )
-    
+    @classmethod
+    def criar_status(cls, chave):
+        return cls.objects.create(chave=chave)
+
     checkin = models.DateTimeField(null=True, blank=True)
     status_code = models.BooleanField(editable=False)
+
 
     class Meta:
         """
         Classe de suporte para evitar duplicação de combinação pessoa + chave
         """
-        unique_together = ('id_pessoa', 'id_chave')
+        unique_together = ('pessoa', 'chave')
 
     def save(self, *args, **kwargs):
         """
@@ -150,7 +170,7 @@ class ChaveStatus(models.Model):
         </p>
 
         """
-        self.status_code = (self.id_pessoa is None or self.checkin is None)
+        self.status_code = (self.pessoa is None or self.checkin is None)
         super().save(*args, **kwargs)
 
 
