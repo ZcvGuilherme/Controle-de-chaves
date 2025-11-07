@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 class Pessoa(models.Model):
@@ -19,12 +20,8 @@ class Pessoa(models.Model):
         return cls.objects.create(matricula=matricula, nome=nome, cargo=cargo)
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
         self.itemBusca = f"{self.nome} - {self.cargo}"
-        
-        super().save(update_fields=["itemBusca"])
-
+        super().save(*args, **kwargs)
     def __str__(self):
 
         """
@@ -55,9 +52,9 @@ class Chave(models.Model):
         return cls.objects.create(nome=nome)
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
         self.itemBusca = f"Chave {self.id} - {self.nome}"
-        super().save(update_fields=["itemBusca"])
+        super().save(*args, **kwargs)
+ 
 
     
     def __str__(self):
@@ -79,7 +76,7 @@ class Historico(models.Model):
     <b>horario (DateTimeField):</b> Para uma facilidade de vizualização do horário, coloquei esse atributo que representa o horário, sujeito a ser deletado por redundância.
 
     """
-    id_historico = models.IntegerField(primary_key=True)
+    id_historico = models.BigIntegerField(primary_key=True)
     
     ACAO_CHOICES = [
         ('RETIRADA', 'Retirada'),
@@ -100,6 +97,15 @@ class Historico(models.Model):
         db_column='Id_chave'
     )
     horario = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.id_historico:
+            data_atual = datetime.now()
+            self.id_historico = int(data_atual.strftime("%Y%m%d%H%M%S"))
+            self.horario = data_atual
+        
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.acao} - {self.id_pessoa.nome} - {self.id_chave.nome}"
