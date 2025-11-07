@@ -5,10 +5,10 @@ from django.db import IntegrityError
 class PessoaInsertModelTest(TestCase):
     def test_registrar_pessoa(self):
         Pessoa.registrar_pessoa(matricula= 1, nome= "João", cargo= "Professor")
-        
+        pessoa = Pessoa.objects.first()
         self.assertEqual(Pessoa.objects.count(), 1)
-        self.assertEqual(Pessoa.nome, "João")
-        self.assertEqual(Pessoa.cargo, "Professor")
+        self.assertEqual(pessoa.nome, "João")
+        self.assertEqual(pessoa.cargo, "Professor")
     
 
     def test_duplicata_de_pessoa(self):
@@ -21,9 +21,9 @@ class PessoaInsertModelTest(TestCase):
 class ChaveInsertModelTest(TestCase):
     def test_registrar_pessoa(self):
         Chave.registrar_chave(nome= "Laboratório de Informática")
-
+        chave = Chave.objects.first()
         self.assertEqual(Chave.objects.count(), 1)
-        self.assertEqual(Chave.nome, "Laboratório de Informática")
+        self.assertEqual(chave.nome, "Laboratório de Informática")
 
 class HistoricoInsertModelTest(TestCase):
     def setUp(self):
