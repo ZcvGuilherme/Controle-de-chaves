@@ -21,7 +21,10 @@
 
     </div>
 
+    {% block botao_voltar %}{% endblock %}
+
     <main class="conteudo">
+        {% block menu_pesquisa %}{% endblock %}
         {% block formulario %}{% endblock %}
         {% block botoes %}{% endblock %}        
         {% block content %}

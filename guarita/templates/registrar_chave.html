@@ -5,9 +5,14 @@
     {% include 'componentes/formulario.html' with placeholder_nome='Ex: João Alves' placeholder_chave='Ex: 22' %}
 {% endblock %}
 
+{% block botao_voltar %}
+    <a href="javascript:history.back()" class="back-btn" title="Voltar">&#8592;</a>
+{% endblock %}
+
 {% block botoes %}
 <div class="grupo-botoes-registrar">
     {% include 'componentes/botao.html' with texto="REGISTRAR" tipo="submit" url="registrar_chave" %}
     {% include 'componentes/botao.html' with texto="VOLTAR" url="javascript:history.back()" classe="btn-voltar" %}
 </div>
 {% endblock %}
+

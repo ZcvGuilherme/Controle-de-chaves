@@ -1,7 +1,11 @@
 from django.shortcuts import render
 
 def chaves(request):
-    return render(request, 'chaves.html')
+    opcoes_filtro = [
+        ('disponivel', 'Disponível'),
+        ('indisponivel', 'Indisponível'),
+    ]
+    return render(request, 'chaves.html', {'opcoes_filtro': opcoes_filtro})
 
 def registrar_chave(request):
     return render(request, 'registrar_chave.html')
