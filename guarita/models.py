@@ -49,7 +49,9 @@ class Chave(models.Model):
     """
     @classmethod
     def registrar_chave(cls, nome):
-        return cls.objects.create(nome=nome)
+        chave = cls.objects.create(nome=nome)
+        ChaveStatus.criar_status(chave)
+        return chave
 
     def save(self, *args, **kwargs):
         self.itemBusca = f"Chave {self.id} - {self.nome}"
@@ -153,12 +155,12 @@ class ChaveStatus(models.Model):
         if acao not in ["RETIRADA", "DEVOLUCAO"]:
             raise ValueError(f"Ação inválida: {acao}. Use 'RETIRADA' ou 'DEVOLUCAO'.")
 
-        if not isinstance(chave, cls):
+        if not isinstance(chave, Chave):
             raise TypeError("O parâmetro 'chave' deve ser uma instância válida de Chave.")
         if not isinstance(pessoa, Pessoa):
             raise TypeError("O parâmetro 'pessoa' deve ser uma instância válida de Pessoa.")
         #------------------------------VERIFICAR SE A AÇÃO PODE SER EFETUADA--------------------------#
-        status = cls.objects.get(pk=chave)
+        status = cls.objects.get(chave=chave)
 
         if acao == "RETIRADA" and status.pessoa is not None:
             raise ValueError(f"A chave '{status.chave}' já está em uso por {status.pessoa.nome}.")
@@ -183,7 +185,6 @@ class ChaveStatus(models.Model):
     def criar_status(cls, chave):
         return cls.objects.create(chave=chave)
     
-
     class Meta:
         """
         Classe de suporte para evitar duplicação de combinação pessoa + chave
