@@ -54,9 +54,7 @@ class Chave(models.Model):
     def save(self, *args, **kwargs):
         self.itemBusca = f"Chave {self.id} - {self.nome}"
         super().save(*args, **kwargs)
- 
 
-    
     def __str__(self):
         return self.nome
 
@@ -145,13 +143,28 @@ class ChaveStatus(models.Model):
         null=True,
         blank=True
     )
-    @classmethod
-    def criar_status(cls, chave):
-        return cls.objects.create(chave=chave)
-
+    
     checkin = models.DateTimeField(null=True, blank=True)
     status_code = models.BooleanField(editable=False)
 
+    @classmethod
+    def update(cls, chave, pessoa=None):
+        status = cls.objects.get(chave)
+        if pessoa is None:
+            status.pessoa = None
+            status.checkin = None
+            
+        else:
+            status.pessoa = pessoa
+            status.checkin = timezone.now()
+
+        status.save()
+
+
+    @classmethod
+    def criar_status(cls, chave):
+        return cls.objects.create(chave=chave)
+    
 
     class Meta:
         """
@@ -170,7 +183,7 @@ class ChaveStatus(models.Model):
         </p>
 
         """
-        self.status_code = (self.pessoa is None or self.checkin is None)
+        self.status_code = (self.pessoa is None)
         super().save(*args, **kwargs)
 
 

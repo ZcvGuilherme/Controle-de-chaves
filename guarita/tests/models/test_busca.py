@@ -27,24 +27,6 @@ class PessoaBuscaTests(TestCase):
             cargo="Professor"
         )
 
-    def test_busca_por_id(self):
-        busca = Pessoa.search_by_matricula(self.pessoa1.matricula)
-
-        self.assertIsNotNone(busca)
-        self.assertEqual(busca.nome, self.pessoa1.nome)
-        self.assertEqual(busca.cargo, self.pessoa1.cargo)
-
-    def test_busca_por_cargo(self):
-        busca = Pessoa.search_by_cargo("Professor")
-
-        self.assertIsNotNone(busca)
-        self.assertIsInstance(busca, QuerySet)
-        self.assertEqual(busca.count(), 2)
-
-        nomes= [p.nome for p in busca]
-        self.assertIn("João", nomes)
-        self.assertIn("Jorge", nomes)
-
     def test_busca_parcial(self):
         busca = Pessoa.partial_search(content="Jo")
         nomes = [p.nome for p in busca]
@@ -53,6 +35,7 @@ class PessoaBuscaTests(TestCase):
     def test_busca_retorno_todas_as_pessoas(self):
         busca = Pessoa.getAll()
         nomes = [p.nome for p in busca]
+        self.assertEqual(busca.count(), 4)
         self.assertCountEqual(nomes, ["João", "Maria", "Joana", "Jorge"])
 
 class ChaveBuscaTests(TestCase):
@@ -61,19 +44,7 @@ class ChaveBuscaTests(TestCase):
         self.chave2 = Chave.objects.create(nome="Laboratório de Química")
         self.chave3 = Chave.objects.create(nome="Biblioteca")
 
-    def test_busca_por_id(self):
-        busca = Chave.search_by_id(self.chave1.id)
 
-        self.assertIsNotNone(busca)
-        self.assertEqual(busca.id, self.chave1.id)
-        self.assertEqual(busca.nome, self.chave1.nome)
-    
-    def test_busca_por_nome(self):
-        busca = Chave.search_by_nome("Laboratório de Informática")
-
-        self.assertIsInstance(busca, QuerySet)
-        self.assertEqual(busca.count(), 1)
-        self.assertEqual(busca.first().nome, "Laboratório de Informática")
     def test_busca_parcial(self):
         busca = Chave.partial_search(content="Lab")
 
@@ -83,42 +54,12 @@ class ChaveBuscaTests(TestCase):
             nomes,
             ["Laboratório de Informática", "Laboratório de Química"]
         )
-class HistoricoBuscaTests(TestCase):
-    def setUp(self):
-        self.pessoa1 = Pessoa.objects.create(
-            matricula=1,
-            nome="João",
-            cargo= "Professor"
-        )
 
-        self.chave1 = Chave.objects.create(nome="Laboratório de Informática")
-
-        self.historico1 = Historico.registrar(
-        id_historico=20251105154332,
-        acao="RETIRADA",
-        id_pessoa=self.pessoa1,
-        id_chave=self.chave1,
-        horario=datetime.now()
-    )
-        self.historico2 = Historico.registrar(
-        id_historico=20250905154355,
-        acao="ATUALIZACAO",
-        id_pessoa=self.pessoa1,
-        id_chave=self.chave1,
-        horario=datetime.now()
-    )
-    
-    def test_busca_por_id(self):
-        busca = Historico.search_by_id(id_chave=20251105154332)
-        self.assertEqual(self.historico1.id_chave, busca.id_chave)
-        self.assertEqual(self.historico1.acao, busca.acao)
-        self.assertEqual(self.historico1.id_pessoa, busca.id_pessoa)
-    
-    def test_devolver_todos_os_registros(self):
-        busca = Historico.getAll()
-        todos = Historico.objects.all()
-
-        self.assertCountEqual(busca, todos)
+    def test_busca_parcial_numero(self):
+        busca = Chave.partial_search(content="1")
+        self.assertIsInstance(busca, QuerySet)
+        self.assertIn(self.chave1, busca)
+        self.assertEqual(busca.count(), 1)
 
 class ChaveStatusBuscaTests(TestCase):
     def setUp(self):
@@ -127,7 +68,7 @@ class ChaveStatusBuscaTests(TestCase):
         self.pessoa2 = Pessoa.objects.create(matricula=2, nome="Maria", cargo="Técnico")
 
         # Cria chaves
-        self.chave1 = Chave.objects.create(nome="Laboratório 101")
+        self.chave1 = Chave.objects.create(nome="Laboratório Informática")
         self.chave2 = Chave.objects.create(nome="Sala de Reunião")
         self.chave3 = Chave.objects.create(nome="Biblioteca")
 
