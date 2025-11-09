@@ -76,7 +76,7 @@ class Historico(models.Model):
     <b>horario (DateTimeField):</b> Para uma facilidade de vizualização do horário, coloquei esse atributo que representa o horário, sujeito a ser deletado por redundância.
 
     """
-    id_historico = models.BigIntegerField(primary_key=True)
+    id_historico = models.BigAutoField(max_length=20, primary_key=True)
     
     ACAO_CHOICES = [
         ('RETIRADA', 'Retirada'),
@@ -100,20 +100,12 @@ class Historico(models.Model):
 
     @classmethod
     def registrar_acesso(cls, acao, pessoa, chave):
-        return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave)
-
-    def save(self, *args, **kwargs):
-        if not self.id_historico:
-            data_atual = timezone.now()
-            self.id_historico = int(data_atual.strftime("%Y%m%d%H%M%S"))
-            self.horario = data_atual
-        
-        super().save(*args, **kwargs)
-
+        agora = timezone.now()
+        return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave, horario=agora)
 
     def __str__(self):
         return f"{self.acao} - {self.pessoa.nome} - {self.chave.nome}"
-
+    
 
 class ChaveStatus(models.Model):
     """

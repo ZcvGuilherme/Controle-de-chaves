@@ -27,3 +27,14 @@ class ChaveStatusUpdateTests(TestCase):
         self.assertIsNotNone(status.checkin)
         self.assertFalse(status.status_code)
         self.assertTrue(Historico.objects.filter(acao="RETIRADA", pessoa=self.pessoa1, chave=self.chave).exists())
+    
+    def test_devolucao_chave(self):
+        ChaveStatus.update(chave=self.chave, pessoa=self.pessoa1, acao="RETIRADA")
+        ChaveStatus.update(chave=self.chave, pessoa=self.pessoa1, acao="DEVOLUCAO")
+        
+        status= ChaveStatus.objects.get(chave=self.chave)
+        status = ChaveStatus.objects.get(chave=self.chave)
+        self.assertIsNone(status.pessoa)
+        self.assertIsNone(status.checkin)
+        self.assertTrue(status.status_code)
+        self.assertTrue(Historico.objects.filter(acao="DEVOLUCAO", pessoa=self.pessoa1, chave=self.chave).exists())
