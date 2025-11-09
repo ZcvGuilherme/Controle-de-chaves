@@ -148,9 +148,17 @@ class ChaveStatus(models.Model):
     status_code = models.BooleanField(editable=False)
 
     @classmethod
-    def update(cls, chave, pessoa=None):
-        status = cls.objects.get(chave)
-        if pessoa is None:
+    def update(cls, chave, pessoa, acao):
+        #------------------------------VERIFICAR SE AS ENTRADAS SÃO VÁLIDAS---------------------------#
+        if acao not in ["RETIRADA", "DEVOLUCAO"]:
+            raise ValueError(f"Ação inválida: {acao}. Use 'RETIRADA' ou 'DEVOLUCAO'.")
+        
+
+        #------------------------------VERIFICAR SE A AÇÃO PODE SER EFETUADA--------------------------#
+
+        #------------------------------EFETUAR UPDATE-------------------------------------------------#
+        status = cls.objects.get(chave=chave)
+        if acao=="DEVOLUCAO":
             status.pessoa = None
             status.checkin = None
             
@@ -160,6 +168,7 @@ class ChaveStatus(models.Model):
 
         status.save()
 
+        Historico.registrar_acesso(acao, pessoa, chave)
 
     @classmethod
     def criar_status(cls, chave):
