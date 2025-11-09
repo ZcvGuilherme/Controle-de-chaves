@@ -16,14 +16,3 @@
 </button>
 
 {% endwith %}
-
-
-{% block botao_voltar %}
-    {% if ocultar_botao %}
-    <div>
-        <a href="javascript:history.back()" class="back-btn" title="Voltar">
-            &#8592; <!-- ← seta Unicode -->
-        </a>
-    </div>
-    {% endif %}
-{% endblock %}

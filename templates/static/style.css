@@ -1,61 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Stack+Sans+Headline:wght@200..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+/* Estilos globais */
+
 body {
-    background-color: #315f5d;
-    /* cor de fundo*/
+    background-color: #315f5d; /* cor de fundo*/
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    /* ocupa a tela inteira */
-}
-
-.container {
-    font: bold 48px Arial, sans-serif;
-    color: white;
-    font-size: 15px;
-    margin-bottom: 20px;
-    text-align: center;
+    height: 100vh; /* ocupa a tela inteira */
 }
 
 h2{
-    margin-top: 50px; /*AFASTA O TEXTO DOS BOTÕES*/
-    font-family: Arial, Helvetica, sans-serif; /*MUDA A FONTE*/
+    position: fixed;
+    margin-top: 100px; /*AFASTA O TEXTO DOS BOTÕES*/
+    font-family: "Titillium Web", sans-serif; /*MUDA A FONTE*/
     color: white; /*MUDA A COR DO TEXTO*/
-
+    font-size: 30px; /*MUDA O TAMANHO DA FONTE*/
 }
 
 .top-bar {
-    position: fixed;
-    /* fixa a barra no topo da tela */
-    top: 0;
-    /* fica no topo */
+    position: fixed;    /* fixa a barra no topo da tela */
+    top: 0;    /* fica no topo */
     left: 0;
-    width: 100%;
-    /* ocupa toda a largura da tela */
-    height: 100px;
-    /* altura da barra */
-    background-color: #d9d9d9;
-    /* cor da barra */
-    display: flex;
-    /* para centralizar o conteúdo */
-    align-items: center;
-    /* centraliza verticalmente */
-    z-index: 1000;
-    /* garante que fique sobre outros elementos */
+    width: 100%;    /* ocupa toda a largura da tela */
+    height: 100px;    /* altura da barra */
+    background-color: #d9d9d9;    /* cor da barra */
+    display: flex;    /* para centralizar o conteúdo */
+    align-items: center;    /* centraliza verticalmente */
+    z-index: 1000;    /* garante que fique sobre outros elementos */
 }
 
 .top-logoIfpi {
     position: absolute;
-    left: 80px;
-    /* distância da esquerda */
+    left: 80px;    /* distância da esquerda */
     display: flex;
     height: 80px;
 }
 
 .top-right {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Titillium Web", sans-serif;
     font-weight: bold;
-    font-size: 150%;    /* deixa em negrito */
+    font-size: 180%; /* aumenta o tamanho da fonte */
     color: black;
     position: absolute;
     right: 80px;    /* distância da direita */
@@ -81,16 +66,18 @@ h2{
 
 /* Estilo dos botões reutilizáveis */
 .btn-main {
-    width: 100%;
+    font-family: "Titillium Web", sans-serif;
+    width: 150px; /* largura fixa */
+    font-size: 20px; /* tamanho da fonte */    
+    padding: 0px; /* espaçamento interno */
+    margin: 10px 0; /* espaçamento externo */
     background-color: #d9d9d9;
     color: black;
-    padding: 15px;
-    margin: 10px 0;
-    font-size: 16px;
     font-weight: bold;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    height: 60px;
 }
 
 .btn-main:hover {
@@ -98,38 +85,15 @@ h2{
 }
 
 /* Se quiser reaproveitar grupos com flexbox */
-.grupo-botoes-home {
-    display: flex;
-    flex-direction: row;
-    /* coloca lado a lado */
-    justify-content: center;
-    /* centraliza horizontalmente */
-    gap: 80px;
-    /* espaço entre botões */
-    margin-top: 160px;
-     
-}
-
-.grupo-botoes-registrar {
-    display: flex;
-    flex-direction: row;
-    /* coloca lado a lado */
-    justify-content: center;
-    /* centraliza horizontalmente */
-    gap: 80px;
-    /* espaço entre botões */
-    margin-top: 20px;
-}
-
+.grupo-botoes-home, 
+.grupo-botoes-registrar,
 .grupo-botoes-devolver {
+    position: fixed;
     display: flex;
-    flex-direction: row;
-    /* coloca lado a lado */
-    justify-content: center;
-    /* centraliza horizontalmente */
-    gap: 80px;
-    /* espaço entre botões */
-    margin-top: 20px;
+    flex-direction: row;    /* coloca lado a lado */
+    justify-content: center;    /* centraliza horizontalmente */    
+    gap: 50px;    /* espaço entre botões */
+    margin-top: 200px; /* afasta do topo */
 }
 
 /* Barra inferior */
@@ -151,34 +115,12 @@ h2{
     text-decoration: none;
 }
 
-/* Ajusta o tamanho dos botões da Home */
-.grupo-botoes-home .btn-main {
-    width: 150px;
-    /* tamanho fixo ou ajustável */
-    padding: 15px;
-    font-size: 15px;
-}
-
-.grupo-botoes-registrar .btn-main {
-    width: 150px;
-    /* tamanho fixo ou ajustável */
-    padding: 15px;
-    font-size: 15px;
-}
-
-.grupo-botoes-devolver .btn-main {
-    width: 150px;
-    /* tamanho fixo ou ajustável */
-    padding: 15px;
-    font-size: 15px;
-}
-
-
 /* Container principal dos campos */
 .campos-chave {
+    position: fixed;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 30px;
     width: 100%;
     max-width: 400px;
@@ -187,9 +129,13 @@ h2{
 
 /* Rótulos (labels) */
 .campos-chave label {
+    display: block;
+    font-family: "Titillium Web", sans-serif;
+    align-self: flex-start; /* alinha a label à esquerda do container */
+    margin-left: -55px; /* pequeno recuo opcional */
     font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 6px;
+    font-size: 20px;
+    margin-bottom: -5px;
 }
 
 /* Campos de entrada (inputs) */
@@ -232,22 +178,14 @@ h2{
    =========================== */
 
 .back-btn {
-    position: fixed;
-    /* fica fixo na tela */
-    top: 110px;
-    /* abaixo da top-bar (ajuste conforme a altura dela) */
-    left: 30px;
-    /* distância da lateral esquerda */
-    font-size: 32px;
-    /* tamanho da seta */
-    color: #ffffff;
-    /* cor da seta */
-    text-decoration: none;
-    /* remove o sublinhado */
-    background: #315f5d;
-    /* fundo verde escuro, igual à paleta do seu site */
-    border-radius: 50%;
-    /* botão redondo */
+    position: fixed;    /* fica fixo na tela */
+    top: 110px;    /* abaixo da top-bar (ajuste conforme a altura dela) */
+    left: 30px;    /* distância da lateral esquerda */
+    font-size: 32px;    /* tamanho da seta */
+    color: #ffffff;    /* cor da seta */
+    text-decoration: none;    /* remove o sublinhado */
+    background: #315f5d;    /* fundo verde escuro, igual à paleta do seu site */
+    border-radius: 50%;    /* botão redondo */
     width: 45px;
     height: 45px;
     display: flex;
@@ -264,15 +202,14 @@ h2{
     transform: translateY(-2px);
 }
 
-@media (max-width: 790px) {
-    .grupo-botoes-home {
-        display: flex;
-        flex-direction: column;
-    }
-}
-
 /* Responsividade para telas menores */
 @media (max-width: 790px) {
+
+    .grupo-botoes-home {
+    display: flex;
+    flex-direction: column;
+    }
+    
     .top-bar {
         height: 125px; /* barra menor */
         flex-direction: column; /* empilha os elementos */
@@ -282,24 +219,66 @@ h2{
 
     .top-logoIfpi {
         position: static; /* remove posicionamento fixo */
-        margin-bottom: 5px;
+        margin-bottom: 0px;
+        margin: 0px;
     }
 
     .top-right {
         position: static;
         text-align: center;
         font-size: 25px;
+        margin: -10px;
     }
 
     .btn-main {
-    padding: 15px;
-    margin: -30px;
+    padding: 0px;
+    margin: -20px;
+    }
+
+
+    .back-btn {
+        top: 140px; /* ajusta a posição do botão */
+        left: 20px; /* ajusta a posição do botão */
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+    }
+
+    .grupo-botoes-registrar,
+    .grupo-botoes-devolver {
+        margin-top: 330px; /* afasta mais do topo em telas pequenas */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-text {
+        max-width: 500px; /* impede que fique muito largo em celulares maiores */
+        font-size: 16px; /* texto confortável em tela pequena */
+        padding: 10px; /* ajusta o espaçamento */
+    }
+
+    .campos-chave {
+        align-items: center;
+        margin-top: 100px; /* ajusta posição */
+    }
+
+    label {      
+        width: 100%; /* deixa o input ocupar 90% da largura da tela */
+        max-width: 300px; /* impede que fique muito largo em celulares maiores */  
+        font-size: 25px;
+        margin: -10px;
+        margin-bottom: 100px;
     }
     
 }
 
 /* Para telas bem pequenas, tipo celular */
-@media (max-width: 480px) {
+@media (max-width: 360px) {
+    .grupo-botoes-home {
+    display: flex;
+    flex-direction: column;
+    }
+    
     .top-bar {
         height: 125px; /* barra menor */
         flex-direction: column; /* empilha os elementos */
@@ -309,12 +288,100 @@ h2{
 
     .top-logoIfpi {
         position: static; /* remove posicionamento fixo */
-        margin-bottom: 5px;
+        margin-bottom: 0px;
+        margin: 0px;
     }
 
     .top-right {
         position: static;
         text-align: center;
         font-size: 25px;
+        margin: -10px;
+    }
+
+    .btn-main {
+    padding: 0px;
+    margin: -20px;
+    }
+
+
+    .back-btn {
+        top: 140px; /* ajusta a posição do botão */
+        left: 20px; /* ajusta a posição do botão */
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+    }
+
+    .grupo-botoes-registrar,
+    .grupo-botoes-devolver {
+        margin-top: 330px; /* afasta mais do topo em telas pequenas */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-text {
+        width: 90%; /* deixa o input ocupar 90% da largura da tela */
+        max-width: 300px; /* impede que fique muito largo em celulares maiores */
+        font-size: 16px; /* texto confortável em tela pequena */
+        padding: 10px; /* ajusta o espaçamento */
+    }
+
+    .campos-chave {
+        margin-top: 100px; /* ajusta posição */
+    }
+
+    .campos-chave label {    
+        width: 100%; /* deixa o input ocupar 90% da largura da tela */
+        max-width: 500px; /* impede que fique muito largo em celulares maiores */  
+        font-size: 20px;
+        margin: 10px;
+        margin-bottom: -5px;
     }
 }
+
+.menu-pesquisa {
+    position: fixed; /* fixa a posição na tela */
+    top: 15px; /* distância do topo */
+    left: 50%; /* alinha no meio */
+    transform: translateX(-50%);  /* centraliza no eixo X */
+    background-color: #bfbfbf;
+    padding: 6px 50px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow:  1px 1px rgba(0,0,0,0.2); /* sombra leve */
+    z-index: 1000; /* garante que fique por cima de outros elementos */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.campo-pesquisa,
+.campo-filtro {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+select {
+    border: none; 
+    border-radius: 6px;     
+    padding: 6px;
+    background-color: #ddd;
+    width: 500px; /* largura campo de texto */
+}
+
+/* divisória vertical */
+.divisoria {
+    width: 1px; /* linha fina */
+    height: 50px; /* altura da linha */
+    background-color: rgba(0, 0, 0, 0.3); /* semitransparente */
+    margin: 0 10px;    /* espaço lateral */
+}
+
+.filtro-opcoes input[type="radio"] {
+    accent-color: #315f5d; /* deixa os círculos na cor do tema */
+    transform: scale(1.2); /* aumenta o tamanho */
+    cursor: pointer;       /* adiciona a "mãozinha" ao passar o mouse */
+}
+

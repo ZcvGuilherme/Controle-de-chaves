@@ -1,0 +1,48 @@
+{% comment %} Template do Menu de barra de pesquisa reutilizável {% endcomment %}
+
+<div class="menu-pesquisa">
+    <!-- Campo de pesquisa -->
+    <div class="pesquisa">
+        <label for="busca"><strong>Pesquisar</strong></label>
+        <input type="text" id="campo-pesquisa" name="pesquisa" placeholder="Digite aqui...">
+    </div>
+
+    <div class="divisoria"></div>
+    
+    <!-- Filtro -->
+    <div class="filtro">
+        <label><strong>Filtrar por:</strong></label>
+        <div class="filtro-opcoes">
+            {% for valor, texto in opcoes_filtro %}
+            <label>
+                <input type="radio" name="status" value="{{ valor }}">
+                {{ texto }}
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Script para permitir desmarcar radio buttons ao clicar novamente neles -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona todos os radio buttons do filtro
+    const radios = document.querySelectorAll('input[name="status"]');
+
+    let selecionado = null;
+
+    radios.forEach(radio => {
+        radio.addEventListener('click', function() {
+            // Se clicar novamente no mesmo selecionado → desmarca
+            if (selecionado === this) {
+                this.checked = false;
+                selecionado = null;
+            } else {
+                // Atualiza o selecionado atual
+                selecionado = this;
+            }
+        });
+    });
+});
+</script>
