@@ -12,6 +12,3 @@ def registrar_chave(request):
 
 def devolver_chave(request):
     return render(request, 'devolver_chave.html')
-
-def status_chaves(request):
-    return render(request, 'status_chaves.html')
