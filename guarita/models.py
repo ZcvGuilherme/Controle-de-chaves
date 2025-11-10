@@ -19,9 +19,18 @@ class Pessoa(models.Model):
     def registrar_pessoa(cls, matricula, nome, cargo):
         return cls.objects.create(matricula=matricula, nome=nome, cargo=cargo)
 
+    @classmethod
+    def partial_search(cls, content):
+        return cls.objects.filter(models.Q(nome__icontains=content))
+    
+    @classmethod
+    def getAll(cls):
+        return cls.objects.all()
+    
     def save(self, *args, **kwargs):
         self.itemBusca = f"{self.nome} - {self.cargo}"
         super().save(*args, **kwargs)
+
     def __str__(self):
 
         """
@@ -51,8 +60,17 @@ class Chave(models.Model):
     def registrar_chave(cls, nome):
         chave = cls.objects.create(nome=nome)
         ChaveStatus.criar_status(chave)
+        chave.save()
         return chave
 
+    @classmethod
+    def partial_search(cls, content):
+        return cls.objects.filter(models.Q(itemBusca__icontains=content))
+    
+    @classmethod
+    def getAll(cls):
+        return cls.objects.all()
+    
     def save(self, *args, **kwargs):
         self.itemBusca = f"Chave {self.id} - {self.nome}"
         super().save(*args, **kwargs)

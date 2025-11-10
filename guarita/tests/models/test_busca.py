@@ -1,5 +1,3 @@
-from django.db import IntegrityError
-from django.core.exceptions import ValidationError
 from django.test import TestCase
 from guarita.models import Pessoa, Chave, Historico, ChaveStatus
 from django.db.models.query import QuerySet
@@ -40,9 +38,9 @@ class PessoaBuscaTests(TestCase):
 
 class ChaveBuscaTests(TestCase):
     def setUp(self):
-        self.chave1 = Chave.objects.create(nome="Laboratório de Informática")
-        self.chave2 = Chave.objects.create(nome="Laboratório de Química")
-        self.chave3 = Chave.objects.create(nome="Biblioteca")
+        self.chave1 = Chave.registrar_chave(nome="Laboratório de Informática")
+        self.chave2 = Chave.registrar_chave(nome="Laboratório de Química")
+        self.chave3 = Chave.registrar_chave(nome="Biblioteca")
 
 
     def test_busca_parcial(self):
@@ -55,6 +53,21 @@ class ChaveBuscaTests(TestCase):
             ["Laboratório de Informática", "Laboratório de Química"]
         )
 
+    def test_busca_parcial_2(self):
+        busca1 = Chave.partial_search(content="Lab")
+        busca2 = Chave.partial_search("1")
+        self.assertIsInstance(busca1, QuerySet)
+        nomes = [c.nome for c in busca1]
+        nomes2 = [d.nome for d in busca2]
+
+        self.assertCountEqual(
+            nomes,
+            ["Laboratório de Informática", "Laboratório de Química"]
+        )
+        self.assertEqual(
+            nomes2,
+            ["Laboratório de Informática"]
+        )
     def test_busca_parcial_numero(self):
         busca = Chave.partial_search(content="1")
         self.assertIsInstance(busca, QuerySet)
