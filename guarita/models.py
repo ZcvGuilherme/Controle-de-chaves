@@ -49,14 +49,14 @@ class Chave(models.Model):
     """
     @classmethod
     def registrar_chave(cls, nome):
-        return cls.objects.create(nome=nome)
+        chave = cls.objects.create(nome=nome)
+        ChaveStatus.criar_status(chave)
+        return chave
 
     def save(self, *args, **kwargs):
         self.itemBusca = f"Chave {self.id} - {self.nome}"
         super().save(*args, **kwargs)
- 
 
-    
     def __str__(self):
         return self.nome
 
@@ -76,7 +76,7 @@ class Historico(models.Model):
     <b>horario (DateTimeField):</b> Para uma facilidade de vizualização do horário, coloquei esse atributo que representa o horário, sujeito a ser deletado por redundância.
 
     """
-    id_historico = models.BigIntegerField(primary_key=True)
+    id_historico = models.BigAutoField(primary_key=True)
     
     ACAO_CHOICES = [
         ('RETIRADA', 'Retirada'),
@@ -100,20 +100,12 @@ class Historico(models.Model):
 
     @classmethod
     def registrar_acesso(cls, acao, pessoa, chave):
-        return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave)
-
-    def save(self, *args, **kwargs):
-        if not self.id_historico:
-            data_atual = timezone.now()
-            self.id_historico = int(data_atual.strftime("%Y%m%d%H%M%S"))
-            self.horario = data_atual
-        
-        super().save(*args, **kwargs)
-
+        agora = timezone.now()
+        return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave, horario=agora)
 
     def __str__(self):
         return f"{self.acao} - {self.pessoa.nome} - {self.chave.nome}"
-
+    
 
 class ChaveStatus(models.Model):
     """
@@ -145,14 +137,46 @@ class ChaveStatus(models.Model):
         null=True,
         blank=True
     )
-    @classmethod
-    def criar_status(cls, chave):
-        return cls.objects.create(chave=chave)
-
+    
     checkin = models.DateTimeField(null=True, blank=True)
     status_code = models.BooleanField(editable=False)
 
+    @classmethod
+    def update(cls, chave, pessoa, acao):
+        #------------------------------VERIFICAR SE AS ENTRADAS SÃO VÁLIDAS---------------------------#
+        if acao not in ["RETIRADA", "DEVOLUCAO"]:
+            raise ValueError(f"Ação inválida: {acao}. Use 'RETIRADA' ou 'DEVOLUCAO'.")
 
+        if not isinstance(chave, Chave):
+            raise TypeError("O parâmetro 'chave' deve ser uma instância válida de Chave.")
+        if not isinstance(pessoa, Pessoa):
+            raise TypeError("O parâmetro 'pessoa' deve ser uma instância válida de Pessoa.")
+        #------------------------------VERIFICAR SE A AÇÃO PODE SER EFETUADA--------------------------#
+        status = cls.objects.get(chave=chave)
+
+        if acao == "RETIRADA" and status.pessoa is not None:
+            raise ValueError(f"A chave '{status.chave}' já está em uso por {status.pessoa.nome}.")
+
+        if acao == "DEVOLUCAO" and status.pessoa is None:
+            raise ValueError(f"A chave '{status.chave}' já está disponível — não há o que devolver.")        
+        #------------------------------EFETUAR UPDATE-------------------------------------------------#
+
+        if acao=="DEVOLUCAO":
+            status.pessoa = None
+            status.checkin = None
+            
+        else:
+            status.pessoa = pessoa
+            status.checkin = timezone.now()
+
+        status.save()
+        #------------------------------REGISTRAR NO HISTÓRICO-----------------------------------------#
+        Historico.registrar_acesso(acao, pessoa, chave)
+
+    @classmethod
+    def criar_status(cls, chave):
+        return cls.objects.create(chave=chave)
+    
     class Meta:
         """
         Classe de suporte para evitar duplicação de combinação pessoa + chave
@@ -170,7 +194,7 @@ class ChaveStatus(models.Model):
         </p>
 
         """
-        self.status_code = (self.pessoa is None or self.checkin is None)
+        self.status_code = (self.pessoa is None)
         super().save(*args, **kwargs)
 
 

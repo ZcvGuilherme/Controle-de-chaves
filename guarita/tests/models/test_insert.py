@@ -80,6 +80,7 @@ class ChaveStatusInsertModelTest(TestCase):
             id=1,
             nome="Laboratório de Informática"
         )
+        self.chave2 = Chave.registrar_chave("Lab 2")
     def test_verificar_insert_funciona(self):
         key = ChaveStatus.criar_status(
             chave=self.chave
@@ -92,3 +93,9 @@ class ChaveStatusInsertModelTest(TestCase):
         self.assertTrue(status.status_code)
         print(f"Status criado: {status.status_code} (esperado: Disponível=True)")
 
+    def test_verificar_se_registroChave_registra_ChaveStatus(self):
+
+        self.assertIsInstance(self.chave2, Chave)
+        status = ChaveStatus.objects.filter(chave=self.chave2).first()
+        self.assertIsNotNone(status, "O status da chave não foi criado automaticamente.")
+        self.assertEqual(status.chave, self.chave2)
