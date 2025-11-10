@@ -76,7 +76,7 @@ class Historico(models.Model):
     <b>horario (DateTimeField):</b> Para uma facilidade de vizualização do horário, coloquei esse atributo que representa o horário, sujeito a ser deletado por redundância.
 
     """
-    id_historico = models.BigAutoField(max_length=20, primary_key=True)
+    id_historico = models.BigAutoField(primary_key=True)
     
     ACAO_CHOICES = [
         ('RETIRADA', 'Retirada'),
