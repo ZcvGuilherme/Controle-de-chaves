@@ -389,7 +389,7 @@ h2{
     width: 100%;              /* ocupa 100% da largura da tela */
     max-width: 550px;        /* mas nunca passa de 600px */
     position: fixed; /* fixa a posição na tela */
-    top: 8px; /* distância do topo */
+    top: 10px; /* distância do topo */
     left: 50%; /* alinha no meio */
     transform: translateX(-50%);  /* centraliza no eixo X */
     background-color: #bfbfbf;
@@ -399,7 +399,7 @@ h2{
     align-items: center;
     gap: 5px;
     box-shadow:  1px 1px rgba(0,0,0,0.2); /* sombra leve */
-    z-index: 1000; /* garante que fique por cima de outros elementos */
+    z-index: 2000 !important; /* garante que fique por cima de outros elementos */
     font-family: "Titillium Web", sans-serif;
 }
 
@@ -471,12 +471,14 @@ select {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px; /* espaçamento mínimo entre os cards */
+    gap: 20px; /* espaçamento mínimo entre os cards */
     margin-top: 20px; /* espaço entre o título e os cards */
 }
+
+
 /* Cada item */
 .status-item {
-    background-color: #f9f9f9;
+    background-color: #ffffffff;
     border-radius: 12px;
     padding: 15px 20px;
     width: 130px;
@@ -499,10 +501,12 @@ select {
 .status-item p {
     margin: 8px 0 2px;
     font-weight: 600;
-    color: #333;
+    color: #000000ff;
 }
 
 .status-text {
     font-size: 14px;
     color: #555;
 }
+
+

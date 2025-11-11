@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Status das Chaves{% endblock %}
+
+{% block menu_pesquisa %}
+    {% include 'componentes/menu_pesquisa.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="status-container">
+    <h2>Status das Chaves</h2>
+    <div class="status-grid">
+        {% include 'componentes/status_item.html' with numero="01" status="Disponível" imagem="img/key_branca.png" %}
+        {% include 'componentes/status_item.html' with numero="02" status="Em uso" imagem="img/key_preta.png" %}
+        {% include 'componentes/status_item.html' with numero="03" status="Disponível" imagem="img/key_branca.png" %}
+        {% include 'componentes/status_item.html' with numero="04" status="Em uso" imagem="img/key_preta.png" %}
+        {% include 'componentes/status_item.html' with numero="05" status="Em uso" imagem="img/key_preta.png" %}
+        {% include 'componentes/status_item.html' with numero="06" status="Em uso" imagem="img/key_preta.png" %}
+        {% include 'componentes/status_item.html' with numero="07" status="Disponível" imagem="img/key_branca.png" %}
+        {% include 'componentes/status_item.html' with numero="08" status="Em uso" imagem="img/key_preta.png" %}
+    </div>
+</div>
+{% endblock %}
+
+{% block botoes %}
+<div class="grupo-botoes-status">
+    <a href="javascript:history.back()" class="back-btn" title="Voltar">&#8592;</a>
+
+</div>
+{% endblock %}

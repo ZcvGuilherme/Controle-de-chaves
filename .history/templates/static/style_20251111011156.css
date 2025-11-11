@@ -471,9 +471,19 @@ select {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px; /* espaçamento mínimo entre os cards */
+    gap: 20px; /* espaçamento mínimo entre os cards */
     margin-top: 20px; /* espaço entre o título e os cards */
 }
+
+
+/* Grade das chaves */
+.status-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
 /* Cada item */
 .status-item {
     background-color: #f9f9f9;
@@ -506,3 +516,23 @@ select {
     font-size: 14px;
     color: #555;
 }
+/* --- Correção para a página de status das chaves --- */
+body.status-page {
+    justify-content: flex-start; /* tira do centro */
+    align-items: center;
+    height: auto; /* evita forçar altura total */
+}
+
+body.status-page .menu-pesquisa {
+    position: relative; /* deixa fluir normalmente */
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-top: 20px; /* distância do topo */
+    margin-bottom: 10px;
+}
+
+body.status-page .status-container {
+    margin-top: 100px; /* deixa espaço pro menu */
+}
+
