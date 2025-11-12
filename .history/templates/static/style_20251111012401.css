@@ -471,9 +471,19 @@ select {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px; /* espaçamento mínimo entre os cards */
+    gap: 20px; /* espaçamento mínimo entre os cards */
     margin-top: 20px; /* espaço entre o título e os cards */
 }
+
+
+/* Grade das chaves */
+.status-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
 /* Cada item */
 .status-item {
     background-color: #f9f9f9;
@@ -505,4 +515,27 @@ select {
 .status-text {
     font-size: 14px;
     color: #555;
+}
+/* ==== Ajuste específico para a página de Status das Chaves ==== */
+
+/* Garante que o body não limite a altura */
+body:has(.status-container) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto !important;
+}
+
+/* Mantém a barra de pesquisa fora e visível */
+.menu-pesquisa {
+    position: relative !important;  /* tira o fixo só nessa tela */
+    top: 0 !important;
+    margin-top: 20px;               /* espaço acima */
+    z-index: 10;                    /* ainda fica sobre o fundo */
+}
+
+/* Dá espaço pro container vir logo abaixo da pesquisa */
+.status-container {
+    margin-top: 30px !important;
 }

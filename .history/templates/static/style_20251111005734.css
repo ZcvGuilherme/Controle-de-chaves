@@ -442,67 +442,43 @@ select {
     cursor: pointer;       /* adiciona a "mãozinha" ao passar o mouse */
     margin-left: 0px;    /* espaço entre o círculo e o texto */
 }
-/* Container principal */
 .status-container {
-    position: relative; /* permite posicionar o título dentro */
-    background-color: #b0b0b0ff;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 60px 30px 30px; /* espaço no topo pro título fixo */
-    max-width: 900px;
-    margin: 40px auto;
+    background-color: #2F5D5C;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
+    margin: 40px auto;
+    max-width: 800px;
 }
 
-/* Título fixo dentro do container */
-.status-container h2 {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    color: #000000ff;
+.status-header h2 {
+    margin-bottom: 20px;
     font-weight: bold;
-    margin: 0;
 }
 
-/* Grade das chaves */
 .status-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 25px; /* espaçamento mínimo entre os cards */
-    margin-top: 20px; /* espaço entre o título e os cards */
-}
-/* Cada item */
-.status-item {
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    padding: 15px 20px;
-    width: 130px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease-in-out;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    background-color: #bdbdbd;
+    padding: 30px;
+    border-radius: 10px;
 }
 
-.status-item:hover {
-    transform: translateY(-5px);
+.chave img {
+    width: 50px;
+    height: 50px;
 }
 
-/* Imagem da chave */
-.key-icon {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
+.chave p {
+    margin-top: 8px;
+    font-weight: 500;
+    color: #000;
 }
 
-/* Texto */
-.status-item p {
-    margin: 8px 0 2px;
-    font-weight: 600;
-    color: #333;
+.chave.ocupada img {
+    filter: brightness(0);
 }
 
-.status-text {
-    font-size: 14px;
-    color: #555;
-}

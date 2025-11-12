@@ -471,9 +471,13 @@ select {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px; /* espaçamento mínimo entre os cards */
+    gap: 20px; /* espaçamento mínimo entre os cards */
     margin-top: 20px; /* espaço entre o título e os cards */
 }
+
+
+
+
 /* Cada item */
 .status-item {
     background-color: #f9f9f9;

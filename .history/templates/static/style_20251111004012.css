@@ -471,12 +471,14 @@ select {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px; /* espaçamento mínimo entre os cards */
+    gap: 20px; /* espaçamento mínimo entre os cards */
     margin-top: 20px; /* espaço entre o título e os cards */
 }
+
+
 /* Cada item */
 .status-item {
-    background-color: #f9f9f9;
+    background-color: #ffffffff;
     border-radius: 12px;
     padding: 15px 20px;
     width: 130px;
@@ -499,10 +501,12 @@ select {
 .status-item p {
     margin: 8px 0 2px;
     font-weight: 600;
-    color: #333;
+    color: #000000ff;
 }
 
 .status-text {
     font-size: 14px;
     color: #555;
 }
+
+

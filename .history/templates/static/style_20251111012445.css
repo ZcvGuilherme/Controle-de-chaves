@@ -445,7 +445,7 @@ select {
 /* Container principal */
 .status-container {
     position: relative; /* permite posicionar o título dentro */
-    background-color: #b0b0b0ff;
+    background-color: #ff0000ff;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     padding: 60px 30px 30px; /* espaço no topo pro título fixo */
@@ -471,9 +471,19 @@ select {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px; /* espaçamento mínimo entre os cards */
+    gap: 20px; /* espaçamento mínimo entre os cards */
     margin-top: 20px; /* espaço entre o título e os cards */
 }
+
+
+/* Grade das chaves */
+.status-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
 /* Cada item */
 .status-item {
     background-color: #f9f9f9;
