@@ -77,30 +77,28 @@ class ChaveBuscaTests(TestCase):
 class ChaveStatusBuscaTests(TestCase):
     def setUp(self):
         # Cria pessoas
-        self.pessoa1 = Pessoa.objects.create(matricula=1, nome="João", cargo="Professor")
-        self.pessoa2 = Pessoa.objects.create(matricula=2, nome="Maria", cargo="Técnico")
+        self.pessoa1 = Pessoa.registrar_pessoa(matricula=1, nome="João", cargo="Professor")
+        self.pessoa2 = Pessoa.registrar_pessoa(matricula=2, nome="Maria", cargo="Técnico")
 
         # Cria chaves
-        self.chave1 = Chave.objects.create(nome="Laboratório Informática")
-        self.chave2 = Chave.objects.create(nome="Sala de Reunião")
-        self.chave3 = Chave.objects.create(nome="Biblioteca")
+        self.chave1 = Chave.registrar_chave(nome="Laboratório Informática")
+        self.chave2 = Chave.registrar_chave(nome="Sala de Reunião")
+        self.chave3 = Chave.registrar_chave(nome="Biblioteca")
 
         # Cria status (chave1 e chave2 estão com pessoas; chave3 está livre)
-        self.status1 = ChaveStatus.objects.create(
-            id_chave=self.chave1,
-            id_pessoa=self.pessoa1,
-            checkin=datetime.now()
+        self.status1 = ChaveStatus.criar_status(
+            chave=self.chave1)
+        
+
+        self.status2 = ChaveStatus.criar_status(
+            chave=self.chave2
         )
-        self.status2 = ChaveStatus.objects.create(
-            id_chave=self.chave2,
-            id_pessoa=self.pessoa2,
-            checkin=datetime.now()
+        self.status3 = ChaveStatus.criar_status(
+            chave=self.chave3
         )
-        self.status3 = ChaveStatus.objects.create(
-            id_chave=self.chave3,
-            id_pessoa=None,
-            checkin=None
-        )
+        self.status1.save()
+        self.status2.save()
+        self.status3.save()
     def test_busca_por_chave(self):
         """Busca um status específico pelo id da chave."""
         busca = ChaveStatus.objects.get(id_chave=self.chave1.id)
