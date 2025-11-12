@@ -158,7 +158,18 @@ class ChaveStatus(models.Model):
     
     checkin = models.DateTimeField(null=True, blank=True)
     status_code = models.BooleanField(editable=False)
+    
+    @classmethod
+    def criar_status(cls, chave):
+        if cls.objects.filter(chave=chave).exists():
+            raise ValueError(f"Já existe um status vinculado à chave {chave.nome}.")
+        return cls.objects.create(chave=chave)
 
+    @classmethod
+    def getStatus(cls, chave):
+        return cls.objects.filter(chave=chave).first()
+
+    
     @classmethod
     def update(cls, chave, pessoa, acao):
         #------------------------------VERIFICAR SE AS ENTRADAS SÃO VÁLIDAS---------------------------#
@@ -191,15 +202,7 @@ class ChaveStatus(models.Model):
         #------------------------------REGISTRAR NO HISTÓRICO-----------------------------------------#
         Historico.registrar_acesso(acao, pessoa, chave)
 
-    @classmethod
-    def criar_status(cls, chave):
-        return cls.objects.create(chave=chave)
-    
-    class Meta:
-        """
-        Classe de suporte para evitar duplicação de combinação pessoa + chave
-        """
-        unique_together = ('pessoa', 'chave')
+
 
     def save(self, *args, **kwargs):
         """
@@ -217,5 +220,7 @@ class ChaveStatus(models.Model):
 
 
     def __str__(self):
-        status = "Ativo" if self.status_code else "Inativo"
-        return f"{self.id_pessoa.nome} - {self.id_chave.nome} ({status})"
+        status = "Disponível" if self.status_code else "Em uso"
+        if self.pessoa:
+            return f"{self.pessoa.nome} - {self.chave.nome} ({status})"
+        return f"{self.chave.nome} ({status})"

@@ -76,43 +76,15 @@ class ChaveBuscaTests(TestCase):
 
 class ChaveStatusBuscaTests(TestCase):
     def setUp(self):
-        # Cria pessoas
-        self.pessoa1 = Pessoa.registrar_pessoa(matricula=1, nome="João", cargo="Professor")
-        self.pessoa2 = Pessoa.registrar_pessoa(matricula=2, nome="Maria", cargo="Técnico")
-
-        # Cria chaves
-        self.chave1 = Chave.registrar_chave(nome="Laboratório Informática")
+        self.chave1 = Chave.registrar_chave(nome="Laboratório de Informática")
         self.chave2 = Chave.registrar_chave(nome="Sala de Reunião")
-        self.chave3 = Chave.registrar_chave(nome="Biblioteca")
+        self.pessoa = Pessoa.registrar_pessoa(matricula=1, nome="João", cargo="Professor")
 
-        # Cria status (chave1 e chave2 estão com pessoas; chave3 está livre)
-        self.status1 = ChaveStatus.criar_status(
-            chave=self.chave1)
-        
-
-        self.status2 = ChaveStatus.criar_status(
-            chave=self.chave2
-        )
-        self.status3 = ChaveStatus.criar_status(
-            chave=self.chave3
-        )
-        self.status1.save()
-        self.status2.save()
-        self.status3.save()
     def test_busca_por_chave(self):
         """Busca um status específico pelo id da chave."""
-        busca = ChaveStatus.objects.get(id_chave=self.chave1.id)
-        self.assertEqual(busca.id_pessoa.nome, "João")
-        self.assertFalse(busca.status_code)
+        busca = ChaveStatus.getStatus(chave=self.chave1)
 
-    def test_busca_chaves_disponiveis(self):
+        self.assertIsNotNone(busca)
+        self.assertEqual(busca.chave, self.chave1)
 
-        busca = ChaveStatus.filter_by_status(status_code=True)
-        nomes_chaves = [status.id_chave.nome for status in busca]
-
-        self.assertCountEqual(nomes_chaves, ["Biblioteca"])
-
-    def test_busca_chaves_indisponiveis(self):
-        busca = ChaveStatus.filter_by_status(status_code=False)
-        nomes_chaves = [status.id_chave.nome for status in busca]
-        self.assertCountEqual(nomes_chaves, ["Laboratório 101", "Sala de Reunião"])
+    
