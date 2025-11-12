@@ -166,8 +166,18 @@ class ChaveStatus(models.Model):
         return cls.objects.create(chave=chave)
 
     @classmethod
-    def getStatus(cls, chave):
-        return cls.objects.filter(chave=chave).first()
+    def getStatus(cls, status_code=None, itemBusca=None):
+        query = cls.objects.select_related("chave", "pessoa")
+
+        if status_code is not None:
+            query = query.filter(status_code=status_code)
+
+        if itemBusca is not None:
+            query = query.filter(
+                models.Q(chave__nome__icontains=itemBusca) |
+                models.Q(pessoa__nome__icontains=itemBusca)
+            )
+        return query
 
     
     @classmethod

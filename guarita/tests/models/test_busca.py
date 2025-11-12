@@ -80,11 +80,46 @@ class ChaveStatusBuscaTests(TestCase):
         self.chave2 = Chave.registrar_chave(nome="Sala de Reunião")
         self.pessoa = Pessoa.registrar_pessoa(matricula=1, nome="João", cargo="Professor")
 
-    def test_busca_por_chave(self):
-        """Busca um status específico pelo id da chave."""
-        busca = ChaveStatus.getStatus(chave=self.chave1)
+    def test_retorna_todos_os_registros(self):
+        resultado = ChaveStatus.getStatus()
 
-        self.assertIsNotNone(busca)
-        self.assertEqual(busca.chave, self.chave1)
+        self.assertEqual(resultado.count(), 2)
+        self.assertQuerySetEqual(
+            resultado.values_list("chave__nome", flat=True),
+            ["Laboratório de Informática", "Sala de Reunião"],
+            ordered=False
+        )
+
+    def test_retorna_com_filtro_por_status(self):
+        ChaveStatus.update(self.chave1, self.pessoa, "RETIRADA")
+
+        disponiveis = ChaveStatus.getStatus(status_code=True)
+        print(list())
+        print(list(ChaveStatus.objects.values("chave__nome", "status_code", "pessoa__nome")))
+        self.assertEqual(disponiveis.count(), 1)
+        self.assertEqual(disponiveis.first().chave.nome, "Sala de Reunião")
+
+        indisponiveis = ChaveStatus.getStatus(status_code=False)
+        self.assertEqual(indisponiveis.count(), 1)
+        self.assertEqual(indisponiveis.first().chave.nome, "Laboratório de Informática")
+
+    def test_filtrar_por_item_busca_chave(self):
+        resultados = ChaveStatus.getStatus(itemBusca="Reu")
+        self.assertEqual(resultados.count(), 1)
+        self.assertEqual(resultados.first().chave.nome, "Sala de Reunião")
+
+    def test_filtrar_por_item_busca_pessoa(self):
+        ChaveStatus.update(self.chave2, self.pessoa, "RETIRADA")
+
+        resultados = ChaveStatus.getStatus(itemBusca="Jo")
+        self.assertEqual(resultados.count(), 1)
+        self.assertEqual(resultados.first().pessoa.nome, "João")
+
+    def test_filtrar_combinando_filtros(self):
+        ChaveStatus.update(self.chave1, self.pessoa, "RETIRADA")
+
+        resultados = ChaveStatus.getStatus(status_code=False, itemBusca="Laboratório")
+        self.assertEqual(resultados.count(), 1)
+        self.assertEqual(resultados.first().chave.nome, "Laboratório de Informática")
 
     
