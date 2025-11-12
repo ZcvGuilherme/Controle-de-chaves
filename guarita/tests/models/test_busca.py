@@ -94,8 +94,7 @@ class ChaveStatusBuscaTests(TestCase):
         ChaveStatus.update(self.chave1, self.pessoa, "RETIRADA")
 
         disponiveis = ChaveStatus.getStatus(status_code=True)
-        print(list())
-        print(list(ChaveStatus.objects.values("chave__nome", "status_code", "pessoa__nome")))
+
         self.assertEqual(disponiveis.count(), 1)
         self.assertEqual(disponiveis.first().chave.nome, "Sala de Reunião")
 
