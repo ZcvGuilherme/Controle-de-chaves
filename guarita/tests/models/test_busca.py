@@ -1,5 +1,3 @@
-from django.db import IntegrityError
-from django.core.exceptions import ValidationError
 from django.test import TestCase
 from guarita.models import Pessoa, Chave, Historico, ChaveStatus
 from django.db.models.query import QuerySet
@@ -40,9 +38,9 @@ class PessoaBuscaTests(TestCase):
 
 class ChaveBuscaTests(TestCase):
     def setUp(self):
-        self.chave1 = Chave.objects.create(nome="Laboratório de Informática")
-        self.chave2 = Chave.objects.create(nome="Laboratório de Química")
-        self.chave3 = Chave.objects.create(nome="Biblioteca")
+        self.chave1 = Chave.registrar_chave(nome="Laboratório de Informática")
+        self.chave2 = Chave.registrar_chave(nome="Laboratório de Química")
+        self.chave3 = Chave.registrar_chave(nome="Biblioteca")
 
 
     def test_busca_parcial(self):
@@ -55,6 +53,21 @@ class ChaveBuscaTests(TestCase):
             ["Laboratório de Informática", "Laboratório de Química"]
         )
 
+    def test_busca_parcial_2(self):
+        busca1 = Chave.partial_search(content="Lab")
+        busca2 = Chave.partial_search("1")
+        self.assertIsInstance(busca1, QuerySet)
+        nomes = [c.nome for c in busca1]
+        nomes2 = [d.nome for d in busca2]
+
+        self.assertCountEqual(
+            nomes,
+            ["Laboratório de Informática", "Laboratório de Química"]
+        )
+        self.assertEqual(
+            nomes2,
+            ["Laboratório de Informática"]
+        )
     def test_busca_parcial_numero(self):
         busca = Chave.partial_search(content="1")
         self.assertIsInstance(busca, QuerySet)
@@ -63,45 +76,49 @@ class ChaveBuscaTests(TestCase):
 
 class ChaveStatusBuscaTests(TestCase):
     def setUp(self):
-        # Cria pessoas
-        self.pessoa1 = Pessoa.objects.create(matricula=1, nome="João", cargo="Professor")
-        self.pessoa2 = Pessoa.objects.create(matricula=2, nome="Maria", cargo="Técnico")
+        self.chave1 = Chave.registrar_chave(nome="Laboratório de Informática")
+        self.chave2 = Chave.registrar_chave(nome="Sala de Reunião")
+        self.pessoa = Pessoa.registrar_pessoa(matricula=1, nome="João", cargo="Professor")
 
-        # Cria chaves
-        self.chave1 = Chave.objects.create(nome="Laboratório Informática")
-        self.chave2 = Chave.objects.create(nome="Sala de Reunião")
-        self.chave3 = Chave.objects.create(nome="Biblioteca")
+    def test_retorna_todos_os_registros(self):
+        resultado = ChaveStatus.getStatus()
 
-        # Cria status (chave1 e chave2 estão com pessoas; chave3 está livre)
-        self.status1 = ChaveStatus.objects.create(
-            id_chave=self.chave1,
-            id_pessoa=self.pessoa1,
-            checkin=datetime.now()
+        self.assertEqual(resultado.count(), 2)
+        self.assertQuerySetEqual(
+            resultado.values_list("chave__nome", flat=True),
+            ["Laboratório de Informática", "Sala de Reunião"],
+            ordered=False
         )
-        self.status2 = ChaveStatus.objects.create(
-            id_chave=self.chave2,
-            id_pessoa=self.pessoa2,
-            checkin=datetime.now()
-        )
-        self.status3 = ChaveStatus.objects.create(
-            id_chave=self.chave3,
-            id_pessoa=None,
-            checkin=None
-        )
-    def test_busca_por_chave(self):
-        """Busca um status específico pelo id da chave."""
-        busca = ChaveStatus.objects.get(id_chave=self.chave1.id)
-        self.assertEqual(busca.id_pessoa.nome, "João")
-        self.assertFalse(busca.status_code)
 
-    def test_busca_chaves_disponiveis(self):
+    def test_retorna_com_filtro_por_status(self):
+        ChaveStatus.update(self.chave1, self.pessoa, "RETIRADA")
 
-        busca = ChaveStatus.filter_by_status(status_code=True)
-        nomes_chaves = [status.id_chave.nome for status in busca]
+        disponiveis = ChaveStatus.getStatus(status_code=True)
 
-        self.assertCountEqual(nomes_chaves, ["Biblioteca"])
+        self.assertEqual(disponiveis.count(), 1)
+        self.assertEqual(disponiveis.first().chave.nome, "Sala de Reunião")
 
-    def test_busca_chaves_indisponiveis(self):
-        busca = ChaveStatus.filter_by_status(status_code=False)
-        nomes_chaves = [status.id_chave.nome for status in busca]
-        self.assertCountEqual(nomes_chaves, ["Laboratório 101", "Sala de Reunião"])
+        indisponiveis = ChaveStatus.getStatus(status_code=False)
+        self.assertEqual(indisponiveis.count(), 1)
+        self.assertEqual(indisponiveis.first().chave.nome, "Laboratório de Informática")
+
+    def test_filtrar_por_item_busca_chave(self):
+        resultados = ChaveStatus.getStatus(itemBusca="Reu")
+        self.assertEqual(resultados.count(), 1)
+        self.assertEqual(resultados.first().chave.nome, "Sala de Reunião")
+
+    def test_filtrar_por_item_busca_pessoa(self):
+        ChaveStatus.update(self.chave2, self.pessoa, "RETIRADA")
+
+        resultados = ChaveStatus.getStatus(itemBusca="Jo")
+        self.assertEqual(resultados.count(), 1)
+        self.assertEqual(resultados.first().pessoa.nome, "João")
+
+    def test_filtrar_combinando_filtros(self):
+        ChaveStatus.update(self.chave1, self.pessoa, "RETIRADA")
+
+        resultados = ChaveStatus.getStatus(status_code=False, itemBusca="Laboratório")
+        self.assertEqual(resultados.count(), 1)
+        self.assertEqual(resultados.first().chave.nome, "Laboratório de Informática")
+
+    
