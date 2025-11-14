@@ -60,6 +60,7 @@ class Chave(models.Model):
     def registrar_chave(cls, nome):
         chave = cls.objects.create(nome=nome)
         ChaveStatus.criar_status(chave)
+        chave.save()
         return chave
 
     @classmethod
@@ -71,7 +72,7 @@ class Chave(models.Model):
         return cls.objects.all()
     
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+
         self.itemBusca = f"Chave {self.id} - {self.nome}"
         super().save(*args, **kwargs)
 
