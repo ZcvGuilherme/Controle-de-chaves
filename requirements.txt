@@ -1,3 +1,11 @@
 asgiref==3.10.0
-Django==5.2.7
+Django==5.2.8
+iniconfig==2.3.0
+packaging==25.0
+pluggy==1.6.0
+Pygments==2.19.2
+pytest==9.0.1
+pytest-django==4.11.1
+pytest-sugar==1.1.1
 sqlparse==0.5.3
+termcolor==3.2.0
