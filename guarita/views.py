@@ -15,8 +15,3 @@ def devolver_chave(request):
 
 def status_chave(request):
     return render(request, 'status_chaves.html')
-
-def exemplo(request):
-    chaves = Chave.getAll()
-    
-    return render(request, 'teste_views.html', {'chaves':chaves})
