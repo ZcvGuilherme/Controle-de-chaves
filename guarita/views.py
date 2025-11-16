@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Chave
 def chaves(request):
     opcoes_filtro = [
         ('disponivel', 'Disponível'),
@@ -15,3 +15,8 @@ def devolver_chave(request):
 
 def status_chave(request):
     return render(request, 'status_chaves.html')
+
+def exemplo(request):
+    chaves = Chave.getAll()
+    
+    return render(request, 'teste_views.html', {'chaves':chaves})
