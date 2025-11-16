@@ -18,4 +18,25 @@ class TestChavesView(TestCase):
 
         self.assertEqual(response.context['opcoes_filtro'], esperado) #como eu quero que funcione
 
-        
+    
+
+#INFORMAÇÕES QUE SERÃO NECESSÁRIAS
+
+#receber um objeto chaves que tenha:
+#ChaveStatus
+#Chaves
+
+
+
+#----------------------EXEMPLO DE INSERT--------------------#
+# def setUp(self):
+#         self.pessoa = Pessoa.objects.create(
+#             matricula=1,
+#             nome="João",
+#             cargo="Professor"
+#         )
+#         self.chave = Chave.objects.create(
+#             id=1,
+#             nome="Laboratório de Informática"
+#         )
+#         self.chave2 = Chave.registrar_chave("Lab 2")
