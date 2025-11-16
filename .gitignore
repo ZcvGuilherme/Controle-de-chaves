@@ -72,7 +72,7 @@ dist/
 MANIFEST
 
 # === Outros ===
-.historic/
+.history/
 .env
 *.env
 .env.*
