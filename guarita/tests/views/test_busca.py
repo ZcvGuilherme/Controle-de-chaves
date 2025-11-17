@@ -1,9 +1,20 @@
 from django.test import TestCase
 from django.urls import reverse
-from guarita.models import Chave
-
+from guarita.models import Chave, Pessoa, ChaveStatus
 class TestChavesView(TestCase):
     
+    def setUp(self):
+         self.pessoa = Pessoa.objects.create(
+             matricula=1,
+             nome="João",
+             cargo="Professor"
+         )
+         self.chave = Chave.objects.create(
+             id=1,
+             nome="Laboratório de Informática"
+         )
+         self.chave2 = Chave.registrar_chave("Lab 2")
+
     def test_contexto_opcoes_filtro(self):
         # Acesse a view
         response = self.client.get(reverse('chaves')) #Quem eu quero testar
@@ -28,15 +39,3 @@ class TestChavesView(TestCase):
 
 
 
-#----------------------EXEMPLO DE INSERT--------------------#
-# def setUp(self):
-#         self.pessoa = Pessoa.objects.create(
-#             matricula=1,
-#             nome="João",
-#             cargo="Professor"
-#         )
-#         self.chave = Chave.objects.create(
-#             id=1,
-#             nome="Laboratório de Informática"
-#         )
-#         self.chave2 = Chave.registrar_chave("Lab 2")
