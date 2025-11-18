@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Chave
 def chaves(request):
     opcoes_filtro = [
         ('disponivel', 'Disponível'),
