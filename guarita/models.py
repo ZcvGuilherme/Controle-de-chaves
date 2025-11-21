@@ -51,17 +51,10 @@ class Chave(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
     itemBusca = models.CharField(max_length=100, blank=True, null=True)
-    
-    """
-    <h2>Método Sobrescrevido: save()</h2>
-    Este método roda quando o django cria a tabela, portanto, quando for atualizado algum valor este método precis ser rodado novamente
-    """
+
     @classmethod
     def registrar_chave(cls, nome):
-        chave = cls.objects.create(nome=nome)
-        ChaveStatus.criar_status(chave)
-        chave.save()
-        return chave
+        return cls.objects.create(nome=nome)
 
     @classmethod
     def partial_search(cls, content):
@@ -71,11 +64,6 @@ class Chave(models.Model):
     def getAll(cls):
         return cls.objects.all()
     
-    def save(self, *args, **kwargs):
-
-        self.itemBusca = f"Chave {self.id} - {self.nome}"
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return self.nome
 
@@ -162,9 +150,9 @@ class ChaveStatus(models.Model):
     
     @classmethod
     def criar_status(cls, chave):
-        if cls.objects.filter(chave=chave).exists():
-            raise ValueError(f"Já existe um status vinculado à chave {chave.nome}.")
-        return cls.objects.create(chave=chave)
+        status, created = cls.objects.get_or_create(chave=chave)
+        return status
+
 
     @classmethod
     def getStatus(cls, status_code=None, itemBusca=None):
