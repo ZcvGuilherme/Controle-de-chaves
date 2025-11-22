@@ -1,0 +1,117 @@
+[
+{
+  "model": "guarita.pessoa",
+  "pk": 1,
+  "fields": {
+    "nome": "Alencar",
+    "cargo": "Professor",
+    "itemBusca": "Alencar - Professor"
+  }
+},
+{
+  "model": "guarita.pessoa",
+  "pk": 2,
+  "fields": {
+    "nome": "Paulo",
+    "cargo": "Coordenador",
+    "itemBusca": "Paulo - Coordenador"
+  }
+},
+{
+  "model": "guarita.pessoa",
+  "pk": 3,
+  "fields": {
+    "nome": "Adelson",
+    "cargo": "Zelador",
+    "itemBusca": "Adelson - Zelador"
+  }
+},
+{
+  "model": "guarita.chave",
+  "pk": 1,
+  "fields": {
+    "nome": "Laboratório de Informática",
+    "itemBusca": "Chave 1 - Laboratório de Informática"
+  }
+},
+{
+  "model": "guarita.chave",
+  "pk": 2,
+  "fields": {
+    "nome": "Sala de Aula",
+    "itemBusca": "Chave 2 - Sala de Aula"
+  }
+},
+{
+  "model": "guarita.chave",
+  "pk": 3,
+  "fields": {
+    "nome": "Sala de Vídeo",
+    "itemBusca": "Chave 3 - Sala de Vídeo"
+  }
+},
+{
+  "model": "guarita.chave",
+  "pk": 4,
+  "fields": {
+    "nome": "Auditório",
+    "itemBusca": "Chave 4 - Auditório"
+  }
+},
+{
+  "model": "guarita.historico",
+  "pk": 1,
+  "fields": {
+    "acao": "RETIRADA",
+    "pessoa": 1,
+    "chave": 2,
+    "horario": "2025-11-20T23:49:12Z"
+  }
+},
+{
+  "model": "guarita.historico",
+  "pk": 2,
+  "fields": {
+    "acao": "RETIRADA",
+    "pessoa": 2,
+    "chave": 1,
+    "horario": "2025-11-20T23:49:24Z"
+  }
+},
+{
+  "model": "guarita.chavestatus",
+  "pk": 1,
+  "fields": {
+    "pessoa": 2,
+    "checkin": "2025-11-20T23:43:25Z",
+    "status_code": false
+  }
+},
+{
+  "model": "guarita.chavestatus",
+  "pk": 2,
+  "fields": {
+    "pessoa": 1,
+    "checkin": "2025-11-20T23:43:54Z",
+    "status_code": false
+  }
+},
+{
+  "model": "guarita.chavestatus",
+  "pk": 3,
+  "fields": {
+    "pessoa": null,
+    "checkin": null,
+    "status_code": true
+  }
+},
+{
+  "model": "guarita.chavestatus",
+  "pk": 4,
+  "fields": {
+    "pessoa": null,
+    "checkin": null,
+    "status_code": true
+  }
+}
+]
