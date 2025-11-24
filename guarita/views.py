@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render
 from .models import Chave
+
 def chaves(request):
     opcoes_filtro = [
         ('disponivel', 'Disponível'),
@@ -13,5 +16,6 @@ def registrar_chave(request):
 def devolver_chave(request):
     return render(request, 'devolver_chave.html')
 
+@login_required
 def status_chave(request):
     return render(request, 'status_chaves.html')
