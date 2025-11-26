@@ -1,0 +1,26 @@
+{% load static %}
+<div class="chave-item">
+    <!-- Ícone da chave -->
+    <div class="chave-icone">
+        {% if status.status_code %}
+            <img src="{% static 'img/key_branca.png' %}" alt="Chave disponível" class="key-icon">
+        {% else %}
+            <img src="{% static 'img/key_preta.png' %}" alt="Chave em uso" class="key-icon">
+        {% endif %}
+    </div>
+    
+    <!-- Número da chave -->
+    <div class="chave-numero">Chave {{ status.chave.id }}</div>
+    
+    <!-- Local da chave -->
+    <div class="chave-local">{{ status.chave.nome }}</div>
+    
+    <!-- Status da chave -->
+    <div class="chave-status">
+        {% if status.status_code %}
+            <span class="status-disponivel">Disponível</span>
+        {% else %}
+            <span class="status-em-uso">Posse: {{ status.pessoa.nome }}</span>
+        {% endif %}
+    </div>
+</div>

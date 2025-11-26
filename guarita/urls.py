@@ -11,8 +11,10 @@ urlpatterns = [
     path('', views.status_chave, name='status_chaves'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('teste_status/', views.teste_status, name='teste_status'),
 ]
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     urlpatterns += staticfiles_urlpatterns()
+
