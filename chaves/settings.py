@@ -118,3 +118,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/accounts/login/'
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = 'status_chaves'
+
+# --- Configuração de métodos permitidos no logout ---
+LOGOUT_ALLOWED_METHODS = ['GET']
+
+
+# --- Configuração de expiração da sessão ---
+SESSION_COOKIE_AGE = 10  # 10 segundos de inatividade
+SESSION_SAVE_EVERY_REQUEST = True  # atualiza o contador a cada requisição
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # encerra a sessão ao fechar o navegador
+# -------------------------------------------
