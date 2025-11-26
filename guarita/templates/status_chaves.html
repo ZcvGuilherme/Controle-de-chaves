@@ -5,6 +5,7 @@
 {% block content %}
 <div class="status-container">
     <h2>Status das Chaves</h2>
+    
     <div class="status-grid">
         {% include 'componentes/status_item.html' with numero="01" status="Disponível" imagem="img/key_branca.png" %}
         {% include 'componentes/status_item.html' with numero="02" status="Em uso" imagem="img/key_preta.png" %}
@@ -15,7 +16,17 @@
         {% include 'componentes/status_item.html' with numero="07" status="Disponível" imagem="img/key_branca.png" %}
         {% include 'componentes/status_item.html' with numero="08" status="Em uso" imagem="img/key_preta.png" %}
     </div>
+
 </div>
+
+    <div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}>
+            <button type="submit" class="btn-main">Sair</button>
+        </form>
+        
+    </div>
+
 {% endblock %}
 
 {% block botoes %}
