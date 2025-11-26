@@ -18,15 +18,15 @@
     </div>
 
 </div>
-
+    {% if request.user.is_authenticated %}
     <div>
+    
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn-main">Sair</button>
         </form>
-        
     </div>
-
+    {% endif %}
     <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
     {% csrf_token %}
 </form>
