@@ -509,7 +509,7 @@ select {
 
 .logout-warning {
     position: fixed;
-    top: 50px;
+    top: 130px;
     left: 50%;
     transform: translateX(-50%);
     background: #ff5555;
