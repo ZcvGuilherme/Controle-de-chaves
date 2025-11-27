@@ -8,7 +8,13 @@ from django.contrib.auth.decorators import login_required
 @never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
 @login_required # Garante que apenas usuários autenticados possam acessar a view
 def status_chave(request):
-    return render(request, 'status_chaves.html')
+    chaves_status = ChaveStatus.objects.select_related('chave', 'pessoa').all().order_by('chave__id')
+
+    paginator = Paginator(chaves_status, 2) # Mostrar X itens por página
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'status_chaves.html', {'page_obj': page_obj})
 
 def teste_status(request):
     chaves_status = ChaveStatus.objects.select_related('chave', 'pessoa').all().order_by('chave__id')
