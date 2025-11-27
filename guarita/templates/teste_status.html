@@ -5,14 +5,25 @@
 {% block content %}
 <div class="status-container">
     <h2>Lista de Chaves</h2>
-    
+
     <!-- Grid de Chaves -->
     <div class="status-grid">
-        {% for status in chaves_status %}
-            {% include 'componentes/chave_item.html' with status=status %}
+        {% for status in page_obj %}
+        {% include 'componentes/chave_item.html' with status=status %}
         {% empty %}
-            <p>Nenhuma chave cadastrada.</p>
+        <p>Nenhuma chave cadastrada.</p>
         {% endfor %}
+    </div>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn-pagination">Anterior</a>
+        {% endif %}
+
+        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn-pagination">Próximo</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
