@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-
-{% load static %} <!--Carrega uma página CSS externo-->
+{% load static %}
 
 {% block title %}Login{% endblock %}
 
@@ -9,43 +8,32 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <main class="login-form">
-    <div class="cotainer">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
-              <form method="post">
-                {% csrf_token %}
-                <div class="form-group row">
-                  <label for="email_address" class="col-md-4 col-form-label text-md-right">Usuário</label> <!--Username para o nome do usuário-->
-                  <div class="col-md-6">
-                    <input type="text" id="email_address" class="form-control" name="username" required autofocus>
-                  </div> <!-- Add o valor atributo username-->
-                </div>
+<div class="CaixaTopo">
+<div class="login-container">
+    <form method="post" class="login-card">
+        {% csrf_token %}
 
-                <div class="form-group row">
-                  <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
-                  <div class="col-md-6">
-                    <input type="password" id="password" class="form-control" name="password" required>
-                  </div> <!-- Add o valor atributo password, ou sejam, a senha-->
-                </div>
+        <div class="form-group row">
+  <label for="email_address" class="col-md-4 col-form-label text-md-right">Usuário</label>
+  <div class="col-md-6">
+    <input type="text" id="email_address" class="form-control" name="username" required autofocus>
+  </div>
+</div>
 
-                <div class="col-md-6 offset-md-4">
-                  <button type="submit" class="btn btn-primary">
-                    Login
-                  </button>
-                </div>
-                {% for k, v in form.errors.items %}
-                  {{ v }}
-                {% endfor %} <!--Mostra os erros de login-->
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+<div class="form-group row">
+  <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
+  <div class="col-md-6">
+    <input type="password" id="password" class="form-control" name="password" required>
+  </div>
+</div>
+
+
+        <button type="submit" class="btn-login">Entrar</button>
+
+        {% if form.errors %}
+            <p class="error-msg">Usuário ou senha inválidos.</p>
+        {% endif %}
+    </form>
+</div>
 </div>
 {% endblock %}

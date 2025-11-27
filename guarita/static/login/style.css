@@ -1,82 +1,113 @@
-/*Fundo e centralização do conteúdo*/
-body{
+* {
     margin: 0;
-    height: 100vh; /* Faz o fundo ocupar 100% da tela */
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #315f5d;
+    color: #333;
+    display: flex;
     justify-content: center;
     align-items: center;
-    font-size: .9rem;
-    font-weight: 400;
-    line-height: 1.6;
-    background: linear-gradient(135deg, #1e3c3a, #4f8a88); /* Novo fundo com degradê */
+    min-height: 100vh;
 }
 
-/*Caixa do formulário*/
-.card, .form-control {
+/* Container geral */
+.container {
+    background: #ebe9e9;
+    padding: 25px 30px;
+    width: 400px;
     border-radius: 12px;
-    padding: 20px;
-    background-color: #ffffff;
-    color: #0a0a0a;
-    box-shadow: 0 4px 10px rgba(8, 228, 52, 0.3);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+}
+/* Inputs e labels */
+form div {
+    margin-bottom: 15px;
 }
 
-.navbar-laravel
-{
-    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
 }
 
-.navbar-brand , .nav-link, .my-form, .login-form
-{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #c9d6e3;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: .3s;
 }
 
-.my-form
-{
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+/* Botões principais */
+.btn-main {
+    width: 100%;
+    background: #004aad;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: .3s;
 }
 
-.my-form .row
-{
-    margin-left: 0;
-    margin-right: 0;
+.btn-main:hover {
+    background: #00337d;
 }
 
-/* Posição do container usuario e senha */
-.login-form
-{
-    padding-top: 150px;
-    padding-bottom: 150px;
+/* Grid para status */
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
 }
 
-.login-form .row
-{
-    margin-left: 0;
-    margin-right: 0;
-}
-
-/* Tamanhp do espaços para preenchimento */
-.form-control {
-    height: 30px;
-    font-size: 20px;
-}
-
-/* Ajuste do espaçamento entre os campos, botões usuario e senha estilo de letra */
-.form-group {
-
+.status-item {
+    background: #9d1212;
+    border-radius: 10px;
     text-align: center;
-    color: #020202;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    justify-content: center;
-    align-items: center; /* centraliza também verticalmente */
-    padding: 5px; /* evita colar nas bordas da tela na visão mobile */
+    padding: 12px;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
 }
 
-/* Botão melhorado - botão login */
-.btn-primary {
-    width: 100%; /* Botão ocupa toda a largura */
-    font-size: 1rem;
-    border-radius: 12px;
-    color: #011313;
-    background-color: #3cbcf8;
-    height: 45px;
+.status-item img {
+    width: 40px;
+    margin-bottom: 10px;
+}
+
+/* Disponível (verde) */
+.disponivel {
+    border-left: 6px solid #28a745;
+}
+
+/* Indisponível (vermelho) */
+.indisponivel {
+    border-left: 6px solid #961818;
+}
+
+/* Botão Senha*/
+.form-control {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.CaixaTopo {
+    background-color: #c7d4ca;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
 }
