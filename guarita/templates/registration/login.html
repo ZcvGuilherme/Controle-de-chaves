@@ -1,23 +1,14 @@
+{% extends 'base.html' %}
+
 {% load static %} <!--Carrega uma página CSS externo-->
-<html lang="pt-br">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Fonts -->
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+{% block title %}Login{% endblock %}
 
-  <link rel="stylesheet" href="{% static 'login/style.css' %}">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login/style.css' %}">
+{% endblock %}
 
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-  <title>Django Exemplo Autenticação</title>
-</head>
-<body>
+{% block content %}
 <div class="container">
   <main class="login-form">
     <div class="cotainer">
@@ -28,14 +19,14 @@
               <form method="post">
                 {% csrf_token %}
                 <div class="form-group row">
-                  <label for="email_address" class="col-md-4 col-form-label text-md-right">Username</label> <!--Username para o nome do usuário-->
+                  <label for="email_address" class="col-md-4 col-form-label text-md-right">Usuário</label> <!--Username para o nome do usuário-->
                   <div class="col-md-6">
                     <input type="text" id="email_address" class="form-control" name="username" required autofocus>
                   </div> <!-- Add o valor atributo username-->
                 </div>
 
                 <div class="form-group row">
-                  <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                  <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
                   <div class="col-md-6">
                     <input type="password" id="password" class="form-control" name="password" required>
                   </div> <!-- Add o valor atributo password, ou sejam, a senha-->
@@ -57,5 +48,4 @@
     </div>
   </main>
 </div>
-</body>
-</html>
+{% endblock %}
