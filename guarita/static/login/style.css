@@ -13,6 +13,11 @@ body {
     padding-bottom: 150px;
 }
 
+body, input, label, button {
+    font-family: 'Roboto', sans-serif;
+}
+
+
 /* Container geral */
 .login-container {
     background: #ffffff;
@@ -25,24 +30,32 @@ form div {
     margin-bottom: 20px;
 }
 
+/* Controla O que está escrito : Usuario e senha*/
 label {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 800;
     color: #000000;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
     justify-content: center;
     align-items: center; /* centraliza também verticalmente */
-    font-size: 20px;
+    font-size: 16px;
 }
 
 input, select {
     width: 100%;
     padding: 10px;
-    border: 1px;
+    border: 1px solid #a79d9d;
     border-radius: 8px;
     font-size: 14px;
     outline: none;
     transition: .3s;
+}
+
+/* COntrola os campos de input: Usuario e Senha*/
+input:focus {
+    border-color: #3174f9;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(49, 116, 249, 0.3);
 }
 
 .status-item img {
@@ -53,16 +66,19 @@ input, select {
 .error-msg {
     font-size: 20px;
     border-left: 10px;
-    background-color: #f46b6b;
+    background-color: #ffcccc;
     font-weight: bold;
     display: flex;
     justify-content: center;
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: #333;
     font-size: 20px;
-    margin-top: 15px;   /* espaço acima da mensagem */
     text-align: center; /* centraliza a mensagem */
+    padding: 6px;
     border-radius: 8px;
+    max-width: 250px;   /* botão nunca passa de 250px */
+    width: 100%;        /* ocupa toda a largura até esse limite */
+    margin: 20px auto 0 auto; /* espaço acima (20px) e centralizado */
 }
 
 /* Botão Senha*/
@@ -84,16 +100,27 @@ input, select {
 }
 
 .btn-login{
-    width: 100%;
+    display: flex;
+    justify-content: center;   /* centraliza horizontal */
+    align-items: center;       /* centraliza vertical */
+    max-width: 250px;   /* botão nunca passa de 250px */
+    width: 100%;        /* ocupa toda a largura até esse limite */
+    margin: 0 auto;     /* centraliza horizontalmente */
     background-color: #3174f9;
-    color: #070707;
-    padding: 5px;
+    color: #fff;
+    padding: 12px;
     border-radius: 8px;
-    text-align: center;
     cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif; 
-    font-size: 25px;
-    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    min-width: 180px;   /* nunca menor que 180px */
+    padding: 12px;
+}
+
+.btn-login:hover {
+    background-color: #255ec7;
 }
 
 /* Responsividade */
