@@ -103,6 +103,15 @@ input, select {
     box-sizing: border-box; /* Garante que o padding não estoure a largura */
 }
 
+.btn-login{
+    width: 100%;
+    background-color: #d4f7eb;
+    padding: 6px;
+    border-radius: 6px;
+    text-align: center;
+    background-color: #3174f9;
+}
+
 /* Responsividade */
 @media (max-width: 480px) {
     .container {
