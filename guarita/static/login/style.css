@@ -1,17 +1,17 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 body {
     background-color: #315f5d;
-    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding-top: 150px;
+    padding-bottom: 150px;
+
 }
 
 /* Container geral */
@@ -31,6 +31,12 @@ label {
     font-size: 14px;
     font-weight: 500;
     color: #000000;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
+    text-align: center;
+    justify-content: center;
+    align-items: center; /* centraliza também verticalmente */
+    padding: 150px; /* evita colar nas bordas da tela na visão mobile */
+    font-size: 20px;
 }
 
 input, select {
@@ -58,22 +64,7 @@ input, select {
 }
 
 .btn-main:hover {
-    background: #00337d;
-}
-
-/* Grid para status */
-.status-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
-}
-
-.status-item {
-    background: #9d1212;
-    border-radius: 10px;
-    text-align: center;
-    padding: 12px;
-    box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+    background: #40aae2;
 }
 
 .status-item img {
@@ -81,27 +72,35 @@ input, select {
     margin-bottom: 10px;
 }
 
-/* Disponível (verde) */
-.disponivel {
-    border-left: 6px solid #28a745;
-}
 
 /* Indisponível (vermelho) */
 .indisponivel {
-    border-left: 6px solid #961818;
+    font-size: 30;
+    border-left: 10px solid #b30000;
+    background-color: #ffdddd;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 /* Botão Senha*/
 .form-control {
     width: 100%;
-    background-color: #ffffff;
+    background-color: #d4f7eb;
     padding: 6px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    text-align: center;
+    border-color: #57a7f3;
 }
 
 .CaixaTopo {
-    background-color: #c7d4ca;
+      width: 100%; /* Ocupa toda a largura disponível */
+    background-color: #ffffff;
+    padding: 15px 20px; /* Espaçamento interno */
+    text-align: center; /* Centraliza conteúdo dentro */
+    border-radius: 10px; /* Visual mais moderno */
+    box-sizing: border-box; /* Garante que o padding não estoure a largura */
 }
 
 /* Responsividade */
@@ -109,5 +108,19 @@ input, select {
     .container {
         width: 90%;
         padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .CaixaTopo {
+        padding: 12px 15px;
+        font-size: 14px; /* Diminui o texto em telas pequenas */
+    }
+}
+
+@media (min-width: 768px) {
+    .CaixaTopo {
+        font-size: 18px;
+        padding: 20px 25px;
     }
 }
