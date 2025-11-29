@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Stack+Sans+Headline:wght@200..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 /* Estilos globais */
 
+
+/*
+        CSS DO BASE.HTML
+*/
 body {
     background-color: #315f5d; /* cor de fundo*/
     display: flex;
@@ -10,13 +14,6 @@ body {
     height: 100vh; /* ocupa a tela inteira */
 }
 
-h2{
-    position: fixed;
-    margin-top: 120px; /*AFASTA O TEXTO DOS BOTÕES*/
-    font-family: "Titillium Web", sans-serif; /*MUDA A FONTE*/
-    color: white; /*MUDA A COR DO TEXTO*/
-    font-size: 30px; /*MUDA O TAMANHO DA FONTE*/
-}
 
 .top-bar {
     position: fixed;    /* fixa a barra no topo da tela */
@@ -47,8 +44,14 @@ h2{
     display: flex;
 }
 
+/*
+ -------------------------FIM CSS BASE.HTML---------------------------
+*/
 
-/* Estilo dos botões reutilizáveis */
+
+/*
+---------------------------BOTÃO GERAL-------------------------------
+*/
 .btn-main {
     font-family: "Titillium Web", sans-serif;
     width: 150px; /* largura fixa */
@@ -67,7 +70,16 @@ h2{
 .btn-main:hover {
     background-color: #c3c3c3;
 }
-    
+
+/*
+-------------------------FIM BOTÃO GERAL-----------------------------
+*/
+
+
+/*
+-------------------------AVISO LOGGOUT-------------------------------
+*/
+
 .logout-warning {
     position: fixed;
     top: 130px;
@@ -85,7 +97,14 @@ h2{
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
-/* Estilos da paginação */
+
+/*
+---------------------------------------------------------------------
+
+
+/*
+--------------------------PAGINATOR----------------------------------
+*/
 .pagination {
     margin-top: 20px;
     display: flex;
@@ -110,3 +129,7 @@ h2{
     background-color: #c9c8c8;
     color: #315f5d;
 }
+
+/*
+-----------------------------FIM PAGINATOR---------------------------
+*/
