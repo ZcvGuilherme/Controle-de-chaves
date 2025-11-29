@@ -523,3 +523,29 @@ select {
     border: 2px solid #c30000;
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
+
+/* Estilos da paginação */
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+    font-family: "Titillium Web", sans-serif;
+    align-items: center;
+    display: flex;
+}
+
+.btn-pagination {
+    padding: 8px 15px;
+    background-color: #d9d9d9;
+    color: black;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-pagination:hover {
+    background-color: #c9c8c8;
+    color: #315f5d;
+}
