@@ -4,8 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
-    margin-top: 150px; /* Espaço acima do container */
+   font-family: 'Roboto', sans-serif;
 }
 
 /* Container geral que tem os campos usiarios e senha */
@@ -38,6 +37,9 @@ select {
   transition: .3s;
   text-align: center;
   font-size: 18px;
+  background-color: #c1bebe;
+  text-align: center;
+  border: none;
 }
 
 /* Foco nos inputs (usuario e senha) */
@@ -98,17 +100,6 @@ input::placeholder {
     text-align: center;
     border-radius: 10px;
     box-sizing: border-box;
-}
-
-/* Estilo apenas para o campo de senha */
-input[type="password"] {
-  background-color: #dfdada;
-  text-align: center;
-  border-radius: 8px;
-  padding: 10px;
-  outline: none; 
-  border: none;
-  font-size: 18px
 }
 
 /* Responsividade */
