@@ -1,19 +1,15 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     background-color: #3c7673;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 150px 0;
     font-family: 'Roboto', sans-serif;
+    margin-top: 150px; /* Espaço acima do container */
+   
 }
 
-/* Container geral dque tem os campos usiarios e senha */
+/* Container geral que tem os campos usiarios e senha */
 .login-container {
     background: #a9dae2;
     padding: 25px 30px;
@@ -21,9 +17,10 @@ body {
     border-radius: 12px;
 }
 
+/* Espaçamento entre campos */
 form div { margin-bottom: 20px; }
 
-/* Labels senha e usuario os nomes*/
+/* Labels senha e usuario os nomes, altera a cor da letras*/
 label {
     font-size: 20px;
     font-weight: 800;
@@ -31,17 +28,17 @@ label {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-/* Inputs geral senha senha*/
+/* Inputs geral usuário*/
 input[type="text"],
 input[type="password"],
 select {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  font-size: 14px;
   outline: none;
   transition: .3s;
   text-align: center;
+  font-size: 18px;
 }
 
 /* Foco nos inputs (usuario e senha) */
@@ -51,6 +48,7 @@ input[type="password"]:focus {
   box-shadow: 0 0 5px rgba(49,116,249,0.3);
 }
 
+/* Placeholder centralizado */
 input::placeholder {
   text-align: center;
 }
@@ -105,19 +103,18 @@ input::placeholder {
 
 /* Estilo apenas para o campo de senha */
 input[type="password"] {
-  background-color: #f0f0f0; /* cor de fundo */
-  text-align: center;        /* centraliza o texto */
-  border: 1px solid #8a938d; /* borda */
-  border-radius: 8px;        /* cantos arredondados */
-  font-size: 14px;           /* tamanho da fonte */
-  padding: 10px;             /* espaçamento interno */
-  border: none;          /* tira a linha da borda */
+  background-color: #dfdada;
+  text-align: center;
+  border-radius: 8px;
+  padding: 10px;
   outline: none; 
+  border: none;
+  font-size: 18px
 }
 
 /* Responsividade */
 @media (max-width: 480px) {
-    .container { width: 90%; padding: 20px; }
+    .login-container { width: 90%; padding: 20px; }
     .CaixaTopo { padding: 12px 15px; font-size: 14px; }
 }
 
