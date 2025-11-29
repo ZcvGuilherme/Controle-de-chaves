@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 @login_required # Garante que apenas usuários autenticados possam acessar a view
 def status_chave(request):
 
-    chaves_status = ChaveStatus.objects.select_related('chave', 'pessoa').all().order_by('chave__id')
+    chaves_status = ChaveStatus.getStatus()
     paginator = Paginator(chaves_status, 2) # Mostrar X itens por página
 
     page_number = request.GET.get('page')
