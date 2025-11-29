@@ -2,28 +2,9 @@
 {% load static %}
 {% block title %}Status das Chaves{% endblock %}
 
+
 {% block content %}
-<div class="status-container">
-    <h2>Status das Chaves</h2>
-    <!-- Grid de Chaves -->
-    <div class="status-grid">
-        {% for status in page_obj %}
-        {% include 'componentes/chave_item.html' with status=status %}
-        {% empty %}
-        <p>Nenhuma chave cadastrada.</p>
-        {% endfor %}
-    </div>
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}" class="btn-pagination">Anterior</a>
-        {% endif %}
 
-        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
-
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="btn-pagination">Próximo</a>
-        {% endif %}
-    </div>
 
 </div>
     {% if request.user.is_authenticated %}
@@ -41,12 +22,14 @@
 
 <div id="logout-warning" class="logout-warning" style="display: none;">
     A sessão expira em <span id="contador">5</span> segundos.
-</div>
+
+
+  </div>
 
 <script>
     let tempoSemAtividade = 0;
-    let tempoParaAviso = 5; // 10s sem atividade para começar alerta
-    let tempoParaLogout = 10; // 10s após o alerta para deslogar
+    let tempoParaAviso = 60; // 10s sem atividade para começar alerta
+    let tempoParaLogout = 100; // 10s após o alerta para deslogar
 
     let aviso = document.getElementById("logout-warning");
     let numero = document.getElementById("contador");
