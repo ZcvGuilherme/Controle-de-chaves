@@ -1,15 +1,15 @@
 body {
-    background-color: #3c7673;
+    background-image: linear-gradient(135deg, 135deg, #3c7673, #00ffd5, #0f0f0f);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-   font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Container geral que tem os campos usiarios e senha */
 .login-container {
-    background: #a9dae2;
+    background-image: linear-gradient(135deg, #3c7673, #4db6ac);
     padding: 25px 30px;
     width: 400px;
     border-radius: 12px;
@@ -26,7 +26,7 @@ label {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-/* Inputs geral usuário*/
+/* Inputs geral usuário e senha*/
 input[type="text"],
 input[type="password"],
 select {
@@ -46,7 +46,7 @@ select {
 input[type="text"]:focus,
 input[type="password"]:focus {
   background-color: #fff;
-  box-shadow: 0 0 5px rgba(49,116,249,0.3);
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.4);
 }
 
 /* Placeholder centralizado */
@@ -73,29 +73,30 @@ input::placeholder {
 /* Botão */
 .btn-login {
     display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     justify-content: center;
     align-items: center;
     max-width: 250px;
     min-width: 180px;
     width: 100%;
     margin: 0 auto;
-    background-color: #3174f9;
-    color: #fff;
+        background-image: linear-gradient(135deg, #3c7673, #4db6ac);
+    color: #000000;
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     transition: background-color 0.3s;
 }
 
-/* Aparecia quando seleciona o botão login*/
-.btn-login:hover { background-color: #255ec7; }
+/* Aparência do botão quando seleciona o botão login*/
+.btn-login:hover {     background-image: linear-gradient(135deg, #ffffff, #ffffff); }
 
 /* Caixa topo */
 .CaixaTopo {
     width: 100%;
-    background-color: #ffffff;
+    background-color: #c1bebe;
     padding: 15px 20px;
     text-align: center;
     border-radius: 10px;
