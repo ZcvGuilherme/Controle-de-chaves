@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Status das Chaves{% endblock %}
-
+{% block title %}Lista de Chaves{% endblock %}
 
 {% block content %}
 
-
+<!-- BLOCO DO LOGOUT (primeiro código) -->
+{% if request.user.is_authenticated %}
+<div>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+       <!-- <button type="submit" class="btn-main">Sair</button> -->
+    </form>
 </div>
-    {% if request.user.is_authenticated %}
-    <div>
-    
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn-main">Sair</button>
-        </form>
-    </div>
-    {% endif %}
-    <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
+{% endif %}
+
+<form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
     {% csrf_token %}
 </form>
 
@@ -25,5 +23,37 @@
     A sessão expira em <span id="contador">5</span> segundos.
 </div>
 <script src="{% static 'login/script.js' %}"></script>
+<!-- FIM DO BLOCO DO LOGOUT -->
+
+
+<!-- BLOCO DA LISTA DE CHAVES (segundo código) -->
+<div class="layout-chaves">
+
+    {% include 'componentes/filtro_chaves.html' %}
+
+    <div class="status-container">
+        <h2>Lista de Chaves</h2>
+
+        <div class="status-grid">
+            {% for status in page_obj %}
+                {% include 'componentes/chave_item.html' with status=status %}
+            {% empty %}
+                <p>Nenhuma chave cadastrada.</p>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn-pagination">Anterior</a>
+            {% endif %}
+
+            <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn-pagination">Próximo</a>
+             {% endif %}
+         </div>
+    </div>
+</div>
 {% endblock %}
 
