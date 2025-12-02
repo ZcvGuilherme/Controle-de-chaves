@@ -1,6 +1,6 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from .models import Chave, ChaveStatus
+from .models import Chave, ChaveStatus, Historico
 
 @receiver(post_save, sender=Chave)
 def criar_status_automatico(sender, instance, created, **kwargs):
