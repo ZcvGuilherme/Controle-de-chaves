@@ -22,9 +22,8 @@
 <div id="logout-warning" class="logout-warning" style="display: none;">
     A sessão expira em <span id="contador">5</span> segundos.
 </div>
-<script src="{% static 'login/script.js' %}"></script>
-<!-- FIM DO BLOCO DO LOGOUT -->
 
+<!-- FIM DO BLOCO DO LOGOUT -->
 
 <!-- BLOCO DA LISTA DE CHAVES (segundo código) -->
 <div class="layout-chaves">
@@ -55,5 +54,20 @@
          </div>
     </div>
 </div>
+
+<!-- ================== POPUP =================== -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span id="popupClose" class="close">&times;</span>
+
+        <h2 id="popupTitulo"></h2>
+        <p id="popupLocal"></p>
+        <p id="popupStatus"></p>
+    </div>
+</div>
+
+
+<script src="{% static 'login/script.js' %}"></script> <!-- Puxar Script da pasta "script.js" -->
+
 {% endblock %}
 
