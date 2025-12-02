@@ -3,6 +3,7 @@ from .models import Chave, ChaveStatus, Historico, Pessoa
 
 @admin.register(Chave)
 class ChaveAdmin(admin.ModelAdmin):
+    exclude = ('itemBusca',)
     list_display = ('id','nome', 'itemBusca')
     list_display_links = ('id', 'nome')
 @admin.register(ChaveStatus)
@@ -15,5 +16,6 @@ class HistoricoAdmin(admin.ModelAdmin):
     list_display_links = ('id_historico', 'chave')
 @admin.register(Pessoa)
 class PessoaAdmin(admin.ModelAdmin):
+    exclude = ('itemBusca',)
     list_display = ('matricula','itemBusca', 'nome', 'cargo')
     list_display_links = ('matricula', 'itemBusca')
