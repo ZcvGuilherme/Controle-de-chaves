@@ -1,5 +1,6 @@
+//-----------------TEMPORIZADOR----------------------\\
 let tempoSemAtividade = 0;
-    let tempoParaAviso = 60; // 10s sem atividade para começar alerta
+    let tempoParaAviso = 5; // 10s sem atividade para começar alerta
     let tempoParaLogout = 10; // 10s após o alerta para deslogar
 
     let aviso = document.getElementById("logout-warning");
@@ -36,8 +37,8 @@ let tempoSemAtividade = 0;
 
     }, 1000);
 
-// ------- POP-UP -------
 
+// ------- POP-UP -------
 document.addEventListener("DOMContentLoaded", function () {
 
     console.log("JS carregou ✔"); // TESTE — deve aparecer no console
