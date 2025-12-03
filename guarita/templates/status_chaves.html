@@ -54,15 +54,18 @@
          </div>
     </div>
 </div>
-
+<div style="display:none">
+    <span id="usuario-logado" data-nome="{{ request.user.get_full_name|escapejs }}"></span>
+</div>
 <!-- ================== POPUP =================== -->
 <div id="popup" class="popup">
     <div class="popup-content">
         <span id="popupClose" class="close">&times;</span>
 
         <h1>Deseja confimar?</h1>
+        <p id="popupAcao"></p>
         <p id="popupTitulo"></p>
-        <p id="popupStatus"></p>
+        <p id="popupUsuario"></p>
         <p id="popupHora"></p>
 
         <button type="submit" class="btn-confirmar">Confirmar</button>

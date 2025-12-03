@@ -9,10 +9,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // -----------------------------
     document.querySelectorAll(".chave-item").forEach(item => {
         item.addEventListener("click", function () {
-
+            //Acao
+            let status = this.querySelector(".chave-status").innerText;
+            if (status == "Disponível"){
+                status = "Retirar"
+                //Ação: condição
+            } else {
+                status = "Devolver"
+            }
             // Título
             let titulo = this.querySelector(".chave-numero").innerText;
-            document.getElementById("popupTitulo").innerText = titulo;
+            document.getElementById("popupTitulo").innerText = `Ação: ${status} ${titulo}`;
 
             // Hora da ação
             const agora = new Date();
@@ -24,9 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             document.getElementById("popupHora").innerText = "Hora da ação: " + hora;
 
-            // Status
-            let status = this.querySelector(".chave-status").innerText;
-            document.getElementById("popupStatus").innerText = status;
+            let user = document.getElementById("usuario-logado").dataset.nome;
+            document.getElementById("popupUsuario").innerText = "Usuário: " + user;
+
 
             popup.style.display = "flex";
         });
