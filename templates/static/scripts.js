@@ -1,24 +1,69 @@
 // ------- POP-UP -------
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("JS carregou ✔"); // TESTE — deve aparecer no console
+    const popup = document.getElementById("popup");
+    const popupClose = document.getElementById("popupClose");
 
+    // -----------------------------
+    // Abrir popup ao clicar na chave
+    // -----------------------------
     document.querySelectorAll(".chave-item").forEach(item => {
-        item.addEventListener("click", function(){
-            let titulo = this.querySelector(".chave-numero").innerText;
-            let local = this.querySelector(".chave-local").innerText;
-            let status = this.querySelector(".chave-status").innerText;
+        item.addEventListener("click", function () {
 
+            // Título
+            let titulo = this.querySelector(".chave-numero").innerText;
             document.getElementById("popupTitulo").innerText = titulo;
-            document.getElementById("popupLocal").innerText  = "Local: " + local;
+
+            // Hora da ação
+            const agora = new Date();
+            const hora = agora.toLocaleString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            });
+
+            document.getElementById("popupHora").innerText = "Hora da ação: " + hora;
+
+            // Status
+            let status = this.querySelector(".chave-status").innerText;
             document.getElementById("popupStatus").innerText = status;
 
-            document.getElementById("popup").style.display = "flex";
+            popup.style.display = "flex";
         });
     });
 
-    document.getElementById("popupClose").onclick = () =>
-        document.getElementById("popup").style.display = "none";
+    // -----------------------------
+    // Botão FECHAR (X)
+    // -----------------------------
+    popupClose.addEventListener("click", () => {
+        popup.style.display = "none";
+    });
+
+    // Botão CANCELAR
+    const btnCancelar = document.querySelector(".btn-cancelar");
+    if (btnCancelar) {
+        btnCancelar.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+    }
+
+    // -----------------------------
+    // Fechar clicando fora
+    // -----------------------------
+    window.addEventListener("click", function (e) {
+        if (e.target === popup) {
+            popup.style.display = "none";
+        }
+    });
+
+    // -----------------------------
+    // Fechar com ESC
+    // -----------------------------
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            popup.style.display = "none";
+        }
+    });
 
 });
 // ------- FIM POP-UP -------
