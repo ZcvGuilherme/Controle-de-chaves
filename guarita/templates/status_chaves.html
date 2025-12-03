@@ -60,14 +60,19 @@
     <div class="popup-content">
         <span id="popupClose" class="close">&times;</span>
 
-        <h2 id="popupTitulo"></h2>
-        <p id="popupLocal"></p>
+        <h1>Deseja confimar?</h1>
+        <p id="popupTitulo"></p>
         <p id="popupStatus"></p>
+        <p id="popupHora"></p>
+
+        <button type="submit" class="btn-confirmar">Confirmar</button>
+        <button type="submit" class="btn-cancelar">Cancelar</button>
     </div>
 </div>
 
 
 <script src="{% static 'status/scripts.js' %}"></script> 
+<script src="{% static 'scripts.js' %}"></script> 
 
 {% endblock %}
 
