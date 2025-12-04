@@ -29,9 +29,10 @@ def atualizar_status(request):
 
     chave = Chave.objects.get(id=chave_id)
     pessoa = None
+    
     if pessoa_id:  # só busca se tiver valor
         try:
-            pessoa = Pessoa.objects.get(id=pessoa_id)
+            pessoa = Pessoa.objects.get(matricula=pessoa_id)
         except Pessoa.DoesNotExist:
             return JsonResponse({"erro": "Pessoa não encontrada"}, status=400)
         

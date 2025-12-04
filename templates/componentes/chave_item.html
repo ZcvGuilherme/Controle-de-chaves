@@ -2,7 +2,7 @@
 <div class="chave-item"
     {% comment %} Guardando variáveis aqui {% endcomment %}
     data-chave="{{ status.chave.id }}"
-    data-pessoa="{{ status.pessoa.nome|default_if_none:'' }}"
+    data-pessoa="{{ status.pessoa.id|default_if_none:'' }}"
     data-checkin="{{ status.checkin|date:'Y-m-d H:i:s' }}"
     data-status="{{ status.status_code }}">
     

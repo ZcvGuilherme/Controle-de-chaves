@@ -1,7 +1,7 @@
 //-----------------TEMPORIZADOR----------------------\\
 let tempoSemAtividade = 0;
-    let tempoParaAviso = 1000; // 10s sem atividade para começar alerta
-    let tempoParaLogout = 10; // 10s após o alerta para deslogar
+    let tempoParaAviso = 3; // 10s sem atividade para começar alerta
+    let tempoParaLogout = 5; // 10s após o alerta para deslogar
 
     let aviso = document.getElementById("logout-warning");
     let numero = document.getElementById("contador");
@@ -53,15 +53,15 @@ document.addEventListener("DOMContentLoaded", function () {
         item.addEventListener("click", function () {
 
             // ----- Dados vindos dos atributos data-* -----
-            const chaveId = this.dataset.chave;
-            const pessoaNome = this.dataset.pessoa;   // string vazia se disponível
+            const chave = this.dataset.chave;
+            const pessoa = this.dataset.pessoa;   // string vazia se disponível
             const checkin = this.dataset.checkin;
             const statusDB = this.dataset.status;     // True / False (string)
 
             // Guardar para o backend
             dadosChaveSelecionada = {
-                chaveId: chaveId,
-                pessoaNome: pessoaNome,
+                chave: chave,
+                pessoa: pessoa,
                 checkin: checkin,
                 statusDB: statusDB
             };
@@ -109,8 +109,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnConfirmar = document.getElementById('popup-chaves-btn-confirmar')
 
     btnConfirmar.addEventListener("click", () => {
-        
+
+    if (!dadosChaveSelecionada) return;
+    const statusDB = dadosChaveSelecionada.statusDB === "True";
+    let acaodb = statusDB ? "RETIRADA" : "DEVOLUCAO"
+    let userDB = document.getElementById("usuario-logado").dataset.username;
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch("/atualizar-status/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": csrftoken
+        },
+        body: new URLSearchParams({
+            chave_id: dadosChaveSelecionada.chave,
+            pessoa_id: userDB,
+            acao: acaodb
+        })
     })
+
+    .then(response => response.json())
+    .then(data => {
+        if (data.sucesso) {
+            location.reload();
+            popup.style.display = "none";
+        } else {
+            alert("Erro: " + data.erro);
+        }
+    });
+});
     // -----------------------------
     // Botão FECHAR (X)
     // -----------------------------
