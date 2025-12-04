@@ -35,6 +35,7 @@
 
         <div class="status-grid">
             {% for status in page_obj %}
+            
                 {% include 'componentes/chave_item.html' with status=status %}
             {% empty %}
                 <p>Nenhuma chave cadastrada.</p>
@@ -54,24 +55,29 @@
          </div>
     </div>
 </div>
-
+<div style="display:none">
+    <span id="usuario-logado" 
+    data-nome="{{ request.user.get_full_name|escapejs }}"
+    data-username="{{ request.user.username }}">
+</span>
+    
+</div>
 <!-- ================== POPUP =================== -->
 <div id="popup" class="popup">
     <div class="popup-content">
         <span id="popupClose" class="close">&times;</span>
 
         <h1>Deseja confimar?</h1>
+        <p id="popupAcao"></p>
         <p id="popupTitulo"></p>
-        <p id="popupStatus"></p>
+        <p id="popupUsuario"></p>
         <p id="popupHora"></p>
 
-        <button type="submit" class="btn-confirmar">Confirmar</button>
+        <button type="submit" class="btn-confirmar" id="popup-chaves-btn-confirmar">Confirmar</button>
         <button type="submit" class="btn-cancelar">Cancelar</button>
     </div>
 </div>
 
-
-<script src="{% static 'status/scripts.js' %}"></script> 
 <script src="{% static 'scripts.js' %}"></script> 
 
 {% endblock %}
