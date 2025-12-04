@@ -54,17 +54,22 @@ body {
 */
 .btn-main {
     font-family: "Titillium Web", sans-serif;
-    width: 150px; /* largura fixa */
     font-size: 20px; /* tamanho da fonte */    
-    padding: 0px; /* espaçamento interno */
-    margin: 10px 0; /* espaçamento externo */
-    background-color: #d9d9d9;
+    padding: 10px; /* espaçamento interno */
+    background-color: #e61313;
     color: black;
     font-weight: bold;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    height: 60px;
+    height: 60px; 
+    position: absolute;
+    left: 140px;
+    top: calc(200px + 210px); /* altura do filtro + espaçamento */
+    width: 150px;
+    margin: 0 auto;
+    display: block;  
+    z-index: 9999;  
 }
 
 .btn-main:hover {
@@ -146,6 +151,7 @@ body {
     gap: 40px;
     width: 100%;
     margin-top: 80px; /* 20px; */
+    position: relative;
 }
 
 /* COLUNA ESQUERDA (FILTROS) */
@@ -154,7 +160,7 @@ body {
     background: #ddddda;
     padding: 20px;
     border-radius: 10px;
-    height: 400px; /* height: fit-content; */
+    height: 200px; /* height: fit-content; */
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
@@ -165,7 +171,7 @@ body {
 
 /* CAMPO DE PESQUISA */
 .input-pesquisa {
-    width: 80%;
+    width: 90%;
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #f7f3f3;
@@ -188,17 +194,18 @@ body {
 }
 
 .filtro-lista li {
-    font-weight: bold;
-    font-size: 20px;
     margin-bottom: 12px;
-    font-size: 15px;
+    font-size: 20px; /* Aumenta o tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    display: flex;
+    align-items: center;
 }
 
 /*  ................................CHECKBOXES CIRCULARES...........................................    */
 
 .filtro-lista input[type="checkbox"] {
-    width: 20px; /* Tamanho maior */
-    height: 20px; /* Tamanho maior */
+    width: 40px; /* Tamanho maior */
+    height: 40px; /* Tamanho maior */
     border-radius: 50%; /* Torna o checkbox circular */
     margin-right: 10px;
     accent-color: #315f5d; /* Cor personalizada */
