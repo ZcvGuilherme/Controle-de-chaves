@@ -1,5 +1,11 @@
 {% load static %}
-<div class="chave-item">
+<div class="chave-item"
+    {% comment %} Guardando variáveis aqui {% endcomment %}
+    data-chave="{{ status.chave.id }}"
+    data-pessoa="{{ status.pessoa.nome|default_if_none:'' }}"
+    data-checkin="{{ status.checkin|date:'Y-m-d H:i:s' }}"
+    data-status="{{ status.status_code }}">
+    
     <!-- Ícone da chave -->
     <div class="chave-icone">
         {% if status.status_code %}

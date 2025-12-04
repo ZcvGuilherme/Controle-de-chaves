@@ -1,6 +1,6 @@
 //-----------------TEMPORIZADOR----------------------\\
 let tempoSemAtividade = 0;
-    let tempoParaAviso = 5; // 10s sem atividade para começar alerta
+    let tempoParaAviso = 1000; // 10s sem atividade para começar alerta
     let tempoParaLogout = 10; // 10s após o alerta para deslogar
 
     let aviso = document.getElementById("logout-warning");
@@ -44,41 +44,73 @@ document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("popup");
     const popupClose = document.getElementById("popupClose");
 
+    let dadosChaveSelecionada = null; // <- Vamos usar para enviar ao backend depois
+
     // -----------------------------
     // Abrir popup ao clicar na chave
     // -----------------------------
     document.querySelectorAll(".chave-item").forEach(item => {
         item.addEventListener("click", function () {
-            //Acao
-            let status = this.querySelector(".chave-status").innerText;
-            if (status == "Disponível"){
-                status = "Retirar"
-                //Ação: condição
-            } else {
-                status = "Devolver"
-            }
-            // Título
-            let titulo = this.querySelector(".chave-numero").innerText;
-            document.getElementById("popupTitulo").innerText = `Ação: ${status} ${titulo}`;
 
-            // Hora da ação
+            // ----- Dados vindos dos atributos data-* -----
+            const chaveId = this.dataset.chave;
+            const pessoaNome = this.dataset.pessoa;   // string vazia se disponível
+            const checkin = this.dataset.checkin;
+            const statusDB = this.dataset.status;     // True / False (string)
+
+            // Guardar para o backend
+            dadosChaveSelecionada = {
+                chaveId: chaveId,
+                pessoaNome: pessoaNome,
+                checkin: checkin,
+                statusDB: statusDB
+            };
+
+            // ----- Status visível ("Disponível" ou "Posse: Fulano") -----
+            const statusTexto = this.querySelector(".chave-status").innerText.trim();
+            const statusNomeChave = this.querySelector(".chave-local").innerText.trim();
+            // Decidir ação (retirar/devolver)
+            let acaoPopup;
+            if (statusTexto === "Disponível") {
+                acaoPopup = "Retirar";
+                dadosChaveSelecionada.acao = "retirar";
+            } else {
+                acaoPopup = "Devolver";
+                dadosChaveSelecionada.acao = "devolver";
+            }
+
+            // ----- Título -----
+            const titulo = this.querySelector(".chave-numero").innerText;
+            document.getElementById("popupTitulo").innerText = `Ação: ${acaoPopup} ${titulo} - ${statusNomeChave}`;
+
+            // ----- Hora da ação -----
             const agora = new Date();
             const hora = agora.toLocaleString("pt-BR", {
                 hour: "2-digit",
                 minute: "2-digit",
                 second: "2-digit"
             });
-
             document.getElementById("popupHora").innerText = "Hora da ação: " + hora;
 
+            // ----- Usuário -----
             let user = document.getElementById("usuario-logado").dataset.nome;
             document.getElementById("popupUsuario").innerText = "Usuário: " + user;
 
-
+            // Abrir popup
             popup.style.display = "flex";
         });
     });
 
+
+
+    // -----------------------------
+    // Botão CONFIRMAR
+    // -----------------------------
+    const btnConfirmar = document.getElementById('popup-chaves-btn-confirmar')
+
+    btnConfirmar.addEventListener("click", () => {
+        
+    })
     // -----------------------------
     // Botão FECHAR (X)
     // -----------------------------
