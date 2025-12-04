@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.db import models
-
+from django.contrib.auth.models import User
 class Pessoa(models.Model):
     """
     <h2>Representação da pessoa no banco de dados.</h2>\n
@@ -10,14 +10,15 @@ class Pessoa(models.Model):
     <b>Cargo (CharField):</b> Tamanho máximo de 100 dígitos. Representa o cargo da pessoa. Sujeito a mudanças. \n
     <b>itemBusca (CharField): </b> Item auto-completável então sem necessidade de colocar seu valor.
     """
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     matricula = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=100)
     cargo = models.CharField(max_length=100)
     itemBusca = models.CharField(max_length=100, blank=True, null=True)
 
     @classmethod
-    def registrar_pessoa(cls, matricula, nome, cargo):
-        return cls.objects.create(matricula=matricula, nome=nome, cargo=cargo)
+    def registrar_pessoa(cls, matricula, nome, cargo, user):
+        return cls.objects.create(matricula=matricula, nome=nome, cargo=cargo, user=user)
 
     @classmethod
     def partial_search(cls, content):
