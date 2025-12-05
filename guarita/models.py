@@ -7,18 +7,18 @@ class Pessoa(models.Model):
     <h3>Atributos da tabela:</h3> \n
     <b>Matricula (IntegerField):</b> Chave primária da tabela.\n
     <b>Nome (CharField):</b>  Tamanho máximo de 100 dígitos, representa o nome completo da pessoa. \n
-    <b>Cargo (CharField):</b> Tamanho máximo de 100 dígitos. Representa o cargo da pessoa. Sujeito a mudanças. \n
-    <b>itemBusca (CharField): </b> Item auto-completável então sem necessidade de colocar seu valor.
+   
+   
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="pessoa", null=True, blank=True)
     matricula = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=100)
-    cargo = models.CharField(max_length=100)
-    itemBusca = models.CharField(max_length=100, blank=True, null=True)
+    #cargo = models.CharField(max_length=100)
+    # itemBusca = models.CharField(max_length=100, blank=True, null=True)
 
     @classmethod
-    def registrar_pessoa(cls, matricula, nome, cargo, user):
-        return cls.objects.create(matricula=matricula, nome=nome, cargo=cargo, user=user)
+    def registrar(cls, matricula, nome, user):
+        return cls.objects.create(matricula=matricula, nome=nome, user=user)
 
     @classmethod
     def partial_search(cls, content):
@@ -32,12 +32,12 @@ class Pessoa(models.Model):
     def getAll(cls):
         return cls.objects.all()
     
-    def save(self, *args, **kwargs):
-        self.itemBusca = f"{self.nome} - {self.cargo}"
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.itemBusca = f"{self.nome} - {self.cargo}"
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.nome} ({self.cargo})"
+        return self.nome
     
 class Chave(models.Model):
     """
@@ -53,7 +53,7 @@ class Chave(models.Model):
     itemBusca = models.CharField(max_length=100, blank=True, null=True)
 
     @classmethod
-    def registrar_chave(cls, nome):
+    def registrar(cls, nome):
         return cls.objects.create(nome=nome)
 
     @classmethod
@@ -110,7 +110,7 @@ class Historico(models.Model):
     horario = models.DateTimeField()
 
     @classmethod
-    def registrar_acesso(cls, acao, pessoa, chave):
+    def registrar(cls, acao, pessoa, chave):
         agora = timezone.now()
         return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave, horario=agora)
 
@@ -153,7 +153,7 @@ class ChaveStatus(models.Model):
     status_code = models.BooleanField(editable=False)
     
     @classmethod
-    def criar_status(cls, chave):
+    def registrar(cls, chave):
         status, created = cls.objects.get_or_create(chave=chave)
         return status
 

@@ -19,6 +19,6 @@ class HistoricoAdmin(admin.ModelAdmin):
     list_display_links = ('id_historico', 'chave')
 @admin.register(Pessoa)
 class PessoaAdmin(admin.ModelAdmin):
-    exclude = ('itemBusca',)
-    list_display = ('matricula','itemBusca', 'nome', 'cargo')
-    list_display_links = ('matricula', 'itemBusca')
+
+    list_display = ('matricula', 'nome')
+    list_display_links = ('matricula',)
