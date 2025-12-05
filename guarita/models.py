@@ -7,8 +7,6 @@ class Pessoa(models.Model):
     <h3>Atributos da tabela:</h3> \n
     <b>Matricula (IntegerField):</b> Chave primária da tabela.\n
     <b>Nome (CharField):</b>  Tamanho máximo de 100 dígitos, representa o nome completo da pessoa. \n
-   
-   
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="pessoa", null=True, blank=True)
     matricula = models.IntegerField(primary_key=True)

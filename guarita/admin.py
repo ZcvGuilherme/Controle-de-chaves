@@ -11,14 +11,12 @@ class ChaveStatusAdmin(admin.ModelAdmin):
     list_display = ('chave', 'pessoa', 'status_code', 'checkin')
     list_display_links = ('chave', 'pessoa')
 
-
-    
 @admin.register(Historico)
 class HistoricoAdmin(admin.ModelAdmin):
     list_display = ('id_historico','acao','chave', 'pessoa', 'horario')
     list_display_links = ('id_historico', 'chave')
 @admin.register(Pessoa)
 class PessoaAdmin(admin.ModelAdmin):
-
-    list_display = ('matricula', 'nome')
-    list_display_links = ('matricula',)
+    exclude = ('user',)
+    list_display = ('matricula', 'nome', 'user')
+    list_display_links = ('matricula',)  # matricula é o link clicável
