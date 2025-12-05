@@ -248,7 +248,7 @@ class ChaveStatus(models.Model):
 
         status.save()
         #------------------------------REGISTRAR NO HISTÓRICO-----------------------------------------#
-        Historico.registrar_acesso(acao, pessoa, chave)
+        Historico.registrar(acao, pessoa, chave)
 
     def save(self, *args, **kwargs):
         self.status_code = (self.pessoa is None)

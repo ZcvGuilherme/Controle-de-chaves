@@ -15,13 +15,20 @@ def gerar_itemBusca(sender, instance, created, **kwargs):
         instance.save(update_fields=["itemBusca"])
 
 
-@receiver(post_save, sender=User)
-def gerar_pessoa_automatico(sender, instance, created, **kwargs):
-    if created:
-        Pessoa.registrar_pessoa(
-            instance.id,
-            instance.get_full_name(),
-            "",
-            instance
+@receiver(post_save, sender=Pessoa)
+def criar_usuario_para_pessoa(sender, instance, created, **kwargs):
+    if created and instance.user is None:
+        user = User.objects.create_user(
+            username=str(instance.matricula),
+            password=str(instance.matricula),  # ou outra regra
+            first_name=instance.nome
         )
-        
+        instance.user = user
+        instance.save()
+
+
+@receiver(post_save, sender=Pessoa)
+def atualizar_usuario(sender, instance, created, **kwargs):
+    if not created and instance.user:
+        instance.user.first_name = instance.nome
+        instance.user.save()

@@ -1,6 +1,6 @@
 //-----------------TEMPORIZADOR----------------------\\
 let tempoSemAtividade = 0;
-    let tempoParaAviso = 3; // 10s sem atividade para começar alerta
+    let tempoParaAviso = 1000; // 10s sem atividade para começar alerta
     let tempoParaLogout = 5; // 10s após o alerta para deslogar
 
     let aviso = document.getElementById("logout-warning");
