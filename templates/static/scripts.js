@@ -191,17 +191,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ===== FILTRO =====
     const filtroForm = document.querySelector("#filtro-form");
+    const inputBusca = filtroForm.querySelector("input[name=busca]");
+    const radiosStatus = filtroForm.querySelectorAll("input[name=status]");
 
-    filtroForm.addEventListener("submit", function (e) {
-        e.preventDefault();
+    // Aplicar ao digitar (com pequeno delay)
+    let typingTimer;
+    inputBusca.addEventListener("input", function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+            const params = {
+                busca: inputBusca.value,
+                status: filtroForm.status.value,
+                page: 1
+            };
+            carregarResultados(params);
+        }, 300); // delay anti-spam
+    });
 
-        const params = {
-            busca: this.busca.value,
-            status: this.status.value || "",
-            page: 1
-        };
-
-        carregarResultados(params);
+    // Aplicar ao clicar nos radios
+    radiosStatus.forEach(r => {
+        r.addEventListener("change", function () {
+            const params = {
+                busca: inputBusca.value,
+                status: this.value,
+                page: 1
+            };
+            carregarResultados(params);
+        });
     });
 
 
@@ -215,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const page = this.dataset.page;
 
             const busca = document.querySelector("input[name=busca]").value;
-            const status = document.querySelector("input[name=status]:checked")?.value || "";
+            const status = document.querySelector("input[name=status]:checked")?.value || "none";
 
             carregarResultados({ busca, status, page });
         });
