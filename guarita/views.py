@@ -6,7 +6,7 @@ from .models import Chave, ChaveStatus, Pessoa
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
+from django.template.loader import render_to_string
 
 @never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
 @login_required # Garante que apenas usuários autenticados possam acessar a view
@@ -29,6 +29,15 @@ def status_chave(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        html = render_to_string(
+            'componentes/lista_chaves_parcial.html',
+            {'page_obj': page_obj},
+            request=request
+        )
+        return JsonResponse({'html': html})
+
     return render(request, 'status_chaves.html', {'page_obj': page_obj})
 
 
@@ -47,7 +56,9 @@ def atualizar_status(request):
             pessoa = Pessoa.objects.get(matricula=pessoa_id)
         except Pessoa.DoesNotExist:
             return JsonResponse({"erro": "Pessoa não encontrada"}, status=400)
-        
+    
+
+    
     ChaveStatus.update(acao=acao,chave=chave,pessoa=pessoa)
 
     return JsonResponse({"sucesso": True})
