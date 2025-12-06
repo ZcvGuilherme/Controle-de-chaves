@@ -8,14 +8,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 
-@never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
-@login_required # Garante que apenas usuários autenticados possam acessar a view
-def status_chave(request):
-    filtro_status = request.GET.get("status")     # "disponivel" | "indisponivel" | None
-    itemBusca = request.GET.get("busca") 
+def filtrar_e_paginar(request):
+    filtro_status = request.GET.get("status")
+    itemBusca = request.GET.get("busca")
 
     if filtro_status == "true":
-        filtro_status =True
+        filtro_status = True
     elif filtro_status == "false":
         filtro_status = False
     else:
@@ -25,14 +23,21 @@ def status_chave(request):
         status_code=filtro_status,
         itemBusca=itemBusca
     )
-    paginator = Paginator(chaves_status, 2) # Mostrar X itens por página
 
+    paginator = Paginator(chaves_status, 2)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    return paginator.get_page(page_number)
 
+
+
+@never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
+@login_required # Garante que apenas usuários autenticados possam acessar a view
+def status_chave(request):
+    
+    page_obj = filtrar_e_paginar(request)
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":
         html = render_to_string(
-            'componentes/lista_chaves_parcial.html',
+            'componentes/lista_chaves.html',
             {'page_obj': page_obj},
             request=request
         )
