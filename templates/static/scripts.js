@@ -248,9 +248,6 @@ function debounce(func, delay) {
     };
 }
 
-// Campo de busca
-const inputBusca = document.querySelector("input[name=busca]");
-
 inputBusca.addEventListener("input", debounce(function () {
     const busca = this.value;
     const status = document.querySelector("input[name=status]:checked")?.value || "";
