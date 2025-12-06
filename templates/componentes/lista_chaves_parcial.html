@@ -1,0 +1,19 @@
+<div class="status-grid">
+    {% for status in page_obj %}
+        {% include 'componentes/chave_item.html' with status=status %}
+    {% empty %}
+        <p>Nenhuma chave encontrada.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="#" data-page="{{ page_obj.previous_page_number }}" class="btn-pagination ajax-page">Anterior</a>
+    {% endif %}
+
+    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="#" data-page="{{ page_obj.next_page_number }}" class="btn-pagination ajax-page">Próximo</a>
+    {% endif %}
+</div>

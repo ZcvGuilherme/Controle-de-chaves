@@ -168,3 +168,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 // ------- FIM POP-UP -------
+
+
+//----------------inicio filtros---------------------
+document.addEventListener("DOMContentLoaded", function () {
+
+    function carregarResultados(params) {
+    const queryString = new URLSearchParams(params).toString();
+
+    fetch(`?${queryString}`, {
+        headers: {
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.querySelector(".status-container").innerHTML = data.html;
+        aplicarEventosPaginacao();  // Reaplicar eventos após atualizar HTML
+    });
+}
+
+
+    // ===== FILTRO =====
+    const filtroForm = document.querySelector("#filtro-form");
+
+    filtroForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const params = {
+            busca: this.busca.value,
+            status: this.status.value || "",
+            page: 1
+        };
+
+        carregarResultados(params);
+    });
+
+
+
+    // ===== PAGINAÇÃO AJAX =====
+    function aplicarEventosPaginacao() {
+    document.querySelectorAll(".ajax-page").forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const page = this.dataset.page;
+
+            const busca = document.querySelector("input[name=busca]").value;
+            const status = document.querySelector("input[name=status]:checked")?.value || "";
+
+            carregarResultados({ busca, status, page });
+        });
+    });
+}
+
+
+    aplicarEventosPaginacao();
+});
