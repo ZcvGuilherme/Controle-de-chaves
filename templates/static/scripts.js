@@ -237,7 +237,25 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 }
+// ===== BUSCA PARCIAL =====
+
+// Função debounce para evitar várias requisições por segundo
+function debounce(func, delay) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+inputBusca.addEventListener("input", debounce(function () {
+    const busca = this.value;
+    const status = document.querySelector("input[name=status]:checked")?.value || "";
+
+    carregarResultados({ busca, status, page: 1 });
+}, 300)); // 300ms é o ideal
 
 
     aplicarEventosPaginacao();
 });
+
