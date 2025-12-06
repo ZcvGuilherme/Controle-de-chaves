@@ -5,6 +5,12 @@
         <ul class="filtro-lista">
             <li>
                 <label>
+                    <input type="radio" name="status" value="none">
+                    <span>Todos</span>
+                </label>
+            </li>
+            <li>
+                <label>
                     <input type="radio" name="status" value="true"
                            {% if request.GET.status == "true" %}checked{% endif %}>
                     <span>Disponível</span>
@@ -20,6 +26,5 @@
             </li>
         </ul>
 
-        <button type="submit">Filtrar</button>
     </div>
 </form>
