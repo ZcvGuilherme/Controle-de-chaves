@@ -55,13 +55,11 @@
          </div>
     </div>
 </div>
-<div style="display:none">
-    <span id="usuario-logado" 
-    data-nome="{{ request.user.get_full_name|escapejs }}"
-    data-username="{{ request.user.username }}">
-</span>
-    
+<div id="usuario-logado"
+    data-nome="{{ request.user.pessoa.nome }}"
+    data-matricula="{{ request.user.pessoa.matricula }}">
 </div>
+
 <!-- ================== POPUP =================== -->
 <div id="popup" class="popup">
     <div class="popup-content">
