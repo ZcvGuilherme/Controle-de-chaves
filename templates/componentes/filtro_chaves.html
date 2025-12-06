@@ -5,7 +5,7 @@
         <ul class="filtro-lista">
             <li>
                 <label>
-                    <input type="radio" name="status" value="disponivel"
+                    <input type="radio" name="status" value="true"
                            {% if request.GET.status == "true" %}checked{% endif %}>
                     <span>Disponível</span>
                 </label>
@@ -13,7 +13,7 @@
 
             <li>
                 <label>
-                    <input type="radio" name="status" value="indisponivel"
+                    <input type="radio" name="status" value="false"
                            {% if request.GET.status == "false" %}checked{% endif %}>
                     <span>Indisponível</span>
                 </label>
