@@ -167,15 +167,14 @@ class ChaveStatus(models.Model):
         <h2> Buscar Status </h2>\n
         Equivalente ao partial_search dos outros, porém esse contém um filtro mais avançado, caso seja colocado sem nenhum parâmetro ele retorna todos os registrosm senão, ele faz uma busca não-sensitiva pelo status code e logo em seguida pelo nome da chave e nome da pessoa.
         """
-        query = cls.objects.select_related("chave", "pessoa")
+        query = cls.objects.select_related("chave")
 
         if status_code is not None:
             query = query.filter(status_code=status_code)
 
         if itemBusca is not None:
             query = query.filter(
-                models.Q(chave__itemBusca__icontains=itemBusca) |
-                models.Q(pessoa__itemBusca__icontains=itemBusca)
+                models.Q(chave__itemBusca__icontains=itemBusca) 
             )
         if order_by:
             query = query.order_by(order_by)

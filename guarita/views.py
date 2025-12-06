@@ -11,8 +11,20 @@ from django.http import JsonResponse
 @never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
 @login_required # Garante que apenas usuários autenticados possam acessar a view
 def status_chave(request):
+    filtro_status = request.GET.get("status")     # "disponivel" | "indisponivel" | None
+    itemBusca = request.GET.get("busca") 
 
-    chaves_status = ChaveStatus.getStatus()
+    if filtro_status == "true":
+        filtro_status =True
+    elif filtro_status == "false":
+        filtro_status = False
+    else:
+        filtro_status = None
+
+    chaves_status = ChaveStatus.getStatus(
+        status_code=filtro_status,
+        itemBusca=itemBusca
+    )
     paginator = Paginator(chaves_status, 2) # Mostrar X itens por página
 
     page_number = request.GET.get('page')
