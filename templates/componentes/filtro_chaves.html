@@ -1,23 +1,25 @@
-<div class="filtro-container">
-    <!-- <h3>Pesquisar</h3> -->
+<form method="GET">
+    <div class="filtro-container">
+        <input type="text" name="busca" placeholder="Pesquisar..." class="input-pesquisa" value="{{ request.GET.busca }}">
 
-    <input type="text" placeholder="Pesquisar..." class="input-pesquisa">
+        <ul class="filtro-lista">
+            <li>
+                <label>
+                    <input type="radio" name="status" value="disponivel"
+                           {% if request.GET.status == "true" %}checked{% endif %}>
+                    <span>Disponível</span>
+                </label>
+            </li>
 
-    <ul class="filtro-lista">
-        <li>
-            <label>
-                <input type="radio" name="filtro" value="disponivel">
-                <span>Disponível</span>
-            </label>
-        </li>
-    
-        <li>
-            <label>
-                <input type="radio" name="filtro" value="indisponivel">
-                <span>Indisponível</span>
-            </label>
-        </li>
-    
-        
-    </ul>
-</div>
+            <li>
+                <label>
+                    <input type="radio" name="status" value="indisponivel"
+                           {% if request.GET.status == "false" %}checked{% endif %}>
+                    <span>Indisponível</span>
+                </label>
+            </li>
+        </ul>
+
+        <button type="submit">Filtrar</button>
+    </div>
+</form>
