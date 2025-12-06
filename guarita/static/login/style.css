@@ -131,4 +131,44 @@ input::placeholder {
         font-size: 18px;
         padding: 20px 25px;
     }
+
+    /* Força alinhamento e evita "pulos" na borda ao focar */
+    .login-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+        display: block;
+        padding: 10px;
+        border-radius: 8px;
+        border: 2px solid transparent;
+        /* evita pulo quando aplicar border no :focus */
+        box-sizing: border-box;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .login-container input[type="text"]:focus,
+    .login-container input[type="password"]:focus {
+        border-color: #0fffe3;
+        box-shadow: 0 0 8px #0fffe3;
+        background-color: #fff;
+    }
+
+    .login-container .btn-login {
+        width: 250px;
+        max-width: 250px;
+        margin: 12px auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        outline: none;
+    }
+
 }
