@@ -5,37 +5,29 @@
 
 {% block content %}
 
-<!-- BLOCO DO LOGOUT (primeiro código) -->
-{% if request.user.is_authenticated %}
-<div>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-       <button type="submit" class="btn-main">Sair</button>
-    </form>
-</div>
-{% endif %}
-
-<form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
-    {% csrf_token %}
-</form>
-
-<div id="logout-warning" class="logout-warning" style="display: none;">
-    A sessão expira em <span id="contador">5</span> segundos.
-</div>
-
-<!-- FIM DO BLOCO DO LOGOUT -->
-
-<!-- BLOCO DA LISTA DE CHAVES -->
 <div class="layout-chaves">
 
-    {% include 'componentes/filtro_chaves.html' %}
+    <!-- COLUNA ESQUERDA: Filtros + Botão Sair -->
+    <div class="coluna-esquerda">
+        {% include 'componentes/filtro_chaves.html' %}
+        
+        <!-- BLOCO DO LOGOUT -->
+        {% if request.user.is_authenticated %}
+        <div class="logout-container">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-main">Sair</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
 
+    <!-- COLUNA DIREITA: Lista de Chaves -->
     <div class="status-container">
         <h2>Lista de Chaves</h2>
 
         <div class="status-grid">
             {% for status in page_obj %}
-            
                 {% include 'componentes/chave_item.html' with status=status %}
             {% empty %}
                 <p>Nenhuma chave cadastrada.</p>
@@ -51,10 +43,19 @@
 
             {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}" class="btn-pagination">Próximo</a>
-             {% endif %}
-         </div>
+            {% endif %}
+        </div>
     </div>
 </div>
+
+<form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
+    {% csrf_token %}
+</form>
+
+<div id="logout-warning" class="logout-warning" style="display: none;">
+    A sessão expira em <span id="contador">5</span> segundos.
+</div>
+
 <div id="usuario-logado"
     data-nome="{{ request.user.pessoa.nome }}"
     data-matricula="{{ request.user.pessoa.matricula }}">

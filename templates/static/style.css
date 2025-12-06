@@ -54,22 +54,17 @@ body {
 */
 .btn-main {
     font-family: "Titillium Web", sans-serif;
-    font-size: 20px; /* tamanho da fonte */    
-    padding: 10px; /* espaçamento interno */
+    width: 150px;
+    font-size: 20px;
+    padding: 0px;
+    margin: 0; /* Remove margin para melhor controle */
     background-color: #ec1d1d;
     color: rgb(245, 239, 239);
     font-weight: bold;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    height: 60px; 
-    position: absolute;
-    left: 150px;
-    top: calc(200px + 210px); /* altura do filtro + espaçamento */
-    width: 150px;
-    margin: 0 auto;
-    display: block;  
-    z-index: 9999;  
+    height: 60px;  
 }
 
 .btn-main:hover {
@@ -214,6 +209,19 @@ body {
 
 /*  ................................CHECKBOXES CIRCULARES...........................................    */
 
+/* Nova coluna esquerda que agrupa filtros + botão */
+.coluna-esquerda {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Container para centralizar o botão */
+.logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* Container principal para a lista de chaves */
 .status-container {
