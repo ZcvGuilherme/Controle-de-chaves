@@ -9,20 +9,22 @@ body {
 
 /* Container geral que tem os campos usiarios e senha */
 .login-container {
-    background-image: linear-gradient(135deg, #3c7673, #4db6ac);
+    background-color: rgba(0, 0, 0, 0.15);
     padding: 25px 30px;
     width: 400px;
     border-radius: 12px;
 }
 
 /* Espaçamento entre campos */
-form div { margin-bottom: 20px; }
+form div {
+    margin-bottom: 20px;
+}
 
 /* Labels senha e usuario os nomes, altera a cor da letras*/
 label {
     font-size: 20px;
     font-weight: 800;
-    color: #030303;
+    color: #ffffff;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -30,28 +32,33 @@ label {
 input[type="text"],
 input[type="password"],
 select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  outline: none;
-  transition: .3s;
-  text-align: center;
-  font-size: 18px;
-  background-color: #c1bebe;
-  text-align: center;
-  border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    transition: .3s;
+    text-align: center;
+    font-size: 18px;
+    text-align: center;
+
 }
 
 /* Foco nos inputs (usuario e senha) */
 input[type="text"]:focus,
 input[type="password"]:focus {
-  background-color: #fff;
-  box-shadow: 0 0 5px rgba(33, 150, 243, 0.4);
+    background-color: #fff;
+    border: 2px solid #0fffe3;
+    /* borda ao focar */
+    box-shadow: 0 0 8px #0fffe3;
+    /* glow da borda */
+    border: 2px solid transparent;
+    /* mantém o tamanho fixo */
 }
 
 /* Placeholder centralizado */
 input::placeholder {
-  text-align: center;
+    text-align: center;
 }
 
 /* Mensagem de erro */
@@ -80,23 +87,26 @@ input::placeholder {
     min-width: 180px;
     width: 100%;
     margin: 0 auto;
-        background-image: linear-gradient(135deg, #3c7673, #4db6ac);
-    color: #000000;
+    background-color: #0a7f70;
+    color: #ffffff;
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
     transition: background-color 0.3s;
+    border: none;
+    outline: none;
 }
 
 /* Aparência do botão quando seleciona o botão login*/
-.btn-login:hover {     background-image: linear-gradient(135deg, #ffffff, #ffffff); }
+.btn-login:hover {
+    background-image: linear-gradient(135deg, #24877a);
+}
 
 /* Caixa topo */
 .CaixaTopo {
     width: 100%;
-    background-color: #c1bebe;
     padding: 15px 20px;
     text-align: center;
     border-radius: 10px;
@@ -105,10 +115,20 @@ input::placeholder {
 
 /* Responsividade */
 @media (max-width: 480px) {
-    .login-container { width: 90%; padding: 20px; }
-    .CaixaTopo { padding: 12px 15px; font-size: 14px; }
+    .login-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .CaixaTopo {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
 }
 
 @media (min-width: 768px) {
-    .CaixaTopo { font-size: 18px; padding: 20px 25px; }
+    .CaixaTopo {
+        font-size: 18px;
+        padding: 20px 25px;
+    }
 }
