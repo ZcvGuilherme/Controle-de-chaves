@@ -106,14 +106,12 @@ body {
 --------------------------PAGINATOR----------------------------------
 */
 .pagination {
-    margin-top: 100px; /* 20px; */
+    width: 100%;              /* ← garante que ocupe toda a largura do container */
     display: flex;
-    justify-content: center;
+    justify-content: center;  /* ← centraliza horizontalmente */
+    align-items: center;
     gap: 15px;
-    align-items: center;
-    font-family: "Titillium Web", sans-serif;
-    align-items: center;
-    display: flex;
+    margin-top: 20px;
 }
 
 .btn-pagination {
@@ -133,7 +131,6 @@ body {
 /*
 -----------------------------FIM PAGINATOR---------------------------
 */
-
 
 
 /*
@@ -157,6 +154,7 @@ body {
     border-radius: 10px;
     height: 200px; /* height: fit-content; */
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    font-family: "Titillium Web", sans-serif;
 }
 
 /* .filtro-container h3 {
@@ -173,6 +171,7 @@ body {
     margin-bottom: 15px;
     background-color: #9c9a9a;   /* ------------------------------------------------------- */
     margin-top: 30px;              /* ------------------------------------------------------- */
+    font-family: "Titillium Web", sans-serif;
     
 }
 
@@ -225,30 +224,38 @@ body {
 
 /* Container principal para a lista de chaves */
 .status-container {
-    flex: 1; 
-    width: 800px; /* max-width: 800px; */
-    margin: 0 auto;
+    width: 700px;
     padding: 20px;
-    height: 400px;
+    margin: 0 auto;     /* <-- CENTRALIZA O CONTAINER */
+
+    /* ESSENCIAL */
+    height: auto;         /* crescer conforme o conteúdo */
+    overflow: visible;    /* evitar corte de elementos */
+
     background-color: #ddddda;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Titillium Web", sans-serif;
+    
 }
 
 /* Título da página */
-.status-container h2 {
+h2 {
     text-align: center;
     color: #333;
-    margin-bottom: 20px;
     font-size: 24px;
+    font-family: "Titillium Web", sans-serif;
+    margin-bottom: 20px;
 }
 
 /* Grid para os itens de chaves (empilhados verticalmente) */
 .status-grid {
-    height: 80px;            /* ---------------------------------------------------- */
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    /* remover altura fixa */
+    height: auto;
 }
 
 /* Item individual de chave */
@@ -258,9 +265,9 @@ body {
     background-color: #9c9a9a; /* Cinza claro similar ao da imagem */
     border-radius: 8px;
     padding: 15px;
-    height: 80px;
+    height: 25px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    font-family: "Titillium Web", sans-serif;
 }
 
 /* Ícone da chave */
@@ -416,3 +423,20 @@ body {
 .btn-cancelar:hover {
     background-color: #ff6464;
 }
+
+/* ======= RESPONSIVIDADE CONTAINER STATUS ======== */
+@media (max-width: 768px) {
+    .layout-chaves {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .coluna-esquerda {
+        width: 100%;
+    }
+
+    .status-container {
+        max-width: 100%;
+    }
+}
+/* ======= RESPONSIVIDADE ======== */
