@@ -39,134 +39,104 @@ let tempoSemAtividade = 0;
 
 
 // ------- POP-UP -------
-document.addEventListener("DOMContentLoaded", function () {
-    const btnConfirmar = document.getElementById('popup-chaves-btn-confirmar')
+
+/* ================================
+   FUNÇÃO PRINCIPAL DO POPUP
+================================ */
+function aplicarEventosPopup() {
     const popup = document.getElementById("popup");
     const popupClose = document.getElementById("popupClose");
-
-    let dadosChaveSelecionada = null; // <- Vamos usar para enviar ao backend depois
-
-     //------ Dados vindos de status_chaves.html-------------\\  
-                    //TODOS OS DADOS DE USER\\
-    const usuarioLogado = document.getElementById("usuario-logado").dataset;
-    const nomeUsuario = usuarioLogado.nome;
-    const pessoaMatricula = usuarioLogado.matricula;
-
-    
-                // -----------------------------
-                // Abrir popup ao clicar na chave
-                // -----------------------------
-    document.querySelectorAll(".chave-item").forEach(item => {
-        item.addEventListener("click", function () {
-            // COLOCANDO AQUI TODAS AS VARIÁVEIS
-       
-        // ----- Dados vindos dos atributos data-* em chave_item.html-----
-                    //TODOS OS DADOS DE CHAVE
-            const dadosChave = this.dataset;
-            const chaveId = dadosChave.chave;
-            const statusChave = (dadosChave.status === "True");
-            const chaveNome = dadosChave.chaveNome;
-            const acao = statusChave ? "RETIRADA" : "DEVOLUCAO";
-            const acaoPopup = acao === "RETIRADA" ? "Retirar" : "Devolver";
-            
-            document.getElementById("popupTitulo").innerText = `Ação: ${acaoPopup} Chave ${chaveId} - ${chaveNome}`;
-
-            // ----- Hora da ação -----
-            const agora = new Date();
-            const dataHora = agora.toLocaleString("pt-BR", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            });
-
-            dadosChaveSelecionada = {
-                chave: chaveId,
-                pessoa: pessoaMatricula,
-                acao: acao
-            }
-
-            document.getElementById("popupHora").innerText = "Data e hora da ação: " + dataHora;
-
-            // ----- Usuário -----
-            document.getElementById("popupUsuario").innerText =
-            "Usuário: " + nomeUsuario;
-            // Abrir popup
-            popup.style.display = "flex";
-        });
-    });
-
-
-
-    // -----------------------------
-    // Botão CONFIRMAR
-    // -----------------------------
-    
-
-    btnConfirmar.addEventListener("click", () => {
-
-    if (!dadosChaveSelecionada) return;
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-    fetch("/atualizar-status/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "X-CSRFToken": csrftoken
-        },
-        body: new URLSearchParams({
-            chave_id: dadosChaveSelecionada.chave,
-            pessoa_id: dadosChaveSelecionada.pessoa,
-            acao: dadosChaveSelecionada.acao
-        })
-    })
-
-    .then(response => response.json())
-    .then(data => {
-        if (data.sucesso) {
-            location.reload();
-            popup.style.display = "none";
-        } else {
-            alert("Erro: " + data.erro);
-        }
-    });
-});
-    // -----------------------------
-    // Botão FECHAR (X)
-    // -----------------------------
-    popupClose.addEventListener("click", () => {
-        popup.style.display = "none";
-    });
-
-    // Botão CANCELAR
+    const btnConfirmar = document.getElementById("popup-chaves-btn-confirmar");
     const btnCancelar = document.querySelector(".btn-cancelar");
-    if (btnCancelar) {
-        btnCancelar.addEventListener("click", () => {
-            popup.style.display = "none";
+
+    let dadosChaveSelecionada = null;
+
+    /* ========== DADOS DO USUÁRIO LOGADO ========== */
+    const usuario = document.getElementById("usuario-logado").dataset;
+    const nomeUsuario = usuario.nome;
+    const pessoaMatricula = usuario.matricula;
+
+    /* ========== FUNÇÃO: ABRIR POPUP ========== */
+    function abrirPopup(dadosChave) {
+        const chaveId = dadosChave.chave;
+        const chaveNome = dadosChave.chaveNome;
+        const statusChave = (dadosChave.status === "True");
+
+        const acao = statusChave ? "RETIRADA" : "DEVOLUCAO";
+        const acaoPopup = statusChave ? "Retirar" : "Devolver";
+
+        document.getElementById("popupTitulo").innerText =
+            `Ação: ${acaoPopup} Chave ${chaveId} - ${chaveNome}`;
+
+        dadosChaveSelecionada = {
+            chave: chaveId,
+            pessoa: pessoaMatricula,
+            acao: acao
+        };
+
+        const agora = new Date().toLocaleString("pt-BR");
+        document.getElementById("popupHora").innerText = "Data e hora da ação: " + agora;
+        document.getElementById("popupUsuario").innerText = "Usuário: " + nomeUsuario;
+
+        popup.style.display = "flex";
+    }
+
+    /* ========== FUNÇÃO: ADICIONAR EVENTOS NOS ITENS ========== */
+    function aplicarEventosItens() {
+        document.querySelectorAll(".chave-item").forEach(item => {
+            item.addEventListener("click", () => {
+                abrirPopup(item.dataset);
+            });
         });
     }
 
-    // -----------------------------
-    // Fechar clicando fora
-    // -----------------------------
-    window.addEventListener("click", function (e) {
-        if (e.target === popup) {
-            popup.style.display = "none";
-        }
-    });
+    /* ========== FUNÇÃO: CONFIRMAR AÇÃO ========== */
+    function confirmarAcao() {
+        if (!dadosChaveSelecionada) return;
 
-    // -----------------------------
-    // Fechar com ESC
-    // -----------------------------
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-            popup.style.display = "none";
-        }
-    });
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-});
+        fetch("/atualizar-status/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": csrftoken
+            },
+            body: new URLSearchParams({
+                chave_id: dadosChaveSelecionada.chave,
+                pessoa_id: dadosChaveSelecionada.pessoa,
+                acao: dadosChaveSelecionada.acao
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.sucesso) {
+                location.reload();
+            } else {
+                alert("Erro: " + data.erro);
+            }
+        });
+    }
+
+    /* ========== EVENTOS FIXOS ========== */
+    if (btnConfirmar) btnConfirmar.addEventListener("click", confirmarAcao);
+    if (btnCancelar) btnCancelar.addEventListener("click", () => popup.style.display = "none");
+    if (popupClose) popupClose.addEventListener("click", () => popup.style.display = "none");
+
+    /* ========== APLICA OS EVENTOS INICIAIS ========== */
+    aplicarEventosItens();
+
+    /* 
+       IMPORTANTE:
+       Quando você carregar a lista via AJAX, precisa chamar novamente
+       aplicarEventosItens() — por isso a função é separada.
+    */
+}
+
+/* ========== EXECUTA AO CARREGAR A PÁGINA ========== */
+document.addEventListener("DOMContentLoaded", aplicarEventosPopup);
+
+
 // ------- FIM POP-UP -------
 
 
@@ -185,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
         document.querySelector(".status-container").innerHTML = data.html;
         aplicarEventosPaginacao();  // Reaplicar eventos após atualizar HTML
+        aplicarEventosPopup();
     });
 }
 
