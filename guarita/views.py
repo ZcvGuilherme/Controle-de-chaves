@@ -24,7 +24,7 @@ def filtrar_e_paginar(request):
         itemBusca=itemBusca
     )
 
-    paginator = Paginator(chaves_status, 2)
+    paginator = Paginator(chaves_status, 5)
     page_number = request.GET.get('page')
     return paginator.get_page(page_number)
 
