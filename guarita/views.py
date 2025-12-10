@@ -25,7 +25,7 @@ def status_chave(request):
         status_code=filtro_status,
         itemBusca=itemBusca
     )
-    paginator = Paginator(chaves_status, 2) # Mostrar X itens por página
+    paginator = Paginator(chaves_status, 5) # Mostrar X itens por página
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
