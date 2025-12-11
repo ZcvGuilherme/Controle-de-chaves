@@ -149,7 +149,7 @@ body {
 /* COLUNA ESQUERDA (FILTROS) */
 .filtro-container {
     width: 260px; /*260px;*/
-    background: #ddddda;
+    background: #d9d9d9;
     padding: 20px;
     border-radius: 10px;
     height: 200px; /* height: fit-content; */
@@ -232,7 +232,7 @@ body {
     height: auto;         /* crescer conforme o conteúdo */
     overflow: visible;    /* evitar corte de elementos */
 
-    background-color: #ddddda;
+    background-color: #d9d9d9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: "Titillium Web", sans-serif;
