@@ -177,6 +177,7 @@ body {
 
 .input-pesquisa::placeholder {
     font-weight: bold;
+    font-size: 20px;
     color: #333; /* opcional */
 }
 
@@ -344,6 +345,21 @@ h2 {
     align-items: center;
     z-index: 9999;
 }
+
+/* deixar em negrito os itens do popup  */
+
+#popupTitulo {
+    font-weight: bold;
+}
+
+#popupUsuario {
+    font-weight: bold;
+}
+
+#popupHora {
+    font-weight: bold;
+}
+
 
 /* Caixa branca do popup */
 .popup-content {
