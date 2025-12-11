@@ -26,6 +26,12 @@
             <span class="status-disponivel">Disponível</span>
         {% else %}
             <span class="status-em-uso">Posse: {{ status.pessoa.nome }}</span>
+            <div class="chave-horario">
+                Há {{ status.checkin|timesince:hora_atual }}
+            </div>
         {% endif %}
     </div>
+
+   
+
 </div>
