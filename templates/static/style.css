@@ -346,21 +346,6 @@ h2 {
     z-index: 9999;
 }
 
-/* deixar em negrito os itens do popup  */
-
-#popupTitulo {
-    font-weight: bold;
-}
-
-#popupUsuario {
-    font-weight: bold;
-}
-
-#popupHora {
-    font-weight: bold;
-}
-
-
 /* Caixa branca do popup */
 .popup-content {
     background: white;
