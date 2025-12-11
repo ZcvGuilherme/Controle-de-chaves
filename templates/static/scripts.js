@@ -65,8 +65,9 @@ function aplicarEventosPopup() {
         const acao = statusChave ? "RETIRADA" : "DEVOLUCAO";
         const acaoPopup = statusChave ? "Retirar" : "Devolver";
 
-        document.getElementById("popupTitulo").innerText =
-            `Ação: ${acaoPopup} Chave ${chaveId} - ${chaveNome}`;
+        document.getElementById("popupTitulo").innerHTML =
+            `<strong>Ação:</strong> ${acaoPopup} Chave ${chaveId} - ${chaveNome}`;
+
 
         dadosChaveSelecionada = {
             chave: chaveId,
@@ -75,8 +76,10 @@ function aplicarEventosPopup() {
         };
 
         const agora = new Date().toLocaleString("pt-BR");
-        document.getElementById("popupHora").innerText = "Data e hora da ação: " + agora;
-        document.getElementById("popupUsuario").innerText = "Usuário: " + nomeUsuario;
+        document.getElementById("popupHora").innerHTML = `<strong>Data e hora da ação:</strong> ${agora}`;
+
+        document.getElementById("popupUsuario").innerHTML = `<strong>Usuário:</strong> ${nomeUsuario}`;
+
 
         popup.style.display = "flex";
     }
