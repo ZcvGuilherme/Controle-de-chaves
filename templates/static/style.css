@@ -276,19 +276,19 @@ h2 {
 }
 
 .key-icon {
-    width: 40px;
+    width: 60px;
     height: auto;
 }
 
 /* Filtros para colorir os ícones (assumindo ícones monocromáticos) */
 /* Para disponível: transformar key_branca (branco) em verde */
 .chave-item:has(.status-disponivel) .key-icon {
-    filter: invert(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+   
 }
 
 /* Para em uso: transformar key_preta (preto) em vermelho */
 .chave-item:has(.status-em-uso) .key-icon {
-    filter: invert(21%) sepia(97%) saturate(7414%) hue-rotate(357deg) brightness(86%) contrast(113%);
+    
 }
 
 /* Número da chave */
