@@ -8,9 +8,9 @@
     <!-- Ícone da chave -->
     <div class="chave-icone">
         {% if status.status_code %}
-            <img src="{% static 'img/key_branca.png' %}" alt="Chave disponível" class="key-icon">
+            <img src="{% static 'img/key-disponivel.png' %}" alt="Chave disponível" class="key-icon">
         {% else %}
-            <img src="{% static 'img/key_preta.png' %}" alt="Chave em uso" class="key-icon">
+            <img src="{% static 'img/key-indisponivel.png' %}" alt="Chave em uso" class="key-icon">
         {% endif %}
     </div>
     
