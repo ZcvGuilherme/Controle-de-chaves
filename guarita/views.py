@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.utils import timezone
 
 def filtrar_e_paginar(request):
     filtro_status = request.GET.get("status")
@@ -35,15 +36,19 @@ def filtrar_e_paginar(request):
 def status_chave(request):
     
     page_obj = filtrar_e_paginar(request)
+    hora_atual = timezone.now()
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":
         html = render_to_string(
             'componentes/lista_chaves.html',
-            {'page_obj': page_obj},
+            {
+                'page_obj': page_obj,
+                'hora_atual': hora_atual
+                },
             request=request
         )
         return JsonResponse({'html': html})
-
-    return render(request, 'status_chaves.html', {'page_obj': page_obj})
+    
+    return render(request, 'status_chaves.html', {'page_obj': page_obj, 'hora_atual':hora_atual})
 
 
 @require_POST
