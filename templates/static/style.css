@@ -167,9 +167,9 @@ body {
     width: 90%;
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid #f7f3f3;
+    border: 1px solid #7171718c;
     margin-bottom: 15px;
-    background-color: #9c9a9a;   /* ------------------------------------------------------- */
+    background-color: #a8a8a8ff;   /* ------------------------------------------------------- */
     margin-top: 30px;              /* ------------------------------------------------------- */
     font-family: "Titillium Web", sans-serif;
     
@@ -178,7 +178,7 @@ body {
 .input-pesquisa::placeholder {
     font-weight: bold;
     font-size: 20px;
-    color: #333; /* opcional */
+    color: #555555ff; /* opcional */
 }
 
 
@@ -328,7 +328,13 @@ h2 {
 .status-em-uso {
     font-weight: bold;
 }
+.status-disponivel {
+    color: #00FF00;
+}
 
+.status-em-uso {
+    color: #ff1010ff;;
+}
 
 /*
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FIM CONTAINERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
