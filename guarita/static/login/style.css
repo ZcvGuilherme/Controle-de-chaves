@@ -20,10 +20,10 @@
 
     --btn-bg: #029868;
     --btn-text: #ffffff;
-    --btn-shadow: 0 5px 10px rgba(193, 193, 193, 0.168);
+    --btn-shadow: 0 4px 15px rgba(152, 152, 152, 0.35);
 
-    --error-bg: #ffcccc;
-    --error-text: #950000;
+    --error-bg: #ffbdbd;
+    --error-text: #ff0000;
 }
 
 /* =====================================================
@@ -179,7 +179,7 @@ body {
 /* Hover */
 .btn-login:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 40px rgba(1, 145, 78, 0.6);
+    box-shadow: 0 5px 10px rgba(1, 145, 78, 0.6);
 }
 
 /* =====================================================
