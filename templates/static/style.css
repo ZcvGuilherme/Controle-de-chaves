@@ -317,7 +317,7 @@ h2 {
 .chave-status {
     text-align: right;
     font-size: 14px;
-    color: #333;
+    color: #1b1b1bff;
     min-width: 100px; /* 150px; */    /* Para alinhamento à direita */
 }
 
@@ -331,7 +331,7 @@ h2 {
 
 /*  ................................COR DOS STATUS...........................................    */
 .status-disponivel {
-    color: #359830;
+    color: #00693E;
 }
 
 .status-em-uso {
