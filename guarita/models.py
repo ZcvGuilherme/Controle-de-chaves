@@ -36,7 +36,7 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return self.nome
-    
+     
 class Chave(models.Model):
     """
     <h2>Representação das chaves no banco de dados.</h2>\n
@@ -257,3 +257,24 @@ class ChaveStatus(models.Model):
         if self.pessoa:
             return f"{self.pessoa.nome} - {self.chave.nome} ({status})"
         return f"{self.chave.nome} ({status})"
+
+class Restricao(models.Model):
+    pessoa = models.ForeignKey(
+        Pessoa,
+        on_delete=models.CASCADE,
+        related_name="permissoes"
+    )
+
+    chave = models.ForeignKey(
+        Chave,
+        on_delete=models.CASCADE
+        related_name="permissoes"
+    )
+
+    class Meta:
+        unique_together = ("pessoa", "chave")
+        verbose_name = "Permissao de Chave"
+        verbose_name_plural = "Permissões de Chaves"
+
+    def __str__(self):
+        return f"{self.pessoa.nome} → {self.chave.nome}"
