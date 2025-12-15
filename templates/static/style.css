@@ -328,12 +328,14 @@ h2 {
 .status-em-uso {
     font-weight: bold;
 }
+
+/*  ................................COR DOS STATUS...........................................    */
 .status-disponivel {
-    color: #00FF00;
+    color: #3ed72dff;
 }
 
 .status-em-uso {
-    color: #ff1010ff;;
+    color: #cd2009ff;
 }
 
 /*
