@@ -267,7 +267,7 @@ class Restricao(models.Model):
 
     chave = models.ForeignKey(
         Chave,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
         related_name="permissoes"
     )
 
