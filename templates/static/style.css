@@ -167,9 +167,9 @@ body {
     width: 90%;
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid #f7f3f3;
+    border: 1px solid #7171718c;
     margin-bottom: 15px;
-    background-color: #9c9a9a;   /* ------------------------------------------------------- */
+    background-color: #a8a8a8ff;   /* ------------------------------------------------------- */
     margin-top: 30px;              /* ------------------------------------------------------- */
     font-family: "Titillium Web", sans-serif;
     
@@ -178,7 +178,7 @@ body {
 .input-pesquisa::placeholder {
     font-weight: bold;
     font-size: 20px;
-    color: #333; /* opcional */
+    color: #555555ff; /* opcional */
 }
 
 
@@ -317,7 +317,7 @@ h2 {
 .chave-status {
     text-align: right;
     font-size: 14px;
-    color: #333;
+    color: #1b1b1bff;
     min-width: 100px; /* 150px; */    /* Para alinhamento à direita */
 }
 
@@ -329,6 +329,14 @@ h2 {
     font-weight: bold;
 }
 
+/*  ................................COR DOS STATUS...........................................    */
+.status-disponivel {
+    color: #00693E;
+}
+
+.status-em-uso {
+    color: #cd2009ff;
+}
 
 /*
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FIM CONTAINERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -1,149 +1,212 @@
+/* =====================================================
+   VARIÁVEIS DE TEMA (FÁCIL DE AJUSTAR)
+   ===================================================== */
+
+:root {
+    --bg-page: #097C6D;
+
+    --card-bg: #054940;
+    --card-radius: 16px;
+    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+
+    --input-bg: #5decbe;
+    --input-text: #000000;
+    --input-placeholder: #000000;
+
+    --input-focus: #05ea9edb;
+
+    --btn-bg: #029868;
+    --btn-text: #ffffff;
+    --btn-shadow: 0 4px 15px rgba(152, 152, 152, 0.35);
+
+    --error-bg: #ffbdbd;
+    --error-text: #ff0000;
+}
+
+/* =====================================================
+   BODY
+   ===================================================== */
+
 body {
-    background-image: linear-gradient(135deg, 135deg, #3c7673, #00ffd5, #0f0f0f);
+    margin: 0;
+    min-height: 100vh;
+
+    background: radial-gradient(circle at top,
+            #0A796B,
+            var(--bg-page));
+
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+
     font-family: 'Roboto', sans-serif;
 }
 
-/* Container geral que tem os campos usiarios e senha */
+/* =====================================================
+   CAIXA EXTERNA
+   ===================================================== */
+
+.CaixaTopo {
+    padding: 20px;
+}
+
+/* =====================================================
+   CARD DE LOGIN
+   ===================================================== */
+
 .login-container {
-    background-color: rgba(0, 0, 0, 0.15);
-    padding: 20px 30px;
-    /* reduzido */
-    width: 450px;
-    border-radius: 12px;
+    background: var(--card-bg);
+    width: 420px;
+    padding: 32px;
+
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
 
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+}
 
-    /* Espaçamento entre campos */
-    form div {
-        margin-bottom: 12px;
-        /* reduzido de 20 → 12 */
+.login-container *,
+.login-container *::before,
+.login-container *::after {
+    box-sizing: border-box;
+}
 
-        /* garante centralização */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+/* =====================================================
+   FORM
+   ===================================================== */
 
-    /* Labels senha e usuario os nomes, altera a cor da letras*/
-    label {
-        font-size: 20px;
-        font-weight: 800;
-        color: #ffffff;
-        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    }
+.login-container form {
+    width: 100%;
+}
 
-    /* Inputs geral usuário e senha*/
-    input[type="text"],
-    input[type="password"],
-    select {
-        width: 260px;
-        /* tamanho fixo — igual ao botão */
-        padding: 12px;
-        border-radius: 8px;
-        outline: none;
+/* =====================================================
+   TÍTULO (USANDO O PRIMEIRO LABEL COMO LOGIN)
+   ===================================================== */
 
-        border: 2px solid transparent;
-        /* impede de mexer ao focar */
-        transition: .3s;
+.login-container form::before {
+    content: "LOGIN";
+    display: block;
 
-        text-align: center;
-        font-size: 18px;
-        box-sizing: border-box;
-        /* impede qualquer pulinho */
+    text-align: center;
+    margin-bottom: 24px;
 
-    }
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 2px;
 
-    /* Foco nos inputs (usuario e senha) */
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-        background-color: #fff;
-        border-color: #0fffe3;
-        /* borda neon */
-        box-shadow: 0 0 8px #0fffe3;
-        /* glow */
-    }
+    color: var(--text-primary);
+}
 
-    /* Placeholder centralizado */
-    input::placeholder {
-        text-align: center;
-    }
+/* =====================================================
+   GRUPOS DE CAMPOS
+   ===================================================== */
 
-    /* Mensagem de erro */
-    .error-msg {
-        font-size: 20px;
-        background-color: #ffcccc;
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-        color: #532020;
-        padding: 6px;
-        border-radius: 8px;
-        max-width: 250px;
+.form-group {
+    margin-bottom: 18px;
+}
+
+/* =====================================================
+   LABELS
+   ===================================================== */
+
+.login-container label {
+    display: block;
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* =====================================================
+   INPUTS
+   ===================================================== */
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 14px;
+
+    background: var(--input-bg);
+    color: var(--input-text);
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+/* Placeholder */
+.login-container input::placeholder {
+    color: var(--input-placeholder);
+}
+
+/* Foco */
+.login-container input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--input-focus);
+}
+
+/* =====================================================
+   BOTÃO LOGIN
+   ===================================================== */
+
+.btn-login {
+    margin-top: 18px;
+
+    background: var(--btn-bg);
+    color: var(--btn-text);
+
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    padding: 14px;
+    border-radius: 10px;
+
+    border: none;
+    cursor: pointer;
+
+    box-shadow: var(--btn-shadow);
+    transition: 0.3s;
+}
+
+/* Hover */
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(1, 145, 78, 0.6);
+}
+
+/* =====================================================
+   ERRO
+   ===================================================== */
+
+.error-msg {
+    margin-top: 16px;
+
+    background: var(--error-bg);
+    color: var(--error-text);
+
+    padding: 8px;
+    border-radius: 8px;
+
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* =====================================================
+   RESPONSIVO
+   ===================================================== */
+
+@media (max-width: 480px) {
+    .login-container {
         width: 100%;
-        margin: 20px auto 0;
-        text-align: center;
-    }
-
-    /* Botão */
-    .btn-login {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 8px;
-        /* adiciona leve aproximação */
-        width: 260px;
-        /* mesmo tamanho dos inputs */
-        padding: 12px;
-
-        background-color: #21c4ae;
-        color: #ffffff;
-
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 20px;
-        font-weight: bold;
-
-        border: none;
-        outline: none;
-    }
-
-    /* Aparência do botão quando seleciona o botão login*/
-    .btn-login:hover {
-        background-image: linear-gradient(135deg, #24877a);
-    }
-
-    /* Caixa topo */
-    .CaixaTopo {
-        width: 100%;
-        padding: 15px 20px;
-        text-align: center;
-        border-radius: 10px;
-        box-sizing: border-box;
-    }
-
-    /* Responsividade */
-    @media (max-width: 480px) {
-        .login-container {
-            width: 90%;
-            padding: 20px;
-        }
-
-        .CaixaTopo {
-            padding: 12px 15px;
-            font-size: 14px;
-        }
-    }
-
-    @media (min-width: 768px) {
-        .CaixaTopo {
-            font-size: 18px;
-            padding: 20px 25px;
-        }
+        padding: 24px;
     }
 }
