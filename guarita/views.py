@@ -12,6 +12,7 @@ from django.utils import timezone
 def filtrar_e_paginar(request):
     filtro_status = request.GET.get("status")
     itemBusca = request.GET.get("busca")
+    pessoa = request.user.pessoa
 
     if filtro_status == "true":
         filtro_status = True
@@ -21,6 +22,7 @@ def filtrar_e_paginar(request):
         filtro_status = None
 
     chaves_status = ChaveStatus.getStatus(
+        pessoa=pessoa,
         status_code=filtro_status,
         itemBusca=itemBusca
     )
