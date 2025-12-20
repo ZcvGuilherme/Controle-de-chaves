@@ -5,30 +5,27 @@
 
 {% block content %}
 
-<div class="layout-chaves">
+<div class="card-principal">
 
-    <!-- COLUNA ESQUERDA: Filtros + Botão Sair -->
-    <div class="coluna-esquerda">
+    <!-- FILTROS NO TOPO -->
+    <div class="barra-filtros">
         {% include 'componentes/filtro_chaves.html' %}
-        
-        <!-- BLOCO DO LOGOUT -->
+
         {% if request.user.is_authenticated %}
-        <div class="logout-container">
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn-main">Sair</button>
-            </form>
-        </div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+        </form>
         {% endif %}
     </div>
 
-    <!-- COLUNA DIREITA: Lista de Chaves -->
+    <!-- LISTA DE CHAVES -->
     <div class="status-container">
-        
         {% include 'componentes/lista_chaves.html' %}
     </div>
+
 </div>
 
+<!-- RESTO PERMANECE IGUAL -->
 <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display:none;">
     {% csrf_token %}
 </form>
@@ -38,8 +35,8 @@
 </div>
 
 <div id="usuario-logado"
-    data-nome="{{ request.user.pessoa.nome }}"
-    data-matricula="{{ request.user.pessoa.matricula }}">
+     data-nome="{{ request.user.pessoa.nome }}"
+     data-matricula="{{ request.user.pessoa.matricula }}">
 </div>
 
 <!-- ================== POPUP =================== -->

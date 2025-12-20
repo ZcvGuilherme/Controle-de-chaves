@@ -6,42 +6,82 @@
         CSS DO BASE.HTML
 */
 body {
-    background-color: #0A796B; /* cor de fundo*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* ocupa a tela inteira */
+    background-color: #0A796B;
+    margin: 0;
+    min-height: 100vh;
+    display: block; /* NÃO flex */
+    font-family: "Titillium Web", sans-serif;
 }
 
+.card-principal {
+    background: #f1f1f1;
+    border-radius: 22px;
+    padding: 25px 30px 30px;
+    width: 92%;
+    max-width: 1200px;
+    margin: 140px auto 40px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
 
 .top-bar {
-    position: fixed;    /* fixa a barra no topo da tela */
-    top: 0;    /* fica no topo */
+    position: fixed;
+    top: 0;
     left: 0;
-    width: 100%;    /* ocupa toda a largura da tela */
-    height: 100px;    /* altura da barra */
-    background-color: #d9d9d9;    /* cor da barra */
-    display: flex;    /* para centralizar o conteúdo */
-    align-items: center;    /* centraliza verticalmente */
-    z-index: 1000;    /* garante que fique sobre outros elementos */
+    width: 100%;
+    height: 90px;
+
+    background-color: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+    z-index: 1000;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
 }
 
 .top-logoIfpi {
-    position: absolute;
-    left: 20px;    /* distância da esquerda */
     display: flex;
-    height: 80px;
+    align-items: center;
+    height: 70px;
+}
+
+.top-logoIfpi img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
 }
 
 .top-right {
-    font-family: "Titillium Web", sans-serif;
     font-weight: bold;
-    font-size: 180%; /* aumenta o tamanho da fonte */
+    font-size: 22px;
     color: black;
-    position: absolute;
-    right: 20px;    /* distância da direita */
-    display: flex;
+}
+
+.top-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn-sair {
+    background: #e53935;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.btn-sair-topo {
+    height: 45px;
+    font-size: 16px;
+    padding: 0 20px;
 }
 
 /*
@@ -53,7 +93,6 @@ body {
 ---------------------------BOTÃO GERAL-------------------------------
 */
 .btn-main {
-    font-family: "Titillium Web", sans-serif;
     width: 150px;
     font-size: 20px;
     padding: 0px;
@@ -97,11 +136,6 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
-
-/*
----------------------------------------------------------------------
-
-
 /*
 --------------------------PAGINATOR----------------------------------
 */
@@ -133,9 +167,7 @@ body {
 */
 
 
-/*
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CONTAINERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-*/
+/* ===== CONTAINERS ===== */
 
 /* CONTAINER GERAL — LADO ESQUERDO + LADO DIREITO */
 .layout-chaves {
@@ -147,6 +179,14 @@ body {
 }
 
 /* COLUNA ESQUERDA (FILTROS) */
+
+/* Container da barra de pesquisa + filtros */
+.barra-filtros {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
 .filtro-container {
     width: 260px; /*260px;*/
     background: #d9d9d9;
@@ -154,7 +194,6 @@ body {
     border-radius: 10px;
     height: 200px; /* height: fit-content; */
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    font-family: "Titillium Web", sans-serif;
 }
 
 /* .filtro-container h3 {
@@ -170,9 +209,7 @@ body {
     border: 1px solid #7171718c;
     margin-bottom: 15px;
     background-color: #a8a8a8ff;   /* ------------------------------------------------------- */
-    margin-top: 30px;              /* ------------------------------------------------------- */
-    font-family: "Titillium Web", sans-serif;
-    
+    margin-top: 30px;              /* ------------------------------------------------------- */    
 }
 
 .input-pesquisa::placeholder {
@@ -195,6 +232,29 @@ body {
     display: flex;
     align-items: center;
 }
+
+/*NOVO CÓDIGO FILTRO*/
+.filtro-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filtro-horizontal label {
+    background: #e0e0e0;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filtro-horizontal input[type="radio"]:checked + span {
+    background: #2e7d6f;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 14px;
+}
+/*NOVO CÓDIGO FILTRO*/
 
 /*  ................................CHECKBOXES CIRCULARES...........................................    */
 
@@ -235,9 +295,7 @@ body {
 
     background-color: #d9d9d9;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: "Titillium Web", sans-serif;
-    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);    
 }
 
 /* Título da página */
@@ -245,7 +303,6 @@ h2 {
     text-align: center;
     color: #333;
     font-size: 24px;
-    font-family: "Titillium Web", sans-serif;
     margin-bottom: 20px;
 }
 
@@ -260,16 +317,27 @@ h2 {
 }
 
 /* Item individual de chave */
+/*NOVO CÓDIGO CHAVE ITEM*/
 .chave-item {
     display: flex;
     align-items: center;
-    background-color: #9c9a9a; /* Cinza claro similar ao da imagem */
-    border-radius: 8px;
-    padding: 15px;
-    height: 25px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: "Titillium Web", sans-serif;
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 2px solid transparent;
+    transition: 0.2s;
 }
+
+.chave-item:has(.status-disponivel) {
+    border-color: #2ecc71;
+    background: #f4fff8;
+}
+
+.chave-item:has(.status-em-uso) {
+    border-color: #e74c3c;
+    background: #fff5f5;
+}
+/*NOVO CÓDIGO CHAVE ITEM*/
 
 /* Ícone da chave */
 .chave-icone {
@@ -338,9 +406,8 @@ h2 {
     color: #cd2009ff;
 }
 
-/*
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FIM CONTAINERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-*/
+/* ===== FIM CONTAINERS ===== */
+
 
 /* ======= POPUP ======== */
 #popup {
@@ -364,7 +431,6 @@ h2 {
     box-shadow: 0 0 25px rgba(0,0,0,0.3);
     animation: fadeIn .3s ease-in-out;
     align-items: center;
-    font-family: "Titillium Web", sans-serif;
 }
 
 /* Botão de fechar */
@@ -394,7 +460,6 @@ h2 {
 /* ======= BOTÕES POPUP ======== */
 
 .btn-confirmar {
-    font-family: "Titillium Web", sans-serif;
     width: 150px; /* largura fixa */
     font-size: 20px; /* tamanho da fonte */    
     padding: 0px; /* espaçamento interno */
@@ -414,7 +479,6 @@ h2 {
 }
 
 .btn-cancelar {
-    font-family: "Titillium Web", sans-serif;
     width: 150px; /* largura fixa */
     font-size: 20px; /* tamanho da fonte */    
     padding: 0px; /* espaçamento interno */
@@ -607,5 +671,17 @@ h2 {
     }
     .top-right {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 1280px) {
+    .card-principal {
+        width: 96%;
+        padding: 20px;
+    }
+
+    .barra-filtros {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
