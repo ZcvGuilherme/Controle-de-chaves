@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 class Pessoa(models.Model):
     """
     <h2>Representação da pessoa no banco de dados.</h2>\n
@@ -11,8 +12,7 @@ class Pessoa(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="pessoa", null=True, blank=True)
     matricula = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=100)
-    #cargo = models.CharField(max_length=100)
-    # itemBusca = models.CharField(max_length=100, blank=True, null=True)
+
 
     @classmethod
     def registrar(cls, matricula, nome, user):
@@ -36,7 +36,7 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return self.nome
-    
+     
 class Chave(models.Model):
     """
     <h2>Representação das chaves no banco de dados.</h2>\n
@@ -162,12 +162,21 @@ class ChaveStatus(models.Model):
     # .order_by('chave__id')
 
     @classmethod
-    def getStatus(cls, status_code=None, itemBusca=None, order_by="chave__id"):
+    def getStatus(cls, pessoa, status_code=None, itemBusca=None, order_by="chave__id"):
         """
         <h2> Buscar Status </h2>\n
         Equivalente ao partial_search dos outros, porém esse contém um filtro mais avançado, caso seja colocado sem nenhum parâmetro ele retorna todos os registrosm senão, ele faz uma busca não-sensitiva pelo status code e logo em seguida pelo nome da chave e nome da pessoa.
         """
-        query = cls.objects.select_related("chave")
+
+        tem_restricao = Restricao.objects.filter(pessoa=pessoa).exists()
+
+        query = cls.objects.select_related("chave", "pessoa")
+
+    
+        if tem_restricao:
+            query = query.filter(
+                chave__permissoes__pessoa=pessoa
+            )
 
         if status_code is not None:
             query = query.filter(status_code=status_code)
@@ -176,10 +185,8 @@ class ChaveStatus(models.Model):
             query = query.filter(
                 models.Q(chave__itemBusca__icontains=itemBusca) 
             )
-        if order_by:
-            query = query.order_by(order_by)
             
-        return query
+        return query.distinct().order_by(order_by)
 
     
     @classmethod
@@ -234,7 +241,11 @@ class ChaveStatus(models.Model):
         if acao == "DEVOLUCAO" and status.pessoa is None:
             raise ValueError(f"A chave '{status.chave}' já está disponível — não há o que devolver.")        
         #------------------------------EFETUAR UPDATE-------------------------------------------------#
-
+        if Restricao.objects.filter(pessoa=pessoa).exists():
+            if not Restricao.objects.filter(pessoa=pessoa, chave=chave).exists():
+                raise PermissionDenied(
+                    f"{pessoa.nome} não tem permissão para acessar a chave {chave.nome}."
+        )
         if acao=="DEVOLUCAO":
             status.pessoa = None
             status.checkin = None
@@ -257,3 +268,30 @@ class ChaveStatus(models.Model):
         if self.pessoa:
             return f"{self.pessoa.nome} - {self.chave.nome} ({status})"
         return f"{self.chave.nome} ({status})"
+
+class Restricao(models.Model):
+    pessoa = models.ForeignKey(
+        Pessoa,
+        on_delete=models.CASCADE,
+        related_name="permissoes"
+    )
+
+    chave = models.ForeignKey(
+        Chave,
+        on_delete=models.CASCADE,
+        related_name="permissoes"
+    )
+
+    @classmethod
+    def chaves_permitidas_para_pessoa(cls, pessoa):
+        return Chave.objects.filter(
+            permissoes__pessoa=pessoa
+        ).distinct()
+
+    class Meta:
+        unique_together = ("pessoa", "chave")
+        verbose_name = "Permissao de Chave"
+        verbose_name_plural = "Permissões de Chaves"
+
+    def __str__(self):
+        return f"{self.pessoa.nome} → {self.chave.nome}"
