@@ -60,17 +60,23 @@ def atualizar_status(request):
     pessoa_id = request.POST.get("pessoa_id")
     acao = request.POST.get("acao")
 
-    chave = Chave.objects.get(id=chave_id)
-    pessoa = None
+    try:
+        chave = Chave.objects.get(id=chave_id)
+    except Chave.DoesNotExist:
+        return JsonResponse({"erro": "Chave não encontrada"}, status=400)
     
-    if pessoa_id:  # só busca se tiver valor
-        try:
-            pessoa = Pessoa.objects.get(matricula=pessoa_id)
-        except Pessoa.DoesNotExist:
-            return JsonResponse({"erro": "Pessoa não encontrada"}, status=400)
+    try:
+        pessoa = request.user.pessoa 
+    except Pessoa.DoesNotExist:
+        return JsonResponse({"erro": "Usuário não vinculado a uma pessoa"}, status=400)
     
-
-    
-    ChaveStatus.update(acao=acao,chave=chave,pessoa=pessoa)
+    try:
+        ChaveStatus.update(
+            acao=acao,
+            chave=chave,
+            pessoa=pessoa
+        )
+    except Exception as e:
+        return JsonResponse({"erro": str(e)}, status=400)
 
     return JsonResponse({"sucesso": True})
