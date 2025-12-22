@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.http import HttpResponse
+from django.contrib.admin.views.decorators import staff_member_required
+from .services.historico_service import gerar_dataframe_historico
 
 def filtrar_e_paginar(request):
     filtro_status = request.GET.get("status")
@@ -72,3 +75,25 @@ def atualizar_status(request):
     ChaveStatus.update(acao=acao,chave=chave,pessoa=pessoa)
 
     return JsonResponse({"sucesso": True})
+
+
+@staff_member_required
+def gerar_relatorio_excel(request):
+    """
+    Gera relatório Excel do histórico sem interação com a UI
+    """
+    df = gerar_dataframe_historico()
+
+    response = HttpResponse(
+        content_type=(
+            "application/vnd.openxmlformats-officedocument."
+            "spreadsheetml.sheet"
+        )
+    )
+    response["Content-Disposition"] = (
+        "attachment; filename=relatorio_historico_chaves.xlsx"
+    )
+
+    df.to_excel(response, index=False)
+
+    return response
