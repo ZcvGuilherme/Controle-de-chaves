@@ -13,7 +13,7 @@ class Command(BaseCommand):
             )
             return
 
-        nome_arquivo = "relatorio_historico_chaves.xlsx"
+        nome_arquivo = "relatorio_chaves.xlsx"
         df.to_excel(nome_arquivo, index=False)
 
         self.stdout.write(
