@@ -26,8 +26,8 @@ body {
 .top-bar {
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
+    box-sizing: border-box; /*Isso impede que os elementos fiquem fora da tela*/
     height: 90px;
 
     background-color: #d9d9d9;
@@ -35,7 +35,7 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 20px;
+    padding: 40px 60px; /* ↑↓ 40px | ←→ 60px */
     z-index: 1000;
 }
 
@@ -60,9 +60,8 @@ body {
 
 .top-right {
     font-weight: bold;
-    font-size: 22px;
-    color: black;
-    
+    font-size: 30px;
+    color: black;       
 }
 
 .top-title {
@@ -70,18 +69,6 @@ body {
     font-weight: bold;
 }
 
-.btn-sair {
-    background: #e53935;
-    color: #fff;
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.btn-sair-topo {
-    white-space: nowrap;
-}
 
 /*
  -------------------------FIM CSS BASE.HTML---------------------------
@@ -94,7 +81,7 @@ body {
 .btn-main {
     width: 150px;
     font-size: 20px;
-    padding: 0px;
+    padding: px;
     margin: 0; /* Remove margin para melhor controle */
     background-color: #ec1d1d;
     color: rgb(245, 239, 239);
