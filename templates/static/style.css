@@ -207,14 +207,20 @@ body {
 
 
 /*NOVO CÓDIGO FILTRO*/
-.filtro-horizontal {
+/* Esconde o radio padrão */
+.filtros input[type="radio"] {
+    display: none;
+}
+
+.filtros {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
+    flex-direction: row;
 }
 
-.filtro-horizontal label {
+.filtros label {
     background: #e0e0e0;
     padding: 6px 14px;
     border-radius: 14px;
@@ -222,7 +228,7 @@ body {
     cursor: pointer;
 }
 
-.filtro-horizontal input[type="radio"]:checked + span {
+.filtros input[type="radio"]:checked + span {
     background: #2e7d6f;
     color: white;
     padding: 6px 14px;
@@ -489,7 +495,16 @@ h2 {
 }
 
 /* ----------- TABLETS (768px até 1199px) ----------- */
-@media (max-width: 1199px) and (min-width: 768px) {
+@media screen and (min-width: 1280) and (min-height: 800px) {
+
+    .card-principal {
+        max-width: 96%;
+    }
+
+    .barra-filtros {
+        flex-direction: row;
+        align-items: flex-start;
+    }
 
     .layout-chaves {
         align-items: center;
@@ -646,16 +661,5 @@ h2 {
     }
     .top-right {
         font-size: 14px;
-    }
-}
-
-@media screen and (min-width: 1280) and (min-height: 800px) {
-    .card-principal {
-        max-width: 96%;
-    }
-
-    .barra-filtros {
-        flex-direction: column;
-        align-items: flex-start;
     }
 }
