@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Chave, ChaveStatus, Historico, Pessoa
+from .models import Chave, ChaveStatus, Historico, Pessoa, Restricao
 
 @admin.register(Chave)
 class ChaveAdmin(admin.ModelAdmin):
@@ -20,3 +20,10 @@ class PessoaAdmin(admin.ModelAdmin):
     exclude = ('user',)
     list_display = ('matricula', 'nome', 'user')
     list_display_links = ('matricula',)  # matricula é o link clicável
+
+
+@admin.register(Restricao)
+class RestricaoAdmin(admin.ModelAdmin):
+    list_display = ("pessoa", "chave")
+    list_filter = ("pessoa", "chave")
+    search_fields = ("pessoa__nome", "chave__nome")
