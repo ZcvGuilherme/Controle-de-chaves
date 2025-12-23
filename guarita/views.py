@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
 
+
 def filtrar_e_paginar(request):
     filtro_status = request.GET.get("status")
     itemBusca = request.GET.get("busca")
@@ -80,3 +81,5 @@ def atualizar_status(request):
         return JsonResponse({"erro": str(e)}, status=400)
 
     return JsonResponse({"sucesso": True})
+
+
