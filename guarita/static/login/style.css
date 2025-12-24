@@ -158,6 +158,9 @@ body {
 
 .btn-login {
     margin-top: 18px;
+    display: block;
+    width: 25px block;
+    margin: 18px auto 0;
 
     background: var(--btn-bg);
     color: var(--btn-text);
