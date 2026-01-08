@@ -9,8 +9,7 @@
 
     <!-- FILTROS NO TOPO -->
     <div class="barra-filtros">
-        {% include 'componentes/filtro_chaves.html' %}
-
+{% include 'componentes/filtro_chaves.html' %}
         {% if request.user.is_authenticated %}
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
@@ -20,6 +19,7 @@
 
     <!-- LISTA DE CHAVES -->
     <div class="status-container">
+    
         {% include 'componentes/lista_chaves.html' %}
     </div>
 

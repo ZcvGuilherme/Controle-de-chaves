@@ -3,6 +3,13 @@
     <div class="barra-filtros">
 
         <input 
+        type="hidden"
+        name="status"
+        id="status-hidden"
+        value="{{ request.GET.status }}"
+        >
+        
+        <input 
             type="text"
             name="busca"
             placeholder="Pesquisar..."
@@ -10,36 +17,32 @@
             value="{{ request.GET.busca }}"
         >
 
-        <div class="filtros">
-            <label>
-                <input 
-                    type="radio" 
-                    name="status" 
-                    value="none"
-                    {% if not request.GET.status or request.GET.status == "none" %}checked{% endif %}
-                >
-                <span>Todos</span>
-            </label>
+        <span class="label-filtros">Filtros:</span>
 
-            <label>
+        <div class="filtros">
+
+            <label class="filtro-checkbox">
                 <input 
-                    type="radio" 
-                    name="status" 
+                    type="checkbox" 
+                    name="status"
                     value="true"
+                    class="status-filter"
                     {% if request.GET.status == "true" %}checked{% endif %}
                 >
                 <span>Disponível</span>
             </label>
 
-            <label>
+            <label class="filtro-checkbox">
                 <input 
-                    type="radio" 
-                    name="status" 
+                    type="checkbox" 
+                    name="status"
                     value="false"
+                    class="status-filter"
                     {% if request.GET.status == "false" %}checked{% endif %}
                 >
                 <span>Indisponível</span>
             </label>
+
         </div>
 
     </div>
