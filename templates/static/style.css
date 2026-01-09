@@ -11,11 +11,11 @@ body {
     min-height: 100vh;
     display: block; /* NÃO flex */
     font-family: "Titillium Web", sans-serif;
-    padding-top: 0px; /* mesma altura da top-bar */
+    padding-top: 40px; /* mesma altura da top-bar */
 }
 
 .card-principal {
-    background: white;
+    background:#ececec;
     border-radius: 22px;
     padding: 25px 30px 30px;
     width: 92%;
@@ -31,7 +31,7 @@ body {
     box-sizing: border-box; /*Isso impede que os elementos fiquem fora da tela*/
     height: 90px;
 
-    background-color: white;
+    background-color:#fafbfb;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -181,6 +181,7 @@ body {
     align-items: center;
     gap: 20px;
     width: 100%;
+    margin-bottom: 20px; /* espaço abaixo da barra */
 
 }
 
@@ -322,9 +323,9 @@ body {
     height: auto;         /* crescer conforme o conteúdo */
     overflow: visible;    /* evitar corte de elementos */
 
-    background-color: #ffffff;
+    background-color: #ffffff40;
     border-radius: 20px;
-    box-shadow: 0px 10px 8px 8px rgba(0, 0, 0, 0.1);    
+    box-shadow: 1.5px 7px 8px 8px rgba(0, 0, 0, 0.1);    
 }
 
 /* Título da página */
