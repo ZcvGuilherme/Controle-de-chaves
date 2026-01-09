@@ -209,10 +209,12 @@ body {
 /* Esconde o radio padrão */
 .label-filtros {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 24px;
     color: #333;
-    margin: 0 10px; /* espaço entre input e filtros */
+    margin: 0 20px; /* espaço entre input e filtros */
     white-space: nowrap; /* evita quebra de linha */
+    margin-right: -9px;
+
 }
 
 .filtros input[type="radio"] {
@@ -222,7 +224,7 @@ body {
 .filtros {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 11px;
     flex-direction: row;
     white-space: nowrap;    /* Evita quebra de linha */
 
@@ -230,7 +232,7 @@ body {
 
 .filtros label {
     background: #e0e0e0; /*cor de fundo do botão de filtragem*/
-    padding: 6px 14px;
+    padding: 6px 10px;
     border-radius: 14px;
     font-weight: bold;
     cursor: pointer;
