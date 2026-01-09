@@ -6,43 +6,70 @@
         CSS DO BASE.HTML
 */
 body {
-    background-color: #0A796B; /* cor de fundo*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* ocupa a tela inteira */
+    background-color: #0A796B;
+    margin: 0;
+    min-height: 100vh;
+    display: block; /* NÃO flex */
+    font-family: "Titillium Web", sans-serif;
+    padding-top: 0px; /* mesma altura da top-bar */
 }
 
+.card-principal {
+    background: white;
+    border-radius: 22px;
+    padding: 25px 30px 30px;
+    width: 92%;
+    max-width: 1100px;
+    margin: 100px auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
 
 .top-bar {
-    position: fixed;    /* fixa a barra no topo da tela */
-    top: 0;    /* fica no topo */
-    left: 0;
-    width: 100%;    /* ocupa toda a largura da tela */
-    height: 100px;    /* altura da barra */
-    background-color: #d9d9d9;    /* cor da barra */
-    display: flex;    /* para centralizar o conteúdo */
-    align-items: center;    /* centraliza verticalmente */
-    z-index: 1000;    /* garante que fique sobre outros elementos */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box; /*Isso impede que os elementos fiquem fora da tela*/
+    height: 90px;
+
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 40px 60px; /* ↑↓ 40px | ←→ 60px */
+    z-index: 1000;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
 }
 
 .top-logoIfpi {
-    position: absolute;
-    left: 20px;    /* distância da esquerda */
     display: flex;
-    height: 80px;
+    align-items: center;
+    height: 70px;
+}
+
+.top-logoIfpi img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
 }
 
 .top-right {
-    font-family: "Titillium Web", sans-serif;
     font-weight: bold;
-    font-size: 180%; /* aumenta o tamanho da fonte */
-    color: black;
-    position: absolute;
-    right: 20px;    /* distância da direita */
-    display: flex;
+    font-size: 30px;
+    color: black;       
 }
+
+.top-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
 
 /*
  -------------------------FIM CSS BASE.HTML---------------------------
@@ -53,18 +80,19 @@ body {
 ---------------------------BOTÃO GERAL-------------------------------
 */
 .btn-main {
-    font-family: "Titillium Web", sans-serif;
     width: 150px;
     font-size: 20px;
-    padding: 0px;
+    padding: px;
     margin: 0; /* Remove margin para melhor controle */
-    background-color: #ec1d1d;
+    background-color: #f56c6c;
     color: rgb(245, 239, 239);
     font-weight: bold;
     border: none;
-    border-radius: 6px;
+    border-radius: 15px;
     cursor: pointer;
     height: 60px;  
+    font-family: "Titillium Web", sans-serif;
+
 }
 
 .btn-main:hover {
@@ -95,12 +123,9 @@ body {
     display: none;
     border: 2px solid #c30000;
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    font-family: "Titillium Web", sans-serif;
+
 }
-
-
-/*
----------------------------------------------------------------------
-
 
 /*
 --------------------------PAGINATOR----------------------------------
@@ -111,21 +136,21 @@ body {
     justify-content: center;  /* ← centraliza horizontalmente */
     align-items: center;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 2px;
 }
 
 .btn-pagination {
     padding: 8px 15px;
-    background-color: #d9d9d9;
-    color: black;
+    background-color: #315f5d;
+    color: white;
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
 }
 
 .btn-pagination:hover {
-    background-color: #c9c8c8;
-    color: #315f5d;
+    background-color: #4c7a78;
+    color: white;
 }
 
 /*
@@ -133,68 +158,131 @@ body {
 */
 
 
-/*
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CONTAINERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-*/
+/* ===== CONTAINERS ===== */
 
 /* CONTAINER GERAL — LADO ESQUERDO + LADO DIREITO */
 .layout-chaves {
     display: flex;
-    gap: 40px;
+    gap: 24px;
     width: 100%;
     margin-top: 80px; /* 20px; */
     position: relative;
+    justify-content: center;
+    align-items: flex-start;
+
 }
 
-/* COLUNA ESQUERDA (FILTROS) */
-.filtro-container {
-    width: 260px; /*260px;*/
-    background: #d9d9d9;
-    padding: 20px;
-    border-radius: 10px;
-    height: 200px; /* height: fit-content; */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    font-family: "Titillium Web", sans-serif;
-}
+/*  FILTROS */
 
-/* .filtro-container h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-} */
+/* Container da barra de pesquisa + filtros */
+.barra-filtros {
+    display: flex;
+    justify-content: center; /* CENTRALIZA NO MEIO */
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+
+}
 
 /* CAMPO DE PESQUISA */
 .input-pesquisa {
-    width: 90%;
-    padding: 8px;
+    height: 42px;
+    width: 300px;
+    padding: 0 12px;
     border-radius: 6px;
-    border: 1px solid #7171718c;
-    margin-bottom: 15px;
-    background-color: #a8a8a8ff;   /* ------------------------------------------------------- */
-    margin-top: 30px;              /* ------------------------------------------------------- */
+    border: none;
+    background: #e0e0e0;
+    font-size: 16px;
     font-family: "Titillium Web", sans-serif;
-    
+
 }
 
 .input-pesquisa::placeholder {
     font-weight: bold;
     font-size: 20px;
-    color: #555555ff; /* opcional */
+    color: black; /* opcional */
 }
 
 
-.filtro-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/*NOVO CÓDIGO FILTRO*/
+/* Esconde o radio padrão */
+.label-filtros {
+    font-weight: bold;
+    font-size: 20px;
+    color: #333;
+    margin: 0 10px; /* espaço entre input e filtros */
+    white-space: nowrap; /* evita quebra de linha */
 }
 
-.filtro-lista li {
-    margin-bottom: 12px;
-    font-size: 20px; /* Aumenta o tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
+.filtros input[type="radio"] {
+    display: none;
+}
+
+.filtros {
     display: flex;
     align-items: center;
+    gap: 12px;
+    flex-direction: row;
+    white-space: nowrap;    /* Evita quebra de linha */
+
 }
+
+.filtros label {
+    background: #e0e0e0; /*cor de fundo do botão de filtragem*/
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filtros input[type="radio"]:checked + span {
+    background: #2e7d6f;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 14px;
+}
+
+/* Label limpa */
+.filtro-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Remove o estilo padrão */
+.filtro-checkbox input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #315f5d;
+    border-radius: 5px; /* 🔥 cantos arredondados */
+    cursor: pointer;
+    position: relative;
+}
+
+/* Marcado */
+.filtro-checkbox input[type="checkbox"]:checked {
+    background-color: #315f5d;
+}
+
+/* Check interno */
+.filtro-checkbox input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/*FIM CÓDIGO FILTRO*/
 
 /*  ................................CHECKBOXES CIRCULARES...........................................    */
 
@@ -225,7 +313,8 @@ body {
 
 /* Container principal para a lista de chaves */
 .status-container {
-    width: 700px;
+    width: 100%;
+    max-width: 1000px;
     padding: 20px;
     margin: 0 auto;     /* <-- CENTRALIZA O CONTAINER */
 
@@ -233,11 +322,9 @@ body {
     height: auto;         /* crescer conforme o conteúdo */
     overflow: visible;    /* evitar corte de elementos */
 
-    background-color: #d9d9d9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: "Titillium Web", sans-serif;
-    
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 10px 8px 8px rgba(0, 0, 0, 0.1);    
 }
 
 /* Título da página */
@@ -245,7 +332,6 @@ h2 {
     text-align: center;
     color: #333;
     font-size: 24px;
-    font-family: "Titillium Web", sans-serif;
     margin-bottom: 20px;
 }
 
@@ -260,16 +346,27 @@ h2 {
 }
 
 /* Item individual de chave */
+/*NOVO CÓDIGO CHAVE ITEM*/
 .chave-item {
     display: flex;
     align-items: center;
-    background-color: #9c9a9a; /* Cinza claro similar ao da imagem */
-    border-radius: 8px;
-    padding: 15px;
-    height: 25px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: "Titillium Web", sans-serif;
+    padding: 0px 10px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    border: 2px solid transparent;
+    transition: 0.2s;
 }
+
+.chave-item:has(.status-disponivel) {
+    border-color: #2ecc71;
+    background: #f4fff8;
+}
+
+.chave-item:has(.status-em-uso) {
+    border-color: #e74c3c;
+    background: #fff5f5;
+}
+/*NOVO CÓDIGO CHAVE ITEM*/
 
 /* Ícone da chave */
 .chave-icone {
@@ -338,9 +435,8 @@ h2 {
     color: #cd2009ff;
 }
 
-/*
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FIM CONTAINERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-*/
+/* ===== FIM CONTAINERS ===== */
+
 
 /* ======= POPUP ======== */
 #popup {
@@ -364,7 +460,6 @@ h2 {
     box-shadow: 0 0 25px rgba(0,0,0,0.3);
     animation: fadeIn .3s ease-in-out;
     align-items: center;
-    font-family: "Titillium Web", sans-serif;
 }
 
 /* Botão de fechar */
@@ -394,7 +489,6 @@ h2 {
 /* ======= BOTÕES POPUP ======== */
 
 .btn-confirmar {
-    font-family: "Titillium Web", sans-serif;
     width: 150px; /* largura fixa */
     font-size: 20px; /* tamanho da fonte */    
     padding: 0px; /* espaçamento interno */
@@ -414,7 +508,6 @@ h2 {
 }
 
 .btn-cancelar {
-    font-family: "Titillium Web", sans-serif;
     width: 150px; /* largura fixa */
     font-size: 20px; /* tamanho da fonte */    
     padding: 0px; /* espaçamento interno */
@@ -445,12 +538,21 @@ h2 {
     }
 
     .status-container {
-        width: 800px;
+        width: 1000px;
     }
 }
 
 /* ----------- TABLETS (768px até 1199px) ----------- */
-@media (max-width: 1199px) and (min-width: 768px) {
+@media screen and (min-width: 1280) and (min-height: 800px) {
+
+    .card-principal {
+        max-width: 96%;
+    }
+
+    .barra-filtros {
+        flex-direction: row;
+        align-items: flex-start;
+    }
 
     .layout-chaves {
         align-items: center;
@@ -481,7 +583,7 @@ h2 {
 
 }
 
-/* ----------- CELULARES GRANDES (480px até 767px) ----------- */
+/* ----------- Tablets (480px até 767px) ----------- */
 @media (max-width: 767px) {
 
     body {
@@ -543,56 +645,69 @@ h2 {
 }
 
 
-/* ----------- CELULARES PEQUENOS (≤ 479px) ----------- */
-@media (max-width: 479px) {
+/* ----------- CELULARES GRANDES ----------- */
+@media (max-width: 620px) {
 
-    h2 {
-        font-size: 20px;
-    }
-
-    .chave-numero {
-        font-size: 14px;
-    }
-
-    .chave-local {
-        font-size: 12px;
-    }
-
-    .chave-status {
-        font-size: 12px;
-    }
-
-    .key-icon {
-        width: 30px;
-    }
-
-    .btn-confirmar,
-    .btn-cancelar {
-        width: 100%;
-        height: 50px;
-        font-size: 16px;
-    }
-
-   .top-bar {
+    .top-bar {
         height: auto;
+        display: flex;
+        flex-direction: column; /* 🔥 ISSO resolve */
         align-items: center;
         justify-content: center;
-        padding: 40px;
-        gap: 25px;
-        flex-direction: row;
+        padding: 20px;
+        gap: 15px;
     }
 
     .top-logoIfpi {
         height: 40px;
-        margin-top: auto;
     }
 
     .top-right {
         font-size: 16px;
         font-weight: bold;
-        text-align: center;
-        width: 70%;
+        text-align: left;
+        justify-content: left;
+        position: static; /* 🔥 remove qualquer top/left */
     }
 
 }
 
+/* ----------- CELULARES PEQUENOS ----------- */
+@media (max-width: 479px) {
+
+.top-bar {
+        flex-direction: column;   /* empilha */
+        align-items: flex-start;  /* base à esquerda */
+        padding: 16px;            /* 🔥 40px era o vilão */
+        gap: 10px;
+    
+    }
+
+    .top-logoIfpi {
+        height: 40px;
+        align-self: flex-start;   /* logo à esquerda */
+    }
+
+    .top-right {
+        position: static;         /* evita sobreposição */
+        align-self: flex-end;     /* joga para a direita */
+        text-align: right;        /* texto alinhado à direita */
+        font-size: 16px;
+        max-width: 100%;      /* impede sair da tela */
+        padding-right: 5px;   /* pequeno respiro */
+    }
+
+}
+
+@media (max-width: 310px) {
+    .top-bar {
+        padding: 30px;
+        gap: 10px;
+    }
+    .top-logoIfpi {
+        height: 30px;
+    }
+    .top-right {
+        font-size: 14px;
+    }
+}

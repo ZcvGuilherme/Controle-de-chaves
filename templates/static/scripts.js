@@ -1,6 +1,6 @@
 //-----------------TEMPORIZADOR----------------------\\
 let tempoSemAtividade = 0;
-    let tempoParaAviso = 10; // 10s sem atividade para começar alerta
+    let tempoParaAviso = 100; // 10s sem atividade para começar alerta
     let tempoParaLogout = 5; // 10s após o alerta para deslogar
 
     let aviso = document.getElementById("logout-warning");
@@ -233,3 +233,24 @@ inputBusca.addEventListener("input", debounce(function () {
     aplicarEventosPaginacao();
 });
 
+/*Script para os checkboxes de status*/
+document.querySelectorAll('.status-filter').forEach((checkbox) => {
+    checkbox.addEventListener('change', function () {
+
+        const form = document.getElementById('filtro-form');
+        const checkboxes = document.querySelectorAll('.status-filter');
+
+        if (this.checked) {
+            // desmarca todos os outros
+            checkboxes.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+            });
+        }
+
+        // envia o formulário
+        form.submit();
+    });
+});
+
+
+/*FIM do Script para os checkboxes de status*/

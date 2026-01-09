@@ -16,12 +16,19 @@
     <!-- Barra no topo -->
     <div class="top-bar">
         <div class="top-logoIfpi">
-            <img src="{% static 'img/logoIfpi.png' %}" alt="Instituto Federal" class="logoIfpi">
+            <img src="{% static 'img/logoIfpi.png' %}" alt="IFPI" class="logoIfpi">
         </div>
+
         <div class="top-right">
             CONTROLE DE CHAVES
         </div>
 
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="btn-main btn-sair-topo">Sair</button>
+        </form>
+        {% endif %}
     </div>
     <main class="conteudo">
         {% block menu_pesquisa %}{% endblock %}
