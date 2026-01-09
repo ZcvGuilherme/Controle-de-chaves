@@ -11,11 +11,11 @@ body {
     min-height: 100vh;
     display: block; /* NÃO flex */
     font-family: "Titillium Web", sans-serif;
-    padding-top: 0px; /* mesma altura da top-bar */
+    padding-top: 40px; /* mesma altura da top-bar */
 }
 
 .card-principal {
-    background: white;
+    background:#ececec;
     border-radius: 22px;
     padding: 25px 30px 30px;
     width: 92%;
@@ -31,7 +31,7 @@ body {
     box-sizing: border-box; /*Isso impede que os elementos fiquem fora da tela*/
     height: 90px;
 
-    background-color: white;
+    background-color:#fafbfb;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,7 +84,7 @@ body {
     font-size: 20px;
     padding: px;
     margin: 0; /* Remove margin para melhor controle */
-    background-color: #f56c6c;
+    background-color: #ff3838;
     color: rgb(245, 239, 239);
     font-weight: bold;
     border: none;
@@ -136,7 +136,7 @@ body {
     justify-content: center;  /* ← centraliza horizontalmente */
     align-items: center;
     gap: 15px;
-    margin-top: 2px;
+    margin-top: 15px;
 }
 
 .btn-pagination {
@@ -181,6 +181,7 @@ body {
     align-items: center;
     gap: 20px;
     width: 100%;
+    margin-bottom: 20px; /* espaço abaixo da barra */
 
 }
 
@@ -208,10 +209,12 @@ body {
 /* Esconde o radio padrão */
 .label-filtros {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 24px;
     color: #333;
-    margin: 0 10px; /* espaço entre input e filtros */
+    margin: 0 20px; /* espaço entre input e filtros */
     white-space: nowrap; /* evita quebra de linha */
+    margin-right: -9px;
+
 }
 
 .filtros input[type="radio"] {
@@ -221,7 +224,7 @@ body {
 .filtros {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 11px;
     flex-direction: row;
     white-space: nowrap;    /* Evita quebra de linha */
 
@@ -229,7 +232,7 @@ body {
 
 .filtros label {
     background: #e0e0e0; /*cor de fundo do botão de filtragem*/
-    padding: 6px 14px;
+    padding: 6px 10px;
     border-radius: 14px;
     font-weight: bold;
     cursor: pointer;
@@ -322,9 +325,9 @@ body {
     height: auto;         /* crescer conforme o conteúdo */
     overflow: visible;    /* evitar corte de elementos */
 
-    background-color: #ffffff;
+    background-color: #ffffff40;
     border-radius: 20px;
-    box-shadow: 0px 10px 8px 8px rgba(0, 0, 0, 0.1);    
+    box-shadow: 1.5px 7px 8px 8px rgba(0, 0, 0, 0.1);    
 }
 
 /* Título da página */
@@ -332,6 +335,7 @@ h2 {
     text-align: center;
     color: #333;
     font-size: 24px;
+    margin-top: -1px;
     margin-bottom: 20px;
 }
 
