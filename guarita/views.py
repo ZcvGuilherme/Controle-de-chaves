@@ -95,7 +95,7 @@ def change_password(request):
             request.user.pessoa.must_change_password = False
             request.user.pessoa.save()
 
-            return redirect('home')
+            return redirect('status_chaves')
     else:
         form = PasswordChangeForm(request.user)
 
