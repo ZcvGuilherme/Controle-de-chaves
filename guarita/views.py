@@ -1,14 +1,15 @@
 
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Chave, ChaveStatus, Pessoa
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
-
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 def filtrar_e_paginar(request):
     filtro_status = request.GET.get("status")
@@ -83,3 +84,19 @@ def atualizar_status(request):
     return JsonResponse({"sucesso": True})
 
 
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+
+            request.user.pessoa.must_change_password = False
+            request.user.pessoa.save()
+
+            return redirect('home')
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(request, 'change_password.html', {'form': form})
