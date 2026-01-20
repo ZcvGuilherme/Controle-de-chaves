@@ -12,7 +12,7 @@ class Pessoa(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="pessoa", null=True, blank=True)
     matricula = models.CharField(primary_key=True, max_length=15)
     nome = models.CharField(max_length=100)
-
+    must_change_password = models.BooleanField(default=True)
 
     @classmethod
     def registrar(cls, matricula, nome, user):
