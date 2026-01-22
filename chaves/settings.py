@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'chaves',
-    'guarita.apps.GuaritaConfig'
+    'guarita.apps.GuaritaConfig',
+    'dbbackup',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,27 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    },
+
+    'dbbackup': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {
+            'location': BASE_DIR / 'backups',
+        },
+    },
+}
+
+DBBACKUP_CLEANUP_KEEP = 7  # mantém só os últimos 7 backups
+# DBBACKUP_CLEANUP_KEEP_DAYS = 14  # mantém 14 dias
+
 
 
 # Password validation
