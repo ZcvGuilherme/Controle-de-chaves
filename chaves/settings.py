@@ -6,20 +6,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 TEST_RUNNER = "pytest_django.runner.TestRunner"
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-gbx67j7n@d825fur+r4y8fg1ln(57ntn14-lme)4xo%ro*hm*f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# LISTA DE HOSTS PERMITIDOS, "*" REPRESENTA TODOS
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -98,7 +95,7 @@ DBBACKUP_CLEANUP_KEEP = 7  # mantém só os últimos 7 backups
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+#Lista de Validadores para senha, conferir documentação para mais detalhes
 AUTH_PASSWORD_VALIDATORS = [
 
     {
