@@ -3,6 +3,11 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 class ForcePasswordChangeMiddleware:
+    """
+    <h2>Middleware para mudança de senha</h2>
+
+    <p> Faz uma verificação se o atributo <b>must_change_password</b> do usuário é verdadeira, caso seja, o usuário é redirecionado para uma tela de redefinição de senha.
+    """
     def __init__(self, get_response):
         self.get_response = get_response
 
