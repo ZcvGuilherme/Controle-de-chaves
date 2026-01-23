@@ -4,10 +4,12 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 class Pessoa(models.Model):
     """
-    <h2>Representação da pessoa no banco de dados.</h2>\n
+    <h1>Representação da pessoa no banco de dados.</h1>\n
     <h3>Atributos da tabela:</h3> \n
-    <b>Matricula (IntegerField):</b> Chave primária da tabela.\n
-    <b>Nome (CharField):</b>  Tamanho máximo de 100 dígitos, representa o nome completo da pessoa. \n
+    <b>user (OneToOneField):</b> Associação opcional com o usuário do Django (auth.User).\n
+    <b>matricula (CharField):</b> Chave primária da tabela, com até 15 caracteres.\n
+    <b>nome (CharField):</b> Tamanho máximo de 100 caracteres, representa o nome completo da pessoa.\n
+    <b>must_change_password (BooleanField):</b> Indica se o usuário deve alterar a senha no próximo login.\n
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="pessoa", null=True, blank=True)
     matricula = models.CharField(primary_key=True, max_length=15)
@@ -22,7 +24,7 @@ class Pessoa(models.Model):
     def partial_search(cls, content):
         """
         <h2>Busca Parcial</h2>\n
-        Realiza uma busca não-sensitiva utilizando o nome
+        Realiza uma busca não sensitiva utilizando o campo <b>nome</b>.
         """
         return cls.objects.filter(models.Q(nome__icontains=content))
     
@@ -30,21 +32,17 @@ class Pessoa(models.Model):
     def getAll(cls):
         return cls.objects.all()
     
-    # def save(self, *args, **kwargs):
-    #     self.itemBusca = f"{self.nome} - {self.cargo}"
-    #     super().save(*args, **kwargs)
-
     def __str__(self):
         return self.nome
      
 class Chave(models.Model):
     """
-    <h2>Representação das chaves no banco de dados.</h2>\n
+    <h1>Representação das chaves no banco de dados.</h1>\n
     <h3>Atributos da tabela:</h3> \n
-    <b>id (AutoField):</b> Chave primária da tabela \n
-    <b>Nome (CharField):</b>  Tamanho máximo de 100 dígitos, representa o nome da chave. \n
-    Ex:. - Laboratório de Informática\n
-    <b>itemBusca: </b> Item que deve ser utilizado como string em buscas e exibição em interfaces
+    <b>id (AutoField):</b> Chave primária da tabela.\n
+    <b>nome (CharField):</b> Tamanho máximo de 100 caracteres, representa o nome da chave.\n
+    Ex:. Laboratório de Informática\n
+    <b>itemBusca (CharField):</b> Campo auxiliar utilizado para buscas e exibição em interfaces.
     """
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
@@ -58,7 +56,7 @@ class Chave(models.Model):
     def partial_search(cls, content):
         """
         <h2>Busca Parcial</h2>\n
-        Realiza uma busca não-sensitiva utilizando itemBusca como parâmetro.
+        Realiza uma busca não sensitiva utilizando o campo <b>itemBusca</b>.
         """
         return cls.objects.filter(models.Q(itemBusca__icontains=content))
     
@@ -74,16 +72,15 @@ class Historico(models.Model):
     """
     <h2>Representação do histórico no banco de dados.</h2>\n
     <h3>Atributos da tabela:</h3> \n
-    <b>id_historico(IntegerField):</b> Chave primária \n
+    <b>id_historico (BigAutoField):</b> Chave primária da tabela.\n
 
-    <b>acao (CharField):</b>  Tamanho máximo de 20 dígitos. Representa a ação feita pela pessoa, sendo eles descritos no atributo ACAO_CHOICES. A idéia é fazer uma espécie de Enum, caso seja necessário, pode-se atualizar o tipo para um mais adequado. \n
+    <b>acao (CharField):</b> Representa a ação realizada, limitada às opções definidas em <b>ACAO_CHOICES</b>.\n
 
-    <b>pessoa (ForeignKey):</b> Chave estrangeira importada do objeto Pessoa, on_delete configurado para PROTECT.\n
+    <b>pessoa (ForeignKey):</b> Referência à pessoa responsável pela ação, com exclusão protegida.\n
 
-    <b>chave (ForeignKey):</b> Chave estrangeira importada do objeto Chave, on_delete configurado para PROTECT.\n
+    <b>chave (ForeignKey):</b> Referência à chave envolvida na ação, com exclusão protegida.\n
 
-    <b>horario (DateTimeField):</b> Vizualização do horário do registro.
-
+    <b>horario (DateTimeField):</b> Data e hora em que a ação foi registrada.
     """
     id_historico = models.BigAutoField(primary_key=True)
     
@@ -118,18 +115,21 @@ class Historico(models.Model):
 
 class ChaveStatus(models.Model):
     """
-    <h2>Representação do status da chave no banco de dados.</h2>\n
-    <p>Esta classe deve ser o alvo das atualizações do status do sistema, o status deve ser atualizado a cada interação e por isso foi colocada fora da abstração da chave, que é uma coisa estática\n
+    <h1>Representação do status atual de uma chave.</h1>\n
+    <p>
+    Esta tabela representa o estado dinâmico da chave no sistema, indicando
+    se está disponível ou em uso, e por quem.
+    </p>\n
 
     <h3>Atributos da tabela:</h3> \n
-    <b>chave(OneToOneField):</b> Esta é a chave estrangeira importada da tabela Chaves, e pelo fato desta tabela ser uma abstração da chave, este ID também é a chave primária desta tabela.
+    <b>chave (OneToOneField):</b> Referência única à chave, também utilizada como chave primária.\n
 
-    <b>pessoa (ForeignKey):</b> Chave estrangeira importada do objeto Pessoa, on_delete configurado para PROTECT.\n
+    <b>pessoa (ForeignKey):</b> Pessoa que está atualmente com a chave. Nulo caso esteja disponível.\n
 
-    <b>checkin (DateTimeField):</b> Atributo que deve ser preenchido com o horário que a pessoa capturou a chave. Caso não haja pessoa, ou seja, a chave esteja disponível, valor padrão é vazio\n
+    <b>checkin (DateTimeField):</b> Data e hora da retirada da chave. Nulo quando a chave está disponível.\n
 
-    <b>status_code:</b> Representação da disponibilidade da chave. Sendo uma variável Booleana, caso haja uma pessoa com a chave (id_pessoa e checkin preenchidos) o valor deve ser FALSE, logo, "Indisponível". Caso contrário, deve ser TRUE e portanto, "Disponível".
-
+    <b>status_code (BooleanField):</b> Indica a disponibilidade da chave. 
+    <b>True</b> para disponível e <b>False</b> para em uso.
     """
     
     chave = models.OneToOneField(
@@ -155,19 +155,14 @@ class ChaveStatus(models.Model):
         status, created = cls.objects.get_or_create(chave=chave)
         return status
 
-
-    #ChaveStatus.objects.
-    # select_related('chave', 'pessoa')
-    # .all()
-    # .order_by('chave__id')
-
     @classmethod
     def getStatus(cls, pessoa, status_code=None, itemBusca=None, order_by="chave__id"):
         """
-        <h2> Buscar Status </h2>\n
-        Equivalente ao partial_search dos outros, porém esse contém um filtro mais avançado, caso seja colocado sem nenhum parâmetro ele retorna todos os registrosm senão, ele faz uma busca não-sensitiva pelo status code e logo em seguida pelo nome da chave e nome da pessoa.
+        <h2>Buscar Status</h2>\n
+        Retorna o status das chaves, aplicando filtros opcionais por disponibilidade
+        e por termo de busca. Caso a pessoa possua restrições, apenas as chaves
+        permitidas serão retornadas.
         """
-
         tem_restricao = Restricao.objects.filter(pessoa=pessoa).exists()
 
         query = cls.objects.select_related("chave", "pessoa")
@@ -193,35 +188,6 @@ class ChaveStatus(models.Model):
     def update(cls, chave, pessoa, acao):
         """
         Atualiza o status atual de uma chave e registra a operação no histórico.
-
-        Este método recebe uma `chave`, uma `pessoa` e uma `acao`, valida os dados e 
-        aplica a atualização correspondente no status da chave. Também gera um registro 
-        no histórico após a operação.
-
-        Parâmetros
-        ----------
-        chave : Chave
-            Instância da chave cujo status será atualizado.
-        pessoa : Pessoa
-            Pessoa associada à ação realizada (retirada ou devolução).
-        acao : str
-            A ação a ser executada. Deve ser `"RETIRADA"` ou `"DEVOLUCAO"`.
-
-        Raises
-        ------
-        ValueError
-            - Caso a ação informada seja inválida.
-            - Caso a chave já esteja ocupada e seja solicitada uma retirada.
-            - Caso a chave esteja disponível e seja solicitada uma devolução.
-        TypeError
-            - Caso os parâmetros `chave` ou `pessoa` não sejam instâncias válidas 
-            de seus respectivos modelos.
-
-        Efeitos Colaterais
-        ------------------
-        - Atualiza o status da chave no banco de dados.
-        - Registra a ação no histórico de acessos.
-
         """
 
         #------------------------------VERIFICAR SE AS ENTRADAS SÃO VÁLIDAS---------------------------#
@@ -270,6 +236,10 @@ class ChaveStatus(models.Model):
         return f"{self.chave.nome} ({status})"
 
 class Restricao(models.Model):
+    """
+    <h2>Restrição de acesso a chaves.</h2>\n
+    Define quais chaves uma pessoa está autorizada a acessar.
+    """
     pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.CASCADE,
