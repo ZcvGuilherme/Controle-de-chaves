@@ -534,6 +534,214 @@ h2 {
 /* ===================== RESPONSIVIDADE COMPLETA ==================== */
 /* ================================================================= */
 
+/* =====================================================
+   VARIÁVEIS DE TEMA (PADRÃO DO PROJETO)
+   ===================================================== */
+
+:root {
+    --bg-page: #097C6D;
+
+    --card-bg: #054940;
+    --card-radius: 16px;
+    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+
+    --input-bg: #5decbe;
+    --input-text: #000000;
+    --input-placeholder: #000000;
+
+    --input-focus: #05ea9edb;
+
+    --btn-bg: #029868;
+    --btn-text: #ffffff;
+    --btn-shadow: 0 4px 15px rgba(152, 152, 152, 0.35);
+
+    --error-bg: #c20a0a;
+    --error-text: #ffffff;
+}
+
+/* =====================================================
+   BODY (HERDA BASE.HTML)
+   ===================================================== */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background: radial-gradient(circle at top,
+            #0A796B,
+            var(--bg-page));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+/* =====================================================
+   CONTAINER DO FORMULÁRIO
+   ===================================================== */
+
+.form-container {
+    background: var(--card-bg);
+    width: 420px;
+    padding: 32px;
+
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+
+    box-sizing: border-box;
+}
+
+/* Reset interno */
+.form-container *,
+.form-container *::before,
+.form-container *::after {
+    box-sizing: border-box;
+}
+
+/* =====================================================
+   TÍTULO
+   ===================================================== */
+
+.form-container::before {
+    content: "ALTERAR SENHA";
+    display: block;
+
+    text-align: center;
+    margin-bottom: 24px;
+
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    color: var(--text-primary);
+}
+
+/* =====================================================
+   GRUPOS DE CAMPOS
+   ===================================================== */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+/* =====================================================
+   LABELS
+   ===================================================== */
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* =====================================================
+   INPUTS (DJANGO FORMS)
+   ===================================================== */
+
+.form-group input {
+    width: 100%;
+    padding: 14px;
+
+    background: var(--input-bg);
+    color: var(--input-text);
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+/* Placeholder */
+.form-group input::placeholder {
+    color: var(--input-placeholder);
+}
+
+/* Focus */
+.form-group input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--input-focus);
+}
+
+/* =====================================================
+   BOTÃO
+   ===================================================== */
+
+.btn {
+    display: block;
+    width: 100%;
+    margin-top: 22px;
+
+    background: var(--btn-bg);
+    color: var(--btn-text);
+
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    padding: 14px;
+    border-radius: 10px;
+
+    border: none;
+    cursor: pointer;
+
+    box-shadow: var(--btn-shadow);
+    transition: 0.3s;
+}
+
+/* Hover */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(1, 145, 78, 0.6);
+}
+
+/* =====================================================
+   ERROS DO DJANGO
+   ===================================================== */
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 18px;
+}
+
+ul li {
+    background: var(--error-bg);
+    color: var(--error-text);
+
+    padding: 10px;
+    border-radius: 8px;
+
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+/* =====================================================
+   RESPONSIVO
+   ===================================================== */
+
+@media (max-width: 480px) {
+    .form-container {
+        width: 100%;
+        padding: 24px;
+    }
+}
+
+
+/* ================================================================= */
+/* ===================== RESPONSIVIDADE COMPLETA ==================== */
+/* ================================================================= */
+
 /* ----------- TELAS GRANDES (desktops e notebooks ≥1200px) ----------- */
 @media (min-width: 1200px) {
     .layout-chaves {
