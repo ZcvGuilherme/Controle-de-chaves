@@ -46,4 +46,30 @@ Criar banco de dados
 python manage.py migrate
 ```
 
+## Diagrama entidade-relacionamento:
+<img width="600" height="400" alt="chaves_database (1)" src="https://github.com/user-attachments/assets/eef82815-07ac-48c9-8f58-6dd67fa77894" />
 
+Configurações em guarita/signals
+
+### criar_status_automatico
+Signal: post_save
+Model: Chave
+Sempre que uma nova chave é cadastrada, o sistema cria automaticamente seu status de controle na tabela ChaveStatus.
+
+
+### gerar_itemBusca
+Signal: post_save
+Model: Chave
+Após a criação de uma chave, é gerado automaticamente um identificador textual padronizado para facilitar buscas no sistema.
+
+
+### criar_usuario_para_pessoa
+Signal: post_save
+Model: Pessoa
+Quando uma pessoa é cadastrada no sistema, um usuário Django é criado automaticamente para autenticação.
+
+
+### atualizar_usuario
+Signal: post_save
+Model: Pessoa
+Sempre que os dados de uma pessoa são atualizados, o nome do usuário Django vinculado é sincronizado automaticamente.
