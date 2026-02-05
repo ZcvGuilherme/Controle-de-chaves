@@ -59,11 +59,14 @@ python manage.py runserver
 Acesse a url e faça login com o superusuário:
 http://127.0.0.1:8000/admin
 
-cadastre pessoas na tabela Pessoa 
+Cadastre pessoas na tabela Pessoa. Altere o atributo must_change_password caso não queira ser redirecionado à tela de redefinição de senha no primeiro uso.
 Verifique [Signals](#criar_usuario_para_pessoa)
+
 
 Cadastre chaves na tabela Chaves
 Verifique [Signals](#criar_status_automatico)
+
+Faça as restrições de pessoas/chave caso necessário.
 
 
 ## Diagrama entidade-relacionamento:
@@ -86,7 +89,7 @@ Após a criação de uma chave, é gerado automaticamente um identificador textu
 ### criar_usuario_para_pessoa
 Signal: post_save
 Model: Pessoa
-Quando uma pessoa é cadastrada no sistema, um usuário Django é criado automaticamente para autenticação.
+Quando uma pessoa é cadastrada no sistema, um usuário Django é criado automaticamente para autenticação. A senha inicial é igual à matrícula (deve ser alterada em produção).
 
 
 ### atualizar_usuario
