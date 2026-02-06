@@ -60,6 +60,7 @@ Acesse a url e faça login com o superusuário:
 http://127.0.0.1:8000/admin
 
 Cadastre pessoas na tabela Pessoa. Altere o atributo must_change_password caso não queira ser redirecionado à tela de redefinição de senha no primeiro uso.
+
 Verifique [Signals](#criar_usuario_para_pessoa)
 
 
@@ -98,4 +99,81 @@ Model: Pessoa
 Sempre que os dados de uma pessoa são atualizados, o nome do usuário Django vinculado é sincronizado automaticamente.
 
 
+## Estrutura do projeto
 
+```
+Controle-de-chaves/
+│
+├── README.md  
+├── manage.py
+├── requirements.txt
+├── .gitignore
+│
+├── chaves/                    # Configurações principais do projeto Django
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── guarita/                   # App principal do sistema
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── middleware.py
+│   ├── models.py
+│   ├── signals.py
+│   ├── urls.py
+│   ├── views.py
+│   │
+│   ├── migrations/
+│   │   └── *.py
+│   │
+│   ├── management/
+│   │   └── commands/
+│   │       └── gerar_relatorio.py
+│   │
+│   ├── services/
+│   │   └── historico_service.py
+│   │
+│   ├── templates/
+│   │   ├── change_password.html
+│   │   ├── status_chaves.html
+│   │   └── registration/
+│   │       └── login.html
+│   │
+│   ├── static/
+│   │   └── login/
+│   │       └── style.css
+│   │
+│   └── tests/
+│       ├── models/
+│       │   ├── test_busca.py
+│       │   ├── test_insert.py
+│       │   └── test_update.py
+│       └── views/
+│           ├── test_busca.py
+│           └── test_page_exists.py
+│
+├── templates/                 # Templates globais
+│   ├── base.html
+│   │
+│   ├── componentes/
+│   │   ├── botao.html
+│   │   ├── chave_item.html
+│   │   ├── filtro_chaves.html
+│   │   └── lista_chaves.html
+│   │
+│   └── static/
+│       ├── style.css
+│       ├── scripts.js
+│       └── img/
+│           ├── FAVICONCTCHAVE.png
+│           ├── key-disponivel.png
+│           ├── key-indisponivel.png
+│           └── logoIfpi.png
+│
+└── fixtures/                  # Dados iniciais
+    ├── auth.json
+    └── base.json
+```
