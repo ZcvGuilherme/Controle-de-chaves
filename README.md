@@ -15,6 +15,7 @@ O objetivo é gerenciar empréstimos, disponibilidade e responsabilidade sobre c
 * [Arquitetura](#-arquitetura)
 * [Instalação](#-instalação)
 * [Configuração básica](#configuração-básica)
+* [Funcionalidades extras](#-funcionalidades-extras)
 * [Modelagem do banco](#diagrama-entidade-relacionamento)
 * [Signals](#signals)
 
@@ -129,6 +130,63 @@ Cadastre chaves na tabela **Chave**.
 ➡️ Verifique: [criar_status_automatico](#criar_status_automatico)
 
 Depois disso, faça as restrições de pessoa/chave conforme necessário.
+
+# 🧩 Funcionalidades Extras
+
+Além das funcionalidades principais, o sistema possui **comandos de gerenciamento e manutenção** que auxiliam na auditoria e segurança dos dados.
+
+---
+
+## 📊 Geração de relatório do histórico
+
+Cria automaticamente um arquivo `.xlsx` contendo todos os registros da tabela **Histórico**.
+
+### Comando
+
+```bash
+python manage.py gerar_relatorio
+```
+
+### Saída gerada
+
+* Arquivo Excel (.xlsx)
+* Contém:
+
+  * Pessoa
+  * Matrícula
+  * Chave
+  * Ação
+  * Data
+  * Hora
+
+### Localização do comando
+
+```
+guarita/management/commands/gerar_relatorio.py
+```
+
+---
+
+## 💾 Backup do banco de dados
+
+Realiza o backup completo do banco atual do sistema.
+
+### Comando
+
+```bash
+python manage.py dbbackup --clean
+```
+
+### Funções executadas
+
+* Gera dump do banco
+* Remove backups antigos (`--clean`)
+* Mantém apenas versões recentes
+
+### Observações
+
+* Útil para rotinas de segurança
+* Pode ser automatizado via CRON
 
 ---
 
