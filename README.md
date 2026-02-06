@@ -316,14 +316,18 @@ Controle-de-chaves/
 * Pode ser migrado para PostgreSQL/MySQL em produção.
 * Signals executam automaticamente após operações de save().
 
+## 👥 Autores
+
+### 👨‍💻 Guilherme Sousa
+
+* GitHub: [https://github.com/ZcvGuilherme](https://github.com/ZcvGuilherme)
+* LinkedIn: [https://www.linkedin.com/in/guisousas/](https://www.linkedin.com/in/guisousas/)
+* Lattes: [https://lattes.cnpq.br/3242159995077179](https://lattes.cnpq.br/3242159995077179)
+* Email: [guisousasilvanota10@email.com](mailto:guisousasilvanota10@email.com)
+
 ---
 
-## 👨‍💻 Autor
 
-**Guilherme Sousa**
-Tecnólogo em Análise e Desenvolvimento de Sistemas
-
----
 
 ## 📜 Licença
 
