@@ -14,16 +14,16 @@ O objetivo é gerenciar empréstimos, disponibilidade e responsabilidade sobre c
 * [Tecnologias](#-tecnologias-utilizadas)
 * [Arquitetura](#-arquitetura)
 * [Instalação](#-instalação)
-* [Configuração básica](#configuração-básica)
+* [Configuração básica](#-configuração-básica)
 * [Funcionalidades extras](#-funcionalidades-extras)
-* [Modelagem do banco](#diagrama-entidade-relacionamento)
+* [Modelagem do banco](#-diagrama-entidade-relacionamento)
 * [Signals](#-signals)
 
   * [criar_status_automatico](#criar_status_automatico)
   * [gerar_itembusca](#gerar_itembusca)
   * [criar_usuario_para_pessoa](#criar_usuario_para_pessoa)
   * [atualizar_usuario](#atualizar_usuario)
-* [Estrutura do projeto](#-estrutura-do-projeto)
+* [Estrutura do projeto](#estrutura-do-projeto)
 
 ---
 
