@@ -1,105 +1,216 @@
-# Sistema de Controle de Chaves
+# 🔑 Sistema de Controle de Chaves
 
-## Descrição
-  Este é um sistema de controle e monitoramento de chaves desenvolvido durante a disciplina de extensão curricular do curso tecnólogo de Análise e Desenvolvimento de Sistemas. 
-  
-## Pré-Requisitos
-  - Python 3.12
-  - Git
-    
-## Tecnologias Utilizadas
-  - Django 5
-  - SQlite
-  - JavaScript/CSS
+## 📖 Descrição
 
-## Arquitetura
-  - Backend: Django – Modelo MVT (Model - View - Template) e JS
-  - Banco de dados: ORM do django, configurado atualmente com SQlite.
-  - Frontend: DTL(Django Template Language)/CSS
+Sistema de controle e monitoramento de chaves desenvolvido durante a disciplina de **Extensão Curricular** do curso tecnólogo em **Análise e Desenvolvimento de Sistemas**.
 
-# Instalação
-#### Clonar repositório
-  ```bash
+O objetivo é gerenciar empréstimos, disponibilidade e responsabilidade sobre chaves institucionais, garantindo rastreabilidade e segurança no processo.
+
+---
+
+## 📑 Índice
+
+* [Pré-requisitos](#-pré-requisitos)
+* [Tecnologias](#-tecnologias-utilizadas)
+* [Arquitetura](#-arquitetura)
+* [Instalação](#-instalação)
+* [Configuração básica](#configuração-básica)
+* [Modelagem do banco](#diagrama-entidade-relacionamento)
+* [Signals](#signals)
+
+  * [criar_status_automatico](#criar_status_automatico)
+  * [gerar_itembusca](#gerar_itembusca)
+  * [criar_usuario_para_pessoa](#criar_usuario_para_pessoa)
+  * [atualizar_usuario](#atualizar_usuario)
+* [Estrutura do projeto](#-estrutura-do-projeto)
+
+---
+
+## 📋 Pré-requisitos
+
+* Python 3.12
+* Git
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+* **Backend:** Django 5
+* **Banco de dados:** SQLite
+* **Frontend:** DTL (Django Template Language), JavaScript e CSS
+
+---
+
+## 🏗️ Arquitetura
+
+* **Backend:** Django (MVT — Model · View · Template)
+* **ORM:** Nativo do Django
+* **Banco atual:** SQLite
+* **Frontend:** Templates + CSS + JS
+
+---
+
+# ⚙️ Instalação
+
+### Clonar repositório
+
+```bash
 git clone https://github.com/ZcvGuilherme/Controle-de-chaves.git
-  ```
-#### Entrar na pasta
-  ```bash
-cd Controle-de-chaves
-  ```
+```
 
-#### Criar ambiente virtual
+### Entrar na pasta
+
+```bash
+cd Controle-de-chaves
+```
+
+### Criar ambiente virtual
+
 ```bash
 python -m venv venv
 ```
 
-#### Ativar ambiente
+### Ativar ambiente
+
 ```bash
 source venv/bin/activate  # Linux
 venv\Scripts\activate     # Windows
 ```
-#### Instalar dependências
+
+### Instalar dependências
+
 ```bash
 pip install -r requirements.txt
 ```
-#### Criar banco de dados
+
+### Criar banco de dados
+
 ```bash
 python manage.py migrate
 ```
 
-# Configuração Básica
-Após a instalação, crie um superusuário com o seguinte comando: 
+---
+
+# 🔧 Configuração Básica
+
+Crie um superusuário:
+
 ```bash
 python manage.py createsuperuser
 ```
 
-Logo após, abra o servidor com:
+Inicie o servidor:
+
 ```bash
 python manage.py runserver
 ```
-Acesse a url e faça login com o superusuário:
+
+Acesse o admin:
+
+```
 http://127.0.0.1:8000/admin
+```
 
-Cadastre pessoas na tabela Pessoa. Altere o atributo must_change_password caso não queira ser redirecionado à tela de redefinição de senha no primeiro uso.
+---
 
-Verifique [Signals](#criar_usuario_para_pessoa)
+## 👤 Cadastro inicial
 
+1. Cadastre pessoas na tabela **Pessoa**
+2. Ajuste o atributo `must_change_password` se não quiser forçar redefinição no primeiro login
 
-Cadastre chaves na tabela Chaves
-Verifique [Signals](#criar_status_automatico)
+➡️ Verifique: [criar_usuario_para_pessoa](#criar_usuario_para_pessoa)
 
-Faça as restrições de pessoas/chave caso necessário.
+---
 
+## 🔑 Cadastro de chaves
 
-## Diagrama entidade-relacionamento:
-<img width="600" height="400" alt="chaves_database (1)" src="https://github.com/user-attachments/assets/eef82815-07ac-48c9-8f58-6dd67fa77894" />
+Cadastre chaves na tabela **Chave**.
 
-Configurações em guarita/signals
+➡️ Verifique: [criar_status_automatico](#criar_status_automatico)
+
+Depois disso, faça as restrições de pessoa/chave conforme necessário.
+
+---
+
+# 🗄️ Diagrama entidade-relacionamento
+
+<img width="600" height="400" alt="Diagrama ER" src="https://github.com/user-attachments/assets/eef82815-07ac-48c9-8f58-6dd67fa77894" />
+
+---
+
+# 🔔 Signals
+
+O sistema utiliza **Django Signals** para automatizar regras de negócio e manter consistência entre entidades.
+
+Localização:
+
+```
+guarita/signals.py
+```
+
+---
 
 ### criar_status_automatico
-Signal: post_save
-Model: Chave
-Sempre que uma nova chave é cadastrada, o sistema cria automaticamente seu status de controle na tabela ChaveStatus.
 
+**Signal:** `post_save`
+**Model:** `Chave`
+
+Sempre que uma nova chave é cadastrada, o sistema cria automaticamente seu status na tabela **ChaveStatus**.
+
+**Objetivo:** Garantir que toda chave possua controle de disponibilidade.
+
+---
 
 ### gerar_itemBusca
-Signal: post_save
-Model: Chave
-Após a criação de uma chave, é gerado automaticamente um identificador textual padronizado para facilitar buscas no sistema.
 
+**Signal:** `post_save`
+**Model:** `Chave`
+
+Após a criação de uma chave, é gerado automaticamente um identificador textual padronizado para buscas.
+
+**Formato gerado:**
+
+```
+Chave <id> - <nome>
+```
+
+Exemplo:
+
+```
+Chave 12 - Laboratório de Redes
+```
+
+---
 
 ### criar_usuario_para_pessoa
-Signal: post_save
-Model: Pessoa
-Quando uma pessoa é cadastrada no sistema, um usuário Django é criado automaticamente para autenticação. A senha inicial é igual à matrícula (deve ser alterada em produção).
 
+**Signal:** `post_save`
+**Model:** `Pessoa`
+
+Quando uma pessoa é cadastrada, um usuário Django é criado automaticamente para autenticação.
+
+**Regras:**
+
+* Username = matrícula
+* Senha inicial = matrícula ⚠️
+* Nome sincronizado com `first_name`
+
+> 🔒 **Importante:** Alterar política de senha em produção.
+
+---
 
 ### atualizar_usuario
-Signal: post_save
-Model: Pessoa
-Sempre que os dados de uma pessoa são atualizados, o nome do usuário Django vinculado é sincronizado automaticamente.
 
+**Signal:** `post_save`
+**Model:** `Pessoa`
 
-## Estrutura do projeto
+Sempre que os dados da pessoa são atualizados, o nome do usuário vinculado é sincronizado automaticamente.
+
+**Objetivo:** Manter consistência entre `Pessoa` e `auth.User`.
+
+---
+
+# 🗂️ Estrutura do projeto
 
 ```
 Controle-de-chaves/
@@ -109,71 +220,53 @@ Controle-de-chaves/
 ├── requirements.txt
 ├── .gitignore
 │
-├── chaves/                    # Configurações principais do projeto Django
-│   ├── __init__.py
-│   ├── asgi.py
+├── chaves/                    # Configurações do projeto Django
 │   ├── settings.py
 │   ├── urls.py
-│   └── wsgi.py
+│   └── ...
 │
-├── guarita/                   # App principal do sistema
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── middleware.py
+├── guarita/                   # App principal
 │   ├── models.py
-│   ├── signals.py
-│   ├── urls.py
 │   ├── views.py
+│   ├── signals.py
+│   ├── middleware.py
 │   │
-│   ├── migrations/
-│   │   └── *.py
-│   │
-│   ├── management/
-│   │   └── commands/
-│   │       └── gerar_relatorio.py
+│   ├── management/commands/
+│   │   └── gerar_relatorio.py
 │   │
 │   ├── services/
 │   │   └── historico_service.py
 │   │
 │   ├── templates/
-│   │   ├── change_password.html
-│   │   ├── status_chaves.html
-│   │   └── registration/
-│   │       └── login.html
-│   │
 │   ├── static/
-│   │   └── login/
-│   │       └── style.css
-│   │
 │   └── tests/
-│       ├── models/
-│       │   ├── test_busca.py
-│       │   ├── test_insert.py
-│       │   └── test_update.py
-│       └── views/
-│           ├── test_busca.py
-│           └── test_page_exists.py
 │
 ├── templates/                 # Templates globais
 │   ├── base.html
-│   │
-│   ├── componentes/
-│   │   ├── botao.html
-│   │   ├── chave_item.html
-│   │   ├── filtro_chaves.html
-│   │   └── lista_chaves.html
-│   │
-│   └── static/
-│       ├── style.css
-│       ├── scripts.js
-│       └── img/
-│           ├── FAVICONCTCHAVE.png
-│           ├── key-disponivel.png
-│           ├── key-indisponivel.png
-│           └── logoIfpi.png
+│   └── componentes/
 │
 └── fixtures/                  # Dados iniciais
     ├── auth.json
     └── base.json
 ```
+
+---
+
+## 📌 Observações
+
+* O banco atual é SQLite (dev).
+* Pode ser migrado para PostgreSQL/MySQL em produção.
+* Signals executam automaticamente após operações de save().
+
+---
+
+## 👨‍💻 Autor
+
+**Guilherme Sousa**
+Tecnólogo em Análise e Desenvolvimento de Sistemas
+
+---
+
+## 📜 Licença
+
+Definir licença do projeto (MIT, GPL, etc.).
