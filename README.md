@@ -327,7 +327,12 @@ Controle-de-chaves/
 
 ---
 
+### 👨‍💻 John Victor Monção
 
+* GitHub: [https://github.com/Nijoww](https://github.com/Nijoww)
+* Email: [moncao099@gmail.com](moncao099@gmail.com)
+
+---
 
 ## 📜 Licença
 
