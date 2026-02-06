@@ -332,6 +332,11 @@ Controle-de-chaves/
 * GitHub: [https://github.com/Nijoww](https://github.com/Nijoww)
 * Email: [moncao099@gmail.com](moncao099@gmail.com)
 
+
+### Wellington Oliveira Carvalho
+* GitHub: [https://github.com/Carvalhop2](https://github.com/Carvalhop2)
+* Email: [wellingtonp2.oc@gmail.com](wellingtonp2.oc@gmail.com)
+* Lattes: [https://lattes.cnpq.br/4590726252228745](https://lattes.cnpq.br/4590726252228745)
 ---
 
 ## 📜 Licença
