@@ -16,7 +16,7 @@ O objetivo é gerenciar empréstimos, disponibilidade e responsabilidade sobre c
 * [Instalação](#-instalação)
 * [Configuração básica](#-configuração-básica)
 * [Funcionalidades extras](#-funcionalidades-extras)
-* [Modelagem do banco](#-diagrama-entidade-relacionamento)
+* [Modelagem do banco](#diagrama-entidade-relacionamento)
 * [Signals](#-signals)
 
   * [criar_status_automatico](#criar_status_automatico)
