@@ -327,4 +327,5 @@ Tecnólogo em Análise e Desenvolvimento de Sistemas
 
 ## 📜 Licença
 
-Definir licença do projeto (MIT, GPL, etc.).
+Este projeto está sob a licença MIT.  
+Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
