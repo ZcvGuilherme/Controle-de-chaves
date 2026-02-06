@@ -332,6 +332,7 @@ Controle-de-chaves/
 * GitHub: [https://github.com/Nijoww](https://github.com/Nijoww)
 * Email: [moncao099@gmail.com](moncao099@gmail.com)
 
+---
 
 ### Wellington Oliveira Carvalho
 * GitHub: [https://github.com/Carvalhop2](https://github.com/Carvalhop2)
