@@ -334,6 +334,13 @@ Controle-de-chaves/
 
 ---
 
+### Waldeney Rodrigues Vieira
+
+* GitHub: [https://github.com/Wal-dreamer](https://github.com/Wal-dreamer)
+* Email: [caped.2024123tads0015@aluno.ifpi.edu.br](caped.2024123tads0015@aluno.ifpi.edu.br)
+
+---
+
 ### Wellington Oliveira Carvalho
 * GitHub: [https://github.com/Carvalhop2](https://github.com/Carvalhop2)
 * Email: [wellingtonp2.oc@gmail.com](wellingtonp2.oc@gmail.com)
