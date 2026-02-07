@@ -347,6 +347,12 @@ Controle-de-chaves/
 * Lattes: [https://lattes.cnpq.br/4590726252228745](https://lattes.cnpq.br/4590726252228745)
 ---
 
+### Valfredo da Costa Silva
+* GitHub: [https://github.com/valfredoDev](https://github.com/valfredoDev)
+* Email: [valfredocosta.contato@gmail.com](valfredocosta.contato@gmail.com)
+* Lattes: [https://lattes.cnpq.br/8187731285592440](https://lattes.cnpq.br/8187731285592440)
+---
+
 ## 📜 Licença
 
 Este projeto está sob a licença MIT.  
