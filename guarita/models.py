@@ -2,14 +2,30 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
+
 class Pessoa(models.Model):
     """
-    <h1>Representação da pessoa no banco de dados.</h1>\n
-    <h3>Atributos da tabela:</h3> \n
-    <b>user (OneToOneField):</b> Associação opcional com o usuário do Django (auth.User).\n
-    <b>matricula (CharField):</b> Chave primária da tabela, com até 15 caracteres.\n
-    <b>nome (CharField):</b> Tamanho máximo de 100 caracteres, representa o nome completo da pessoa.\n
-    <b>must_change_password (BooleanField):</b> Indica se o usuário deve alterar a senha no próximo login.\n
+    Representação de uma pessoa no sistema.
+
+    Esta entidade armazena os dados básicos de identificação de usuários
+    que interagem com o controle de chaves, podendo ou não estar vinculados
+    a uma conta de autenticação do Django.
+
+    Atributos:
+        user (OneToOneField):
+            Associação opcional com ``django.contrib.auth.models.User``.
+            Permite autenticação no sistema.
+
+        matricula (CharField):
+            Chave primária da tabela.
+            Identificador único da pessoa (máx. 15 caracteres).
+
+        nome (CharField):
+            Nome completo da pessoa.
+            Máximo de 100 caracteres.
+
+        must_change_password (BooleanField):
+            Indica se o usuário deve redefinir a senha no próximo login.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="pessoa", null=True, blank=True)
     matricula = models.CharField(primary_key=True, max_length=15)
@@ -18,31 +34,68 @@ class Pessoa(models.Model):
 
     @classmethod
     def registrar(cls, matricula, nome, user):
+        """
+        Cria e registra uma nova pessoa no sistema.
+
+        Args:
+            matricula (str): Identificador único.
+            nome (str): Nome completo.
+            user (User): Usuário Django associado.
+
+        Returns:
+            Pessoa: Instância criada.
+        """
         return cls.objects.create(matricula=matricula, nome=nome, user=user)
 
     @classmethod
     def partial_search(cls, content):
         """
-        <h2>Busca Parcial</h2>\n
-        Realiza uma busca não sensitiva utilizando o campo <b>nome</b>.
+        Realiza busca parcial por nome.
+
+        A busca é case-insensitive utilizando ``icontains``.
+
+        Args:
+            content (str): Texto para busca.
+
+        Returns:
+            QuerySet[Pessoa]: Pessoas encontradas.
         """
         return cls.objects.filter(models.Q(nome__icontains=content))
     
     @classmethod
     def getAll(cls):
+        """
+        Retorna todas as pessoas cadastradas.
+
+        Returns:
+            QuerySet[Pessoa]
+        """
         return cls.objects.all()
     
     def __str__(self):
         return self.nome
      
+
+
 class Chave(models.Model):
     """
-    <h1>Representação das chaves no banco de dados.</h1>\n
-    <h3>Atributos da tabela:</h3> \n
-    <b>id (AutoField):</b> Chave primária da tabela.\n
-    <b>nome (CharField):</b> Tamanho máximo de 100 caracteres, representa o nome da chave.\n
-    Ex:. Laboratório de Informática\n
-    <b>itemBusca (CharField):</b> Campo auxiliar utilizado para buscas e exibição em interfaces.
+    Representação das chaves físicas controladas pelo sistema.
+
+    Cada registro corresponde a uma chave real disponível para
+    retirada na guarita ou setor responsável.
+
+    Atributos:
+        id (AutoField):
+            Chave primária.
+
+        nome (CharField):
+            Nome identificador da chave.
+            Exemplo: "Laboratório de Informática".
+
+        itemBusca (CharField):
+            Campo auxiliar utilizado para buscas textuais
+            e exibição em interfaces.
+            Pode ser nulo ou em branco.
     """
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
@@ -50,37 +103,77 @@ class Chave(models.Model):
 
     @classmethod
     def registrar(cls, nome):
+        """
+        Registra uma nova chave.
+
+        Args:
+            nome (str): Nome da chave.
+
+        Returns:
+            Chave: Instância criada.
+        """
         return cls.objects.create(nome=nome)
 
     @classmethod
     def partial_search(cls, content):
         """
-        <h2>Busca Parcial</h2>\n
-        Realiza uma busca não sensitiva utilizando o campo <b>itemBusca</b>.
+        Realiza busca parcial pelo campo ``itemBusca``.
+
+        A busca é case-insensitive.
+
+        Args:
+            content (str): Texto de busca.
+
+        Returns:
+            QuerySet[Chave]
         """
         return cls.objects.filter(models.Q(itemBusca__icontains=content))
     
     @classmethod
     def getAll(cls):
+        """
+        Retorna todas as chaves cadastradas.
+
+        Returns:
+            QuerySet[Chave]
+        """
         return cls.objects.all()
     
     def __str__(self):
         return self.nome
 
 
+
+
 class Historico(models.Model):
     """
-    <h2>Representação do histórico no banco de dados.</h2>\n
-    <h3>Atributos da tabela:</h3> \n
-    <b>id_historico (BigAutoField):</b> Chave primária da tabela.\n
+    Registro histórico de movimentações de chaves.
 
-    <b>acao (CharField):</b> Representa a ação realizada, limitada às opções definidas em <b>ACAO_CHOICES</b>.\n
+    Cada operação relevante (retirada, devolução ou atualização)
+    gera um registro para auditoria e rastreabilidade.
 
-    <b>pessoa (ForeignKey):</b> Referência à pessoa responsável pela ação, com exclusão protegida.\n
+    Atributos:
+        id_historico (BigAutoField):
+            Chave primária do histórico.
 
-    <b>chave (ForeignKey):</b> Referência à chave envolvida na ação, com exclusão protegida.\n
+        acao (CharField):
+            Tipo da ação realizada.
+            Valores possíveis definidos em ``ACAO_CHOICES``:
 
-    <b>horario (DateTimeField):</b> Data e hora em que a ação foi registrada.
+                - RETIRADA
+                - DEVOLUCAO
+                - ATUALIZACAO
+
+        pessoa (ForeignKey):
+            Pessoa responsável pela ação.
+            Exclusão protegida (PROTECT).
+
+        chave (ForeignKey):
+            Chave envolvida na operação.
+            Exclusão protegida (PROTECT).
+
+        horario (DateTimeField):
+            Data e hora do registro.
     """
     id_historico = models.BigAutoField(primary_key=True)
     
@@ -106,30 +199,52 @@ class Historico(models.Model):
 
     @classmethod
     def registrar(cls, acao, pessoa, chave):
+        """
+        Registra automaticamente uma ação no histórico.
+
+        O horário é gerado com ``timezone.now()``.
+
+        Args:
+            acao (str): Tipo da ação.
+            pessoa (Pessoa): Responsável.
+            chave (Chave): Chave envolvida.
+
+        Returns:
+            Historico: Registro criado.
+        """
         agora = timezone.now()
         return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave, horario=agora)
 
     def __str__(self):
         return f"{self.acao} - {self.pessoa.nome} - {self.chave.nome}"
-    
+
 
 class ChaveStatus(models.Model):
     """
-    <h1>Representação do status atual de uma chave.</h1>\n
-    <p>
-    Esta tabela representa o estado dinâmico da chave no sistema, indicando
-    se está disponível ou em uso, e por quem.
-    </p>\n
+    Representa o estado atual de cada chave no sistema.
 
-    <h3>Atributos da tabela:</h3> \n
-    <b>chave (OneToOneField):</b> Referência única à chave, também utilizada como chave primária.\n
+    Esta tabela mantém o status dinâmico da chave,
+    indicando disponibilidade, responsável atual
+    e horário da última retirada.
 
-    <b>pessoa (ForeignKey):</b> Pessoa que está atualmente com a chave. Nulo caso esteja disponível.\n
+    Atributos:
+        chave (OneToOneField):
+            Referência única para a chave.
+            Também atua como chave primária.
 
-    <b>checkin (DateTimeField):</b> Data e hora da retirada da chave. Nulo quando a chave está disponível.\n
+        pessoa (ForeignKey):
+            Pessoa que está com a chave no momento.
+            Nulo quando disponível.
 
-    <b>status_code (BooleanField):</b> Indica a disponibilidade da chave. 
-    <b>True</b> para disponível e <b>False</b> para em uso.
+        checkin (DateTimeField):
+            Data e hora da retirada.
+            Nulo quando a chave está disponível.
+
+        status_code (BooleanField):
+            Código de disponibilidade:
+
+                True  → Disponível
+                False → Em uso
     """
     
     chave = models.OneToOneField(
@@ -152,16 +267,38 @@ class ChaveStatus(models.Model):
     
     @classmethod
     def registrar(cls, chave):
+        """
+        Cria ou recupera o status de uma chave.
+
+        Args:
+            chave (Chave)
+
+        Returns:
+            ChaveStatus
+        """
         status, created = cls.objects.get_or_create(chave=chave)
         return status
 
     @classmethod
     def getStatus(cls, pessoa, status_code=None, itemBusca=None, order_by="chave__id"):
         """
-        <h2>Buscar Status</h2>\n
-        Retorna o status das chaves, aplicando filtros opcionais por disponibilidade
-        e por termo de busca. Caso a pessoa possua restrições, apenas as chaves
-        permitidas serão retornadas.
+        Consulta o status das chaves com filtros opcionais.
+
+        Regras aplicadas:
+
+        - Filtra por disponibilidade (status_code).
+        - Filtra por termo de busca.
+        - Se a pessoa possuir restrições, retorna apenas
+          chaves permitidas.
+
+        Args:
+            pessoa (Pessoa)
+            status_code (bool | None)
+            itemBusca (str | None)
+            order_by (str)
+
+        Returns:
+            QuerySet[ChaveStatus]
         """
         tem_restricao = Restricao.objects.filter(pessoa=pessoa).exists()
 
@@ -187,7 +324,26 @@ class ChaveStatus(models.Model):
     @classmethod
     def update(cls, chave, pessoa, acao):
         """
-        Atualiza o status atual de uma chave e registra a operação no histórico.
+        Atualiza o status de uma chave e registra no histórico.
+
+        Ações permitidas:
+
+            - RETIRADA
+            - DEVOLUCAO
+
+        Validações realizadas:
+
+            - Tipo dos parâmetros.
+            - Disponibilidade da chave.
+            - Permissões da pessoa.
+            - Restrições cadastradas.
+
+        Após atualização, registra automaticamente no histórico.
+
+        Raises:
+            ValueError
+            TypeError
+            PermissionDenied
         """
 
         #------------------------------VERIFICAR SE AS ENTRADAS SÃO VÁLIDAS---------------------------#
@@ -225,6 +381,14 @@ class ChaveStatus(models.Model):
         Historico.registrar(acao, pessoa, chave)
 
     def save(self, *args, **kwargs):
+        """
+        Sobrescrita do método save.
+
+        Atualiza automaticamente ``status_code``:
+
+            pessoa is None → Disponível
+            pessoa != None → Em uso
+        """
         self.status_code = (self.pessoa is None)
         super().save(*args, **kwargs)
 
@@ -235,10 +399,23 @@ class ChaveStatus(models.Model):
             return f"{self.pessoa.nome} - {self.chave.nome} ({status})"
         return f"{self.chave.nome} ({status})"
 
+
 class Restricao(models.Model):
     """
-    <h2>Restrição de acesso a chaves.</h2>\n
-    Define quais chaves uma pessoa está autorizada a acessar.
+    Define restrições de acesso a chaves.
+
+    Controla quais pessoas possuem permissão
+    para acessar determinadas chaves.
+
+    Atributos:
+        pessoa (ForeignKey):
+            Pessoa vinculada à permissão.
+
+        chave (ForeignKey):
+            Chave permitida para a pessoa.
+
+    Regras:
+        - Relação única por par (pessoa, chave).
     """
     pessoa = models.ForeignKey(
         Pessoa,
@@ -254,11 +431,32 @@ class Restricao(models.Model):
 
     @classmethod
     def chaves_permitidas_para_pessoa(cls, pessoa):
+        """
+        Retorna todas as chaves permitidas para uma pessoa.
+
+        Args:
+            pessoa (Pessoa)
+
+        Returns:
+            QuerySet[Chave]
+        """
         return Chave.objects.filter(
             permissoes__pessoa=pessoa
         ).distinct()
 
     class Meta:
+        """
+        Configurações adicionais do modelo.
+
+        unique_together:
+            Garante unicidade entre pessoa e chave.
+
+        verbose_name:
+            Nome singular administrativo.
+
+        verbose_name_plural:
+            Nome plural administrativo.
+        """
         unique_together = ("pessoa", "chave")
         verbose_name = "Permissao de Chave"
         verbose_name_plural = "Permissões de Chaves"
