@@ -1,4 +1,4 @@
-guarita package
+guarita
 ===============
 
 Subpackages
@@ -9,10 +9,11 @@ Subpackages
 
    guarita.management
 
+
 Submodules
 ----------
 
-guarita.admin module
+guarita.admin 
 --------------------
 
 .. automodule:: guarita.admin
@@ -20,7 +21,7 @@ guarita.admin module
    :show-inheritance:
    :undoc-members:
 
-guarita.apps module
+guarita.apps 
 -------------------
 
 .. automodule:: guarita.apps
@@ -28,7 +29,7 @@ guarita.apps module
    :show-inheritance:
    :undoc-members:
 
-guarita.middleware module
+guarita.middleware 
 -------------------------
 
 .. automodule:: guarita.middleware
@@ -36,7 +37,7 @@ guarita.middleware module
    :show-inheritance:
    :undoc-members:
 
-guarita.models module
+guarita.models 
 ---------------------
 
 .. automodule:: guarita.models
@@ -44,7 +45,7 @@ guarita.models module
    :show-inheritance:
    :undoc-members:
 
-guarita.signals module
+guarita.signals 
 ----------------------
 
 .. automodule:: guarita.signals
@@ -52,7 +53,7 @@ guarita.signals module
    :show-inheritance:
    :undoc-members:
 
-guarita.urls module
+guarita.urls 
 -------------------
 
 .. automodule:: guarita.urls
@@ -60,7 +61,7 @@ guarita.urls module
    :show-inheritance:
    :undoc-members:
 
-guarita.views module
+guarita.views 
 --------------------
 
 .. automodule:: guarita.views
