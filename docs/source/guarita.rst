@@ -8,8 +8,6 @@ Subpackages
    :maxdepth: 4
 
    guarita.management
-   guarita.migrations
-   guarita.tests
 
 Submodules
 ----------
