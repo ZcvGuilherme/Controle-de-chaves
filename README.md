@@ -287,22 +287,6 @@ docs/build/html/index.html
 
 Isso carregará a documentação navegável no navegador padrão.
 
----
-
-Caso a documentação ainda não tenha sido gerada, execute:
-
-```bash
-cd docs
-make html
-```
-
-Os arquivos serão criados em:
-
-```
-docs/build/html/
-```
-
-
 
 ---
 
