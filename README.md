@@ -268,6 +268,44 @@ Sempre que os dados da pessoa são atualizados, o nome do usuário vinculado é 
 
 ---
 
+## 📚 Documentação completa
+
+A documentação técnica detalhada do sistema foi gerada com **Sphinx**, contendo mais informações técnicas sobre o projeto.
+
+Para acessá-la localmente, após gerar os arquivos HTML, abra o índice principal:
+
+```bash
+xdg-open docs/build/html/index.html
+```
+
+> 💡 O comando acima funciona em ambientes Linux com interface gráfica.
+> Em outros sistemas, basta abrir manualmente o arquivo:
+
+```
+docs/build/html/index.html
+```
+
+Isso carregará a documentação navegável no navegador padrão.
+
+---
+
+Caso a documentação ainda não tenha sido gerada, execute:
+
+```bash
+cd docs
+make html
+```
+
+Os arquivos serão criados em:
+
+```
+docs/build/html/
+```
+
+
+
+---
+
 # 🗂️ Estrutura do projeto
 
 ```
