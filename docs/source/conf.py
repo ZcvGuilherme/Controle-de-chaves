@@ -45,7 +45,9 @@ autoclass_content = 'both'  # Docstring da classe + __init__
 templates_path = ['_templates']
 exclude_patterns = []
 
-language = 'pt'
+# Idioma padrão da documentação
+language = 'en'
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
