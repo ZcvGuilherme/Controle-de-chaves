@@ -3,17 +3,25 @@ from django.dispatch import receiver
 from .models import Chave, ChaveStatus, Pessoa
 from django.contrib.auth.models import User
 
+
 @receiver(post_save, sender=Chave)
 def criar_status_automatico(sender, instance, created, **kwargs):
     """
-    <h2>Criação automática do status da chave</h2>\n
-    Este signal é acionado após o salvamento de uma instância de <b>Chave</b>.\n
+    Cria automaticamente o status de uma chave recém-cadastrada.
 
-    <p>
-    Quando uma nova chave é criada (<b>created=True</b>), este método garante
-    que exista um registro correspondente na tabela <b>ChaveStatus</b>,
-    inicializando o controle de disponibilidade da chave no sistema.
-    </p>\n
+    Este signal é disparado após o salvamento de uma instância do modelo
+    ``Chave``. Quando uma nova chave é criada (``created=True``), é garantido
+    que exista um registro correspondente em ``ChaveStatus``.
+
+    Finalidade:
+        Inicializar o controle de disponibilidade da chave no sistema,
+        evitando que chaves existam sem status associado.
+
+    Args:
+        sender (Model): Modelo que disparou o signal (Chave).
+        instance (Chave): Instância salva.
+        created (bool): Indica se a instância foi criada.
+        **kwargs: Argumentos adicionais do signal.
     """
     if created:
         ChaveStatus.objects.get_or_create(chave=instance)
@@ -22,15 +30,23 @@ def criar_status_automatico(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Chave)
 def gerar_itemBusca(sender, instance, created, **kwargs):
     """
-    <h2>Geração automática do campo itemBusca</h2>\n
-    Este signal é acionado após o salvamento de uma instância de <b>Chave</b>.\n
+    Gera automaticamente o campo ``itemBusca`` da chave.
 
-    <p>
-    Quando a chave é criada, o campo <b>itemBusca</b> é preenchido automaticamente
-    com uma string padronizada contendo o identificador e o nome da chave.
-    </p>\n
+    Executado após o salvamento de ``Chave``. Quando a instância é criada,
+    o campo ``itemBusca`` é preenchido com uma string padronizada para
+    facilitar buscas textuais no sistema.
 
-    <b>Formato gerado:</b> "Chave &lt;id&gt; - &lt;nome&gt;"\n
+    Formato gerado:
+        "Chave <id> - <nome>"
+
+    Exemplo:
+        "Chave 12 - Laboratório de Informática"
+
+    Args:
+        sender (Model): Modelo que disparou o signal (Chave).
+        instance (Chave): Instância salva.
+        created (bool): Indica se a instância foi criada.
+        **kwargs: Argumentos adicionais do signal.
     """
     if created:
         instance.itemBusca = f"Chave {instance.id} - {instance.nome}"
@@ -40,19 +56,26 @@ def gerar_itemBusca(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Pessoa)
 def criar_usuario_para_pessoa(sender, instance, created, **kwargs):
     """
-    <h2>Criação automática de usuário Django</h2>\n
-    Este signal é acionado após o salvamento de uma instância de <b>Pessoa</b>.\n
+    Cria automaticamente um usuário Django para uma pessoa.
 
-    <p>
-    Caso a pessoa tenha sido criada (<b>created=True</b>) e ainda não possua
-    um usuário associado, este método cria automaticamente um registro
-    em <b>auth.User</b>.
-    </p>\n
+    Disparado após o salvamento de ``Pessoa``. Quando uma nova pessoa é
+    cadastrada e não possui usuário associado, um registro é criado em
+    ``auth.User``.
 
-    <b>Regras aplicadas:</b>\n
-    - O <b>username</b> é definido como a matrícula da pessoa.\n
-    - A <b>senha inicial</b> é igual à matrícula (regra esta que deve ser alterada no deploy).\n
-    - O <b>first_name</b> recebe o nome da pessoa.\n
+    Regras aplicadas:
+        - ``username``: matrícula da pessoa.
+        - ``password``: matrícula da pessoa (definição provisória).
+        - ``first_name``: nome da pessoa.
+
+    Observação:
+        A regra de senha deve ser alterada em ambiente de produção por
+        motivos de segurança.
+
+    Args:
+        sender (Model): Modelo que disparou o signal (Pessoa).
+        instance (Pessoa): Instância salva.
+        created (bool): Indica se a instância foi criada.
+        **kwargs: Argumentos adicionais do signal.
     """
     if created and instance.user is None:
         user = User.objects.create_user(
@@ -67,14 +90,20 @@ def criar_usuario_para_pessoa(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Pessoa)
 def atualizar_usuario(sender, instance, created, **kwargs):
     """
-    <h2>Sincronização de dados do usuário</h2>\n
-    Este signal é acionado após o salvamento de uma instância de <b>Pessoa</b>.\n
+    Sincroniza dados da pessoa com o usuário Django vinculado.
 
-    <p>
-    Sempre que uma pessoa é atualizada (<b>created=False</b>) e possui um usuário
-    associado, este método sincroniza o nome da pessoa com o campo
-    <b>first_name</b> do usuário Django correspondente.
-    </p>\n
+    Sempre que uma instância de ``Pessoa`` é atualizada (``created=False``),
+    e existe um usuário associado, o nome da pessoa é refletido no campo
+    ``first_name`` do usuário.
+
+    Isso mantém consistência entre os dados pessoais e o cadastro de
+    autenticação do sistema.
+
+    Args:
+        sender (Model): Modelo que disparou o signal (Pessoa).
+        instance (Pessoa): Instância salva.
+        created (bool): Indica se a instância foi criada.
+        **kwargs: Argumentos adicionais do signal.
     """
     if not created and instance.user:
         instance.user.first_name = instance.nome

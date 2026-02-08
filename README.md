@@ -23,6 +23,7 @@ O objetivo é gerenciar empréstimos, disponibilidade e responsabilidade sobre c
   * [gerar_itembusca](#gerar_itembusca)
   * [criar_usuario_para_pessoa](#criar_usuario_para_pessoa)
   * [atualizar_usuario](#atualizar_usuario)
+* [Documentação](#-documentação-completa)
 * [Estrutura do projeto](#estrutura-do-projeto)
 
 ---
@@ -265,6 +266,28 @@ Quando uma pessoa é cadastrada, um usuário Django é criado automaticamente pa
 Sempre que os dados da pessoa são atualizados, o nome do usuário vinculado é sincronizado automaticamente.
 
 **Objetivo:** Manter consistência entre `Pessoa` e `auth.User`.
+
+---
+
+## 📚 Documentação completa
+
+A documentação técnica detalhada do sistema foi gerada com **Sphinx**, contendo mais informações técnicas sobre o projeto.
+
+Para acessá-la localmente, após gerar os arquivos HTML, abra o índice principal:
+
+```bash
+xdg-open docs/build/html/index.html
+```
+
+> 💡 O comando acima funciona em ambientes Linux com interface gráfica.
+> Em outros sistemas, basta abrir manualmente o arquivo:
+
+```
+docs/build/html/index.html
+```
+
+Isso carregará a documentação navegável no navegador padrão.
+
 
 ---
 
