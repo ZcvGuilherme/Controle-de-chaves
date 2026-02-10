@@ -12,7 +12,7 @@ O objetivo é gerenciar empréstimos, disponibilidade e responsabilidade sobre c
 
 * [Pré-requisitos](#-pré-requisitos)
 * [Tecnologias](#-tecnologias-utilizadas)
-* [Arquitetura](#-arquitetura)
+* [Arquitetura](#️-arquitetura)
 * [Instalação](#-instalação)
 * [Configuração básica](#-configuração-básica)
 * [Funcionalidades extras](#funcionalidades-extras)
