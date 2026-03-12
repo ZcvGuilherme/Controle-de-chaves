@@ -2,6 +2,8 @@
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect
+
+from guarita.decorators.decorator import require_pessoa
 from .models import Chave, ChaveStatus, Pessoa
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -10,6 +12,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+
 
 def filtrar_e_paginar(request):
     filtro_status = request.GET.get("status")
@@ -36,9 +39,9 @@ def filtrar_e_paginar(request):
 
 
 @never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
+@require_pessoa
 @login_required # Garante que apenas usuários autenticados possam acessar a view
 def status_chave(request):
-    
     page_obj = filtrar_e_paginar(request)
     hora_atual = timezone.now()
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":
@@ -68,7 +71,7 @@ def atualizar_status(request):
         return JsonResponse({"erro": "Chave não encontrada"}, status=400)
     
     try:
-        pessoa = request.user.pessoa 
+        pessoa = request.user.pessoa
     except Pessoa.DoesNotExist:
         return JsonResponse({"erro": "Usuário não vinculado a uma pessoa"}, status=400)
     
