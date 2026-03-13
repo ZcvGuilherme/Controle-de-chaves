@@ -10,12 +10,12 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-
+from .utils import get_pessoa_from_user
 
 def filtrar_e_paginar(request):
     filtro_status = request.GET.get("status")
     itemBusca = request.GET.get("busca")
-    pessoa = request.user.pessoa
+    pessoa = get_pessoa_from_user(request.user)
 
     if filtro_status == "true":
         filtro_status = True
@@ -39,8 +39,14 @@ def filtrar_e_paginar(request):
 @never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
 @login_required # Garante que apenas usuários autenticados possam acessar a view
 def status_chave(request):
+    try:
+        pessoa = get_pessoa_from_user(request.user)
+    except:
+        return redirect("/admin/")
     page_obj = filtrar_e_paginar(request)
     hora_atual = timezone.now()
+    
+    
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":
         html = render_to_string(
             'componentes/lista_chaves.html',
