@@ -2,8 +2,6 @@
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect
-
-from guarita.decorators.decorator import require_pessoa
 from .models import Chave, ChaveStatus, Pessoa
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -39,7 +37,6 @@ def filtrar_e_paginar(request):
 
 
 @never_cache # Evita cache para garantir que as informações estejam sempre atualizadas
-@require_pessoa
 @login_required # Garante que apenas usuários autenticados possam acessar a view
 def status_chave(request):
     page_obj = filtrar_e_paginar(request)
