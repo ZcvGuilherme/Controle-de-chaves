@@ -26,33 +26,6 @@ def criar_status_automatico(sender, instance, created, **kwargs):
     if created:
         ChaveStatus.objects.get_or_create(chave=instance)
 
-
-@receiver(post_save, sender=Chave)
-def gerar_itemBusca(sender, instance, created, **kwargs):
-    """
-    Gera automaticamente o campo ``itemBusca`` da chave.
-
-    Executado após o salvamento de ``Chave``. Quando a instância é criada,
-    o campo ``itemBusca`` é preenchido com uma string padronizada para
-    facilitar buscas textuais no sistema.
-
-    Formato gerado:
-        "Chave <id> - <nome>"
-
-    Exemplo:
-        "Chave 12 - Laboratório de Informática"
-
-    Args:
-        sender (Model): Modelo que disparou o signal (Chave).
-        instance (Chave): Instância salva.
-        created (bool): Indica se a instância foi criada.
-        **kwargs: Argumentos adicionais do signal.
-    """
-    if created:
-        instance.itemBusca = f"Chave {instance.id} - {instance.nome}"
-        instance.save(update_fields=["itemBusca"])
-
-
 @receiver(post_save, sender=Pessoa)
 def criar_usuario_para_pessoa(sender, instance, created, **kwargs):
     """
