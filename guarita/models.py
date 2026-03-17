@@ -139,6 +139,15 @@ class Chave(models.Model):
         """
         return cls.objects.all()
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        novo_valor = f"Chave {self.id} - {self.nome}"
+
+        if self.itemBusca != novo_valor:
+            self.itemBusca = novo_valor
+            super().save(update_fields=["itemBusca"])
+    
     def __str__(self):
         return self.nome
 
