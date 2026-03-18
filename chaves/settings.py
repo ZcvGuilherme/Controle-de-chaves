@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'chaves',
     'guarita.apps.GuaritaConfig',
     'dbbackup',
+    'import_export',
 ]
 
 MIDDLEWARE = [

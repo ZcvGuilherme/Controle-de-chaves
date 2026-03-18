@@ -1,8 +1,20 @@
 from django.contrib import admin
 from .models import Chave, ChaveStatus, Historico, Pessoa, Restricao
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+class ChaveResource(resources.ModelResource):
+    class Meta:
+        model = Chave
+
+class PessoaResource(resources.ModelResource):
+    class Meta:
+        model = Pessoa
+
 
 @admin.register(Chave)
-class ChaveAdmin(admin.ModelAdmin):
+class ChaveAdmin(ImportExportModelAdmin):
+    resource_class = ChaveResource
     exclude = ('itemBusca',)
     list_display = ('id','nome', 'itemBusca')
     list_display_links = ('id', 'nome')
@@ -16,7 +28,8 @@ class HistoricoAdmin(admin.ModelAdmin):
     list_display = ('id_historico','acao','chave', 'pessoa', 'horario')
     list_display_links = ('id_historico', 'chave')
 @admin.register(Pessoa)
-class PessoaAdmin(admin.ModelAdmin):
+class PessoaAdmin(ImportExportModelAdmin):
+    resource_class = PessoaResource
     exclude = ('user',)
     list_display = ('matricula', 'nome', 'user')
     list_display_links = ('matricula',)  # matricula é o link clicável
