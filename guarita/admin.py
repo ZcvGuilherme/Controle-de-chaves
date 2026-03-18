@@ -10,6 +10,7 @@ class ChaveResource(resources.ModelResource):
 class PessoaResource(resources.ModelResource):
     class Meta:
         model = Pessoa
+        import_id_fields = ('matricula',)
 
 
 @admin.register(Chave)
