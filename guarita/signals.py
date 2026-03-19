@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save, pre_save, post_delete
 from django.dispatch import receiver
 from .models import Chave, ChaveStatus, Pessoa
 from django.contrib.auth.models import User
@@ -25,6 +25,11 @@ def criar_status_automatico(sender, instance, created, **kwargs):
     """
     if created:
         ChaveStatus.objects.get_or_create(chave=instance)
+
+@receiver(post_delete, sender=Pessoa)
+def deletar_usuario(sender, instance, **kwargs):
+    if instance.user:
+        instance.user.delete()
 
 @receiver(post_save, sender=Pessoa)
 def criar_usuario_para_pessoa(sender, instance, created, **kwargs):
