@@ -196,12 +196,12 @@ class Historico(models.Model):
 
     pessoa = models.ForeignKey(
         Pessoa,
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         db_column='Id_pessoa'
     )
     chave = models.ForeignKey(
         Chave,
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         db_column='Id_chave'
     )
     horario = models.DateTimeField()
@@ -258,7 +258,7 @@ class ChaveStatus(models.Model):
     
     chave = models.OneToOneField(
         Chave,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         db_column='Id_chave',
         primary_key=True
     )
