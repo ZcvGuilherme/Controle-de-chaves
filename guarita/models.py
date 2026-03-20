@@ -227,8 +227,9 @@ class Historico(models.Model):
         return cls.objects.create(acao=acao, pessoa=pessoa, chave=chave, horario=agora)
 
     def __str__(self):
-        return f"{self.acao} - {self.pessoa.nome} - {self.chave.nome}"
-
+        pessoa_nome = self.pessoa.nome if self.pessoa else "Pessoa removida"
+        chave_nome = self.chave.nome if self.chave else "Chave removida"
+        return f"{self.acao} - {pessoa_nome} - {chave_nome}"
 
 class ChaveStatus(models.Model):
     """
