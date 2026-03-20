@@ -197,11 +197,13 @@ class Historico(models.Model):
     pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.SET_NULL,
+	null=True,
         db_column='Id_pessoa'
     )
     chave = models.ForeignKey(
         Chave,
         on_delete=models.SET_NULL,
+	null=True,
         db_column='Id_chave'
     )
     horario = models.DateTimeField()
